@@ -1,6 +1,5 @@
 <h3>About Faveo</h3>  
 Faveo Chat is UNDER CONSTRUCTION
-
 <br/><br/>
 Faveo can also be customised according to requirement and we do undertake such request.
 <br/><br/>
