@@ -1,3 +1,4 @@
+<h3>About Faveo</h3>  
 Faveo Chat is UNDER CONSTRUCTION
 
 <br/><br/>
