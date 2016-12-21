@@ -3,7 +3,7 @@ Faveo Chat is UNDER CONSTRUCTION
 <br/><br/>
 Faveo can also be customised according to requirement and we do undertake such request.
 <br/><br/>
-Faveo is designed & developed by <a href="http://www.ladybirdweb.com/" target="_blank">Ladybird Web Solution Pvt Ltd</a>, and launched in October 2015.</p>
+Faveo is designed & developed by <a href="http://www.ladybirdweb.com/" target="_blank">Ladybird Web Solution Pvt Ltd</a></p>
 
 
 <h3>Requirements</h3>
