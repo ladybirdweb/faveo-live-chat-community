@@ -1,5 +1,6 @@
   {{--*/ 
     $session = DB::table('faveo_login')->where('email',Session::get('admin'))->first();
+    $session_info = DB::table('faveo_users')->where('login_id',$session->id)->first(); 
   /*--}}
 	<header class="main-header">
       <!-- Logo -->
@@ -20,7 +21,7 @@
         <div class="navbar-custom-menu">
           <ul class="nav navbar-nav">
             <!-- Messages: style can be found in dropdown.less-->
-            <!-- <li><a href="{{ URL::route('/') }}">Admin Panel</a></li> -->
+            <li><a href="{{ URL::to('/message/'.$session_info->uniq_id) }}">Agent Panel</a></li>
             <!-- User Account: style can be found in dropdown.less -->
             <li class="dropdown user user-menu">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">

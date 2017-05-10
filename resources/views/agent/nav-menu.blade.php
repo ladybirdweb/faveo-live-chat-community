@@ -24,17 +24,19 @@
                       <div class="user-panel">
                         <div class="pull-left image">
                           <img src="{{ asset('asset/images/user4-128x128.jpg') }}" class="img-circle" alt="User Image">
-                          <a href="#"><i class="fa fa-circle text-success" id="online"></i></a>
+                          <a href="{{URL::to('/message/'.$clt->url_id)}}"><i class="fa fa-circle text-success" id="online"></i></a>
                         </div>
                         <div class="pull-left info">
                           <p> 
                             @if($clt->name != "")
-                              {{$clt->name}}
+                              <a href="{{URL::to('/message/'.$clt->url_id)}}">{{$clt->name}}</a>
                             @endif
                           </p>
-                          <a href="#"><img src="{{ asset('asset/images/indian.png') }}">{{$clt->ip}}</a>
+                          <a href="{{URL::to('/message/'.$clt->url_id)}}"><img src="{{ asset('asset/images/indian.png') }}">{{$clt->ip}}</a>
                         </div>
-                      <!-- <span  class="badge bg-green pull-right" style="margin-top:6%;">3</span> -->
+                        @if($clt->message > 0)
+                        <span  class="badge bg-green pull-right" style="margin-top:6%;">{{$clt->message}}</span>
+                        @endif
                       </div>
                     @endforeach
                   @endif

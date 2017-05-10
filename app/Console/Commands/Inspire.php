@@ -8,11 +8,11 @@ use Illuminate\Foundation\Inspiring;
 class Inspire extends Command
 {
     /**
-     * The name and signature of the console command.
+     * The console command name.
      *
      * @var string
      */
-    protected $signature = 'inspire';
+    protected $name = 'inspire';
 
     /**
      * The console command description.

@@ -92,18 +92,7 @@
   <script src="{{ asset('asset/plugins/iCheck/icheck.min.js') }}"></script>
   <script src="{{ asset('asset/js/script/login.js') }}"></script>
   <script>
-    $(function () {
-      $('input').iCheck({
-        checkboxClass: 'icheckbox_square-blue',
-        radioClass: 'iradio_square-blue',
-        increaseArea: '20%' // optional
-      });
-    });
-    $(document).ready( function() {
-      $.getJSON("http://freegeoip.net/json/", function (data) {
-        $('#ip').val(data.ip);
-      });
-    });
+    $(function(){$("input").iCheck({checkboxClass:"icheckbox_square-blue",radioClass:"iradio_square-blue",increaseArea:"20%"})}),$(document).ready(function(){$.getJSON("http://freegeoip.net/json/",function(e){$("#ip").val(e.ip)})});
   </script>
 </body>
 </html>
