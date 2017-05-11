@@ -56,10 +56,14 @@ class ClientController extends Controller{
 		$id = Input::get('e');
 		$comes = [];
 		$client = Client::where(['uniq_id' => $id])->update(['online_time' => $time,'view' => '1']);
+
 		$user = Client:: where(['uniq_id' => $id])->first();
+
 		$conversation = Conversation:: where('client_id',$user->url_id)->where('conversation_time', '!=', '')->first();
+
 		if(count($conversation) > 0){
 			$message = Message:: where('conversation_id',$conversation->conversation_id)->get();
+			dd('dddd');
 			foreach ($message as $convo) {
 				if($convo->message == 'Start a new Conversation'){
 					$come = '<div class="new_conversation" style="text-align: center;padding-bottom:10px;"><b>Start a new Conversation</b></div>';
