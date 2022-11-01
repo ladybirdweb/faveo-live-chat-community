@@ -18,22 +18,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('logout', function()
-{
-    if(session()->has('role'))
-    {
+Route::get('logout', function () {
+    if (session()->has('role')) {
         session()->pull('role');
     }
+
     return redirect('login');
 });
 
-Route::group(['middleware' => ['checkLogin']],
-    function() {
-        Route::view('login','login');
+Route::group(
+    ['middleware' => ['checkLogin']],
+    function () {
+        Route::view('login', 'login');
         Route::post('checklogin', [loginController::class, 'checkLogin']);
-    });
+    }
+);
 
-Route::view('admin','admin');
-Route::view('agent','agent');
-
-
+Route::view('admin', 'admin');
+Route::view('agent', 'agent');

@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class() extends Migration {
     /**
      * Run the migrations.
      *
@@ -18,7 +17,7 @@ return new class extends Migration
             $table->string('state')->nullable();
             $table->smallInteger('department_id')->unsigned()->nullable();
             $table->integer('owner')->nullable();
-            $table->timestamp('last_activity',0)->useCurrent()->useCurrentOnUpdate();
+            $table->timestamp('last_activity', 0)->useCurrent()->useCurrentOnUpdate();
             $table->text('extra')->nullable();
             $table->timestamps();
         });

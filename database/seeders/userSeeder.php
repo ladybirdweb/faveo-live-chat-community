@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class userSeeder extends Seeder
 {
@@ -17,10 +16,10 @@ class userSeeder extends Seeder
     public function run()
     {
         DB::table('chat_user')->insert([
-            'name' => 'Meera',
-            'mail' => 'meera94191@gmail.com',
+            'name'     => 'Meera',
+            'mail'     => 'meera94191@gmail.com',
             'password' => Hash::make('meera'),
-            'roles' => 'Admin',
+            'roles'    => 'Admin',
         ]);
     }
 }
