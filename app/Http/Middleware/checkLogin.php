@@ -10,23 +10,22 @@ class checkLogin
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
     {
-        if(session()->has('role'))
-        {
-            if (session('role') == 'admin')
-            {
+        if (session()->has('role')) {
+            if (session('role') == 'admin') {
                 return redirect('admin');
             }
-            if (session('role') == 'agent')
-            {
+            if (session('role') == 'agent') {
                 return redirect('agent');
             }
         }
+
         return $next($request);
     }
 }
