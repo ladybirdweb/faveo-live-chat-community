@@ -1,70 +1,79 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title> {{ $app->trans('login.title') }} </title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Fonts -->
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-{{ $app->renderView('blocks/fonts.html'); }}
-
-    <!-- Styles -->
-
-<link rel="stylesheet" href="{{ $app->asset('css/jquery.mCustomScrollbar.css') }}" />
-<link rel="stylesheet" href="{{ $app->asset('css/main.css') }}" />
-<link rel="stylesheet" href="{{ $app->asset('css/admin.css') }}" />
-<link rel="stylesheet" href="{{ $app->asset('css/bootstrap.css') }}" />
+    <title>faveo chat!</title>
 </head>
-<body class="login">
 
-<img class="logo" src="{{ $app->asset('img/logo.png') }}">
+<body style="background-color:#eee; overflow-y:hidden;">
 
-<div id="customer-chat-widget" class="customer-chat customer-chat-login customer-chat-widget login-form">
-<div class="customer-chat-header">
-    <div class="customer-chat-header-title"> {{ $app->trans('login.title') }} </div>
-</div>
+{{--@if(isset($error))--}}
+{{--    <div class="alert alert-success alert-dismissible fade show" role="alert">--}}
+{{--        <strong>{{$error}}</strong>--}}
+{{--        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>--}}
+{{--    </div>--}}
+{{--@endif--}}
 
-<div id="customer-chat-content-login-form" class="customer-chat-content">
-    <div class="customer-chat-content-info">
-        @if($vars['errors'])
-        <div class="customer-chat-login-errors">
-            {{ $app->trans('login.error') }}
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
+
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+<div class="container-fluid col-lg-12" >
+
+    <div class="row">
+        <div class="container col-lg-12">
+            <h3 class="text-center mt-4"style="color:skyblue;">{{__('loginLang.FAVEO_CHAT')}}</h3>
         </div>
-        @elseif
-            {{ $app->trans('login.intro') }}
-        @endif
+        <div class="container col-lg-12">
+            <h3 class="text-center mt-3">{{__('loginLang.Great_to_see_you')}}</h3>
+        </div>
+        <div class="contaier col-lg-12" style = "height:551px;">
+            <div class="container col-lg-4 bg-light" style="margin-top:36px; height:435px;width:594px;">
+                <main class="form-signin text-center" style="padding-top:80px;padding-right:55px;padding-left:55px;">
+                    <form method="POST" action="checklogin">
+                        <!-- <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+                        @csrf
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com" >
+                            <label for="floatingInput">{{__('loginLang.Email')}}</label>
+                        </div>
+                        <div class="form-floating mt-3">
+                            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" >
+                            <label for="floatingPassword">{{__('loginLang.Password')}}</label>
+                        </div>
+                        <button class="w-100 btn btn-lg btn-primary mt-3 mb-3" type="submit">{{__('loginLang.Login')}}</button>
+                        {{--    c                    <a class="btn btn-primary w-100 mb-3 btn-lg" href="forgotpass" role="button">{{__('loginLang.Forgot_Password')}}</a>--}}
+                    </form>
+                </main>
+            </div>
+        </div>
     </div>
 
-    <form action="" method="post">
-        <div class="customer-chat-content-message-input">
-            <input id="name" type="text" name="name" value="{{ $vars['name'] }}" class="customer-chat-content-message-input-field" placeholder="{{ $app->trans('your.mail') }}" />
-        </div>
-        <div class="customer-chat-content-message-input">
-            <input type="password" name="password" class="customer-chat-content-message-input-field" placeholder="{{ $app->trans('your.pass') }}" />
-        </div>
-        <div class="customer-chat-content-row">
-            <button type="submit" id="customer-chat-login-start" class="customer-chat-content-button"> {{ $app->trans('login') }} <i class="icon-circle-arrow-right icon-white" style="margin: 3px 0 0 3px;"></i></button>
-        </div>
-    </form>
-</div>
+    <div class="row">
+        <div class="contaier col-lg-12" style = "height:150px;"></div>
+    </div>
 </div>
 
-<!-- Scripts -->
 
-{{ $app->renderView('blocks/debugScripts.html'); }}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<script type="text/javascript" src="{{ $app->asset('js/lib/jquery.min.js') }}"></script>
-
-<script type="text/javascript">
-jQuery(function($)
-{
-    // Activate the first input
-
-    $('#name').focus();
-});
-</script>
-<!--[if lte IE 9]>
-    <script type="text/javascript" src="{{ $app->asset('js/lib/placeholders.jquery.min.js') }}"></script>
-    <![endif]-->
 </body>
 </html>
