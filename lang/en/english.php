@@ -17,7 +17,7 @@ return[
     'OTP'              => 'OTP',
     'Confirm_Password' => 'Confirm Password',
     'Set_Password'     => 'Set Password',
-    'Enter_OTP'        => 'Enter OTP'
+    'Enter_OTP'        => 'Enter OTP',
 ];
 
 ?>
