@@ -1488,6 +1488,12 @@ html
     text-align: left;
 }
 
+.customer-chat-login .customer-chat-login-success
+{
+    color: #76b447;;
+    text-align: left;
+}
+
 .customer-chat-login-success
 {
     color: #008000;

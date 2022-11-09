@@ -21,6 +21,10 @@ class checkAdmin
         {
             return redirect('/');
         }
-        return $next($request);
+        if(Auth::user()->role == 'agent')
+        {
+            return redirect('agent');
+        }
+        return $next($request);   //admin
     }
 }

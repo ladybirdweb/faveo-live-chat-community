@@ -26,11 +26,15 @@
         <div class="customer-chat-content-info">
             @if (session('error'))
                 <div class="customer-chat-login-errors">
-                    {{ session('error') }}
+                    <ul>
+                        <li> {{ session('error') }}</li>
+                    </ul>
                 </div>
             @elseif (session('success'))
-                <div class="customer-chat-login-errors">
-                    {{ session('success') }}
+                <div class="customer-chat-login-success">
+                    <ul>
+                        <li>{{ session('success') }}</li>
+                    </ul>
                 </div>
             @elseif ($errors->any())
                 <div class="customer-chat-login-errors">
@@ -41,7 +45,7 @@
                     </ul>
                 </div>
             @else
-                {{__('english.Intro') }}
+                {{__('english.Forget_Password_Intro') }}
             @endif
         </div>
 

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Validation\Rules\Password;
 
 class loginController extends Controller
 {
@@ -96,7 +97,7 @@ class loginController extends Controller
     function setPassword(Request $req)
     {
         $req->validate([
-            'password'   => ['required'],
+            'password'   => ['required', Password::min(6)->mixedCase()->numbers()->symbols()],
             'confirmpassword'   => ['required'],
         ]);
         $user = User::where('email', Cache::get('email'))->get()->first();

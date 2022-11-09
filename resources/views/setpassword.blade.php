@@ -25,11 +25,15 @@
         <div class="customer-chat-content-info">
             @if (session('error'))
                 <div class="customer-chat-login-errors">
-                    {{ session('error') }}
+                    <ul>
+                        <li> {{ session('error') }}</li>
+                    </ul>
                 </div>
             @elseif (session('success'))
-                <div class="customer-chat-login-errors">
-                    {{ session('success') }}
+                <div class="customer-chat-login-success">
+                    <ul>
+                        <li>{{ session('success') }}</li>
+                    </ul>
                 </div>
             @elseif ($errors->any())
                 <div class="customer-chat-login-errors">
@@ -40,11 +44,11 @@
                     </ul>
                 </div>
             @else
-                {{__('english.Intro') }}
+                {{__('english.Set_Password_Intro') }}
             @endif
         </div>
 
-        <form action="setpassword" method="POST">
+        <form action="setpassword" method="POST" style="padding-top: 5px;" >
             @csrf
             <div class="customer-chat-content-message-input">
                 <input id="name" type="password" name="password" class="customer-chat-content-message-input-field" placeholder=" {{__('english.Password')}} " />
