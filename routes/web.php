@@ -17,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('logout', function () {
     Auth::logout();
+
     return redirect('/');
 });
 
 Route::group(
     ['middleware' => ['checkLogin']],
     function () {
-
         Route::get('/', function () {
             return view('login');
         });
@@ -37,7 +37,6 @@ Route::group(
             return view('setpassword');
         });
         Route::post('checkSetpassword', [loginController::class, 'setpassword']);
-
     }
 );
 Route::group(
@@ -53,5 +52,3 @@ Route::group(
         Route::view('agent', 'agent');
     }
 );
-
-
