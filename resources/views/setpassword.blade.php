@@ -48,7 +48,7 @@
             @endif
         </div>
 
-        <form action="setpassword" method="POST" style="padding-top: 5px;" >
+        <form action="checkSetpassword" method="POST" style="padding-top: 5px;" >
             @csrf
             <div class="customer-chat-content-message-input">
                 <input id="name" type="password" name="password" class="customer-chat-content-message-input-field" placeholder=" {{__('english.Password')}} " />

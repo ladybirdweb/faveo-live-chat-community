@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
@@ -56,6 +55,7 @@ class loginController extends Controller
             {
                 $emailExists->otp = $otp;
                 $emailExists->save();
+                $id = $emailExists->id;
             }
             else
             {
@@ -63,9 +63,8 @@ class loginController extends Controller
                 $row->email = $req->email;
                 $row->otp = $otp;
                 $row->save();
+                $id = $row->id;
             }
-
-            $id = $emailExists->id;
             $resetPasswordLink =  url('checkLink' .'/' .$id .'/'.$otp);
             $emailData = [ 'link' => $resetPasswordLink ];
             Mail::to($req->email)->send(new resetpasswordemail($emailData));

@@ -13,6 +13,7 @@ return[
     'Login_Intro'      => 'Please login using the following form',
     'Forget_Password_Intro' => 'Please enter your registered Email',
     'Set_Password_Intro' => 'Please set a new Password',
+
 ];
 
 ?>

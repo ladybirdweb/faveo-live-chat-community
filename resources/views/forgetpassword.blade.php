@@ -49,7 +49,7 @@
             @endif
         </div>
 
-        <form action="forgetpassword" method="POST">
+        <form action="checkForgetpassword" method="POST">
             @csrf
             <div class="customer-chat-content-message-input">
                 <input id="name" type="email" name="email" class="customer-chat-content-message-input-field" placeholder=" {{__('english.Email')}} " />

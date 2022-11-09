@@ -28,11 +28,15 @@ Route::group(
             return view('login');
         });
         Route::post('checklogin', [loginController::class, 'checkLogin']);
-        Route::view('forgetpassword', 'forgetpassword');
-        Route::post('forgetpassword', [loginController::class, 'forgetpassword']);
+        Route::get('forgetpassword', function () {
+            return view('forgetpassword');
+        });
+        Route::post('checkForgetpassword', [loginController::class, 'forgetpassword']);
         Route::get('checkLink/{id}/{otp}', [loginController::class, 'checkotp']);
-        Route::view('setpassword', 'setpassword');
-        Route::post('setpassword', [loginController::class, 'setpassword']);
+        Route::get('setpassword', function () {
+            return view('setpassword');
+        });
+        Route::post('checkSetpassword', [loginController::class, 'setpassword']);
 
     }
 );
