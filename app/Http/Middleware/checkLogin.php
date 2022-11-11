@@ -4,7 +4,9 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class checkLogin
 {
@@ -17,6 +19,10 @@ class checkLogin
      */
     public function handle(Request $request, Closure $next)
     {
+        if (Session::has('myLang')) {
+            App::setLocale(Session::get('myLang'));
+        }
+
         if (Auth::check()) {
             if (Auth::user()->role == 'admin') {
                 return redirect('admin');

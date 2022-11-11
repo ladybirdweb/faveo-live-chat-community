@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title> {{__('english.Forget_Password')}} </title>
+    <title> {{__('lang.Forget_Password')}} </title>
 
     <!-- Styles -->
 
@@ -19,7 +19,7 @@
 
 <div id="customer-chat-widget" class="customer-chat customer-chat-login customer-chat-widget login-form">
     <div class="customer-chat-header">
-        <div class="customer-chat-header-title"> {{__('english.Forget_Password')}} </div>
+        <div class="customer-chat-header-title"> {{__('lang.Forget_Password')}} </div>
     </div>
 
     <div id="customer-chat-content-login-form" class="customer-chat-content">
@@ -45,17 +45,17 @@
                     </ul>
                 </div>
             @else
-                {{__('english.Forget_Password_Intro') }}
+                {{__('lang.Forget_Password_Intro') }}
             @endif
         </div>
 
         <form action="checkForgetpassword" method="POST">
             @csrf
             <div class="customer-chat-content-message-input">
-                <input id="name" type="email" name="email" class="customer-chat-content-message-input-field" placeholder=" {{__('english.Email')}} " />
+                <input id="name" type="email" name="email" class="customer-chat-content-message-input-field" placeholder=" {{__('lang.Email')}} " />
             </div>
             <div class="customer-chat-content-row">
-                <button type="submit" id="customer-chat-login-start" class="customer-chat-content-button"> {{__('english.Submit')}} <i class="icon-circle-arrow-right icon-white" style="margin: 3px 0 0 3px;"></i></button>
+                <button type="submit" id="customer-chat-login-start" class="customer-chat-content-button"> {{__('lang.Submit')}} <i class="icon-circle-arrow-right icon-white" style="margin: 3px 0 0 3px;"></i></button>
             </div>
         </form>
     </div>

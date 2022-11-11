@@ -6,6 +6,7 @@ use App\Mail\resetpasswordemail;
 use App\Models\Resetpassword;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -34,10 +35,20 @@ class loginController extends Controller
                 }
             }
 
-            return redirect('/')->with('error', 'Incorrect Password');
+            return redirect('/')->with('error', trans('lang.Invalid_Password'));
         }
 
-        return redirect('/')->with('error', 'Incorrect Email');
+        return redirect('/')->with('error', trans('lang.Invalid_Email'));
+    }
+
+
+
+
+    function selectLanguage(Request $req)
+    {
+        $lang = $req->lang;
+        session(['myLang'=> $lang]);
+        return redirect('/');
     }
 
 
@@ -66,13 +77,13 @@ class loginController extends Controller
                 $id = $row->id;
             }
             $resetPasswordLink =  url('checkLink' .'/' .$id .'/'.$otp);
-            $emailData = [ 'link' => $resetPasswordLink ];
+            $emailData = [ 'link' => $resetPasswordLink , 'name' => $user->name];
             Mail::to($req->email)->send(new resetpasswordemail($emailData));
-            return redirect('/')->with('success','The link has been send successfully to your email');
+            return redirect('/')->with('success', trans('lang.Success_Link_Intro'));
         }
         else
         {
-            return redirect('forgetpassword')->with('error', 'Incorrect Email');
+            return redirect('forgetpassword')->with('error', trans('lang.Invalid_Email'));
         }
     }
 
@@ -87,9 +98,9 @@ class loginController extends Controller
                 Cache::add('email', $user->email);
                 return redirect('setpassword');
             }
-            return redirect("/")->with('error','Invalid OTP');
+            return redirect("/")->with('error', trans('lang.Invalid_OTP'));
         }
-        return redirect("/")->with('error', 'Invalid Email');
+        return redirect("/")->with('error', trans('lang.Invalid_Email'));
     }
 
 
@@ -109,10 +120,10 @@ class loginController extends Controller
                 $data->password = Hash::make($req->password);
                 $data->save();
                 Cache::forget('email');
-                return redirect('/')->with('success','Your password has  been changed successfully');
+                return redirect('/')->with('success', trans('lang.Success_Password_Intro'));
             }
-                return redirect('setpassword')->with('error', 'Password and confirm password should be same');
+                return redirect('setpassword')->with('error', trans('lang.Error_Password_Intro'));
         }
-            return redirect('setpassword')->with('error', 'Invalid email');
+            return redirect('setpassword')->with('error', trans('lang.Invalid_Email'));
     }
 }

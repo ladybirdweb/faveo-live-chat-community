@@ -34,7 +34,7 @@ class resetpasswordemail extends Mailable
     {
         return new Envelope(
             from: new Address('meera94191@gmail.com', 'Meera'),
-            subject: 'OTP for email verification',
+            subject: trans('lang.FAVEO_Password_Reset'),
         );
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\loginController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,7 @@ Route::group(
     function () {
 
         Route::get('/', function () {
+//            App::setlocale(session('myLang'));
             return view('login');
         });
         Route::post('checklogin', [loginController::class, 'checkLogin']);
@@ -37,6 +39,9 @@ Route::group(
             return view('setpassword');
         });
         Route::post('checkSetpassword', [loginController::class, 'setpassword']);
+
+
+        Route::post('selectlanguage',[loginController::class,'selectLanguage']);
 
     }
 );

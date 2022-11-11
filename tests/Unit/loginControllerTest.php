@@ -4,7 +4,7 @@ namespace Tests\Unit;
 
 //use PHPUnit\Framework\TestCase;
 use App\Models\Resetpassword;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+//use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +12,7 @@ use App\Models\User;
 
 class loginControllerTest extends TestCase
 {
-    use RefreshDatabase;
+//    use RefreshDatabase;
     /**
      * A basic unit test example.
      *
@@ -210,7 +210,6 @@ class loginControllerTest extends TestCase
         $response = $this->post('checklogin', $data);
         $response->assertStatus(302);
         $response->assertRedirect('admin');
-
     }
 
     public function test_check_if_user_set_the_password_without_credentials()
