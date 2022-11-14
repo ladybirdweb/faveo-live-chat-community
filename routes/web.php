@@ -18,13 +18,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('logout', function () {
     Auth::logout();
+
     return redirect('/');
 });
 
 Route::group(
     ['middleware' => ['checkLogin']],
     function () {
-
         Route::get('/', function () {
 //            App::setlocale(session('myLang'));
             return view('login');
@@ -40,9 +40,7 @@ Route::group(
         });
         Route::post('checkSetpassword', [loginController::class, 'setpassword']);
 
-
-        Route::post('selectlanguage',[loginController::class,'selectLanguage']);
-
+        Route::post('selectlanguage', [loginController::class, 'selectLanguage']);
     }
 );
 Route::group(
@@ -58,5 +56,3 @@ Route::group(
         Route::view('agent', 'agent');
     }
 );
-
-

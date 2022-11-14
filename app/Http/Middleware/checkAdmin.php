@@ -13,8 +13,9 @@ class checkAdmin
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
@@ -23,14 +24,13 @@ class checkAdmin
             App::setLocale(Session::get('myLang'));
         }
 
-        if(Auth::check() == false)
-        {
+        if (Auth::check() == false) {
             return redirect('/');
         }
-        if(Auth::user()->role == 'agent')
-        {
+        if (Auth::user()->role == 'agent') {
             return redirect('agent');
         }
+
         return $next($request);   //admin
     }
 }

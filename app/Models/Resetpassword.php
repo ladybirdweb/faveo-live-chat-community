@@ -9,5 +9,5 @@ class Resetpassword extends Model
 {
     use HasFactory;
     protected $table = 'reset_password';
-    protected $fillable = [ 'email', 'otp' ];
+    protected $fillable = ['email', 'otp'];
 }
