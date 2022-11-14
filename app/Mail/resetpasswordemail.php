@@ -3,16 +3,16 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Address;
 
 class resetpasswordemail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * Create a new message instance.
@@ -23,8 +23,9 @@ class resetpasswordemail extends Mailable
 
     public function __construct($emailData)
     {
-        $this->emailData = $emailData ;
+        $this->emailData = $emailData;
     }
+
     /**
      * Get the message envelope.
      *
@@ -46,7 +47,7 @@ class resetpasswordemail extends Mailable
     public function content()
     {
         return new Content(
-        view: 'email.resetpasswordemail',
+            view: 'email.resetpasswordemail',
         );
     }
 
@@ -59,6 +60,4 @@ class resetpasswordemail extends Mailable
     {
         return [];
     }
-
 }
-

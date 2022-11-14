@@ -14,10 +14,10 @@ return [
     */
 
     'password' => [
-        'letters' => 'La :attribute doit contenir au moins une lettre.',
-        'mixed' => 'La :attribute doit contenir au moins une majuscule et une minuscule.',
-        'numbers' => 'La :attribute doit contenir au moins un chiffre.',
-        'symbols' => 'La :attribute doit contenir au moins un symbole.',
+        'letters'       => 'La :attribute doit contenir au moins une lettre.',
+        'mixed'         => 'La :attribute doit contenir au moins une majuscule et une minuscule.',
+        'numbers'       => 'La :attribute doit contenir au moins un chiffre.',
+        'symbols'       => 'La :attribute doit contenir au moins un symbole.',
         'uncompromised' => 'Le donné :attribute est apparu dans une fuite de données. Veuillez choisir un autre :attribut.',
     ],
 
