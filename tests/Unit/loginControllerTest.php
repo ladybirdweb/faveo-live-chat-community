@@ -2,9 +2,7 @@
 
 namespace Tests\Unit;
 
-//use PHPUnit\Framework\TestCase;
 use App\Models\Resetpassword;
-//use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
@@ -12,7 +10,6 @@ use App\Models\User;
 
 class loginControllerTest extends TestCase
 {
-//    use RefreshDatabase;
     /**
      * A basic unit test example.
      *
@@ -163,7 +160,6 @@ class loginControllerTest extends TestCase
         ]);
         $response->assertInvalid(['email']);
         $response->assertStatus(302);
-//        $response->assertRedirect('forgetpassword');
     }
 
     public function test_check_if_user_submit_the_forget_password_page_with_wrong_email()
@@ -220,7 +216,6 @@ class loginControllerTest extends TestCase
         ]);
         $response->assertInvalid(['password', 'confirmpassword']);
         $response->assertStatus(302);
-//        $response->assertRedirect('setpassword');
     }
 
     public function test_check_if_user_set_the_password_without_password()
@@ -231,7 +226,6 @@ class loginControllerTest extends TestCase
         ]);
         $response->assertInvalid(['password']);
         $response->assertStatus(302);
-//        $response->assertRedirect('setpassword');
     }
 
 
@@ -243,7 +237,6 @@ class loginControllerTest extends TestCase
         ]);
         $response->assertInvalid(['confirmpassword']);
         $response->assertStatus(302);
-//        $response->assertRedirect('setpassword');
     }
 
     public function test_agent_trying_to_access_admin_dashboard()

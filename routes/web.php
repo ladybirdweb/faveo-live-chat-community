@@ -26,25 +26,30 @@ Route::group(
     function () {
 
         Route::get('/', function () {
-//            App::setlocale(session('myLang'));
             return view('login');
         });
+
         Route::post('checklogin', [loginController::class, 'checkLogin']);
+
         Route::get('forgetpassword', function () {
             return view('forgetpassword');
         });
+
         Route::post('checkForgetpassword', [loginController::class, 'forgetpassword']);
+
         Route::get('checkLink/{id}/{otp}', [loginController::class, 'checkotp']);
+
         Route::get('setpassword', function () {
             return view('setpassword');
         });
-        Route::post('checkSetpassword', [loginController::class, 'setpassword']);
 
+        Route::post('checkSetpassword', [loginController::class, 'setpassword']);
 
         Route::post('selectlanguage',[loginController::class,'selectLanguage']);
 
     }
 );
+
 Route::group(
     ['middleware' => ['checkAdmin']],
     function () {
