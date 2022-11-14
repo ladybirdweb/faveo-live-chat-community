@@ -20,7 +20,6 @@ return[
     'Invalid_Email'    => 'Email invalide',
     'Invalid_Password' => 'Mot de passe incorrect',
     'Invalid_OTP'      => 'OTP invalide',
-
     'Success_Link_Intro' => "Nous vous avons envoyé un e-mail de vérification. Ouvrez-le et appuyez sur le lien pour continuer.",
     'Success_Password_Intro' => 'Votre mot de passe a été changé avec succès',
     'Error_Password_Intro' => 'Le mot de passe et le mot de passe de confirmation doivent être identiques',

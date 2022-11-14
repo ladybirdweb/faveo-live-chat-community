@@ -20,7 +20,6 @@ return[
     'Invalid_Email'    => 'Invalid Email',
     'Invalid_Password' => 'Invalid Password',
     'Invalid_OTP'      => 'Invalid OTP',
-
     'Success_Link_Intro' => "We've sent you a verification email. Open it and tap the link to continue.",
     'Success_Password_Intro' => 'Your password has  been changed successfully',
     'Error_Password_Intro' => 'Password and confirm password should be same',

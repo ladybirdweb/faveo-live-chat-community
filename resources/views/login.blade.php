@@ -6,7 +6,6 @@
     <title> {{__('lang.Login')}} </title>
 
     <!-- Styles -->
-
     <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
@@ -14,17 +13,14 @@
 </head>
 <body class="login">
 
-
-<form method="POST" action="selectlanguage" style="padding-left: 1295px;margin-top: 5px;">
+<form method="POST" action="selectlanguage" style="padding-left: 1700px;margin-top: 5px;">
     @csrf
     <select name="lang">
-        <option name="lang" value="en">{{__('lang.English')}}</option>
-        <option name="lang" value="fr">{{__('lang.French')}}</option>
+        <option name="lang" value="en"> {{__('lang.English')}} </option>
+        <option name="lang" value="fr"> {{__('lang.French')}} <img src="{{ asset('img/fr.png') }}" alt="fr"> </option>
     </select>
-    <button type="submit" class="btn btn-sm" style="background: linear-gradient(to right, #9C27B0, #E040FB);">{{__('lang.Submit')}}</button>
+    <button type="submit" class="btn btn-sm" style="background: linear-gradient(to right, #36a9e1, #36a9e1);">{{__('lang.Submit')}}</button>
 </form>
-
-
 
 <img class="logo" src="{{ asset('img/faveo-logo.png') }}">
 

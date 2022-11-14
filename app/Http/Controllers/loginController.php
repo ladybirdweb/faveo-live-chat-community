@@ -34,14 +34,10 @@ class loginController extends Controller
                     return redirect('agent');
                 }
             }
-
             return redirect('/')->with('error', trans('lang.Invalid_Password'));
         }
-
         return redirect('/')->with('error', trans('lang.Invalid_Email'));
     }
-
-
 
 
     function selectLanguage(Request $req)
