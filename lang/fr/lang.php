@@ -2,6 +2,7 @@
 
 return[
 
+//    Login Page
     'Login'            => 'connexion',
     'Email'            => 'adresse e-mail',
     'Password'         => 'Mot de passe',
@@ -29,6 +30,14 @@ return[
     'Thanks'           => 'Merci!',
     'Team_FAVEO'       => 'Équipe FAVEO',
     'FAVEO_Password_Reset' => 'FAVEO Réinitialisation du mot de passe',
+
+//    Admin Page
+    'Admin'            => 'Administratrice',
+    'Faveo_Chat'       => 'FAVEO Discuter',
+    'Online'           => 'En ligne',
+    'Offline'          => 'Hors ligne',
+    'Edit_Profile'    => 'Editer le profil',
+
 
 ];
 

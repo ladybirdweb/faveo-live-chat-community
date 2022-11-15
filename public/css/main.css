@@ -267,15 +267,11 @@ img
 
     font-size: 16px;
 
-    /*margin-left: 18px;*/
+    margin-left: 18px;
 
-    /*float: left;*/
+    float: left;
 
-    /*padding-left: 4px;*/
-
-    text-align: center;
-
-    font-weight: 800;
+    padding-left: 4px;
 }
 
 .customer-chat-content
