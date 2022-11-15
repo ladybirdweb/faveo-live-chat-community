@@ -33,6 +33,24 @@ return[
     'Team_FAVEO'                 => 'Team FAVEO',
     'FAVEO_Password_Reset'       => 'FAVEO Password Reset',
 
+//    Admin Page
+    'Admin'            => 'Admin',
+    'Faveo_Chat'       => 'FAVEO Chat',
+    'Online'           => 'Online',
+    'Offline'          => 'Offline',
+    'Edit_Profile'    => 'Edit Profile',
+
+    'Departments' => 'Departments',
+    'Operators' => 'Operators',
+    'Widget_Settings' => 'Widget settings',
+    'Widget_Theme' => 'Widget theme',
+    'Canned_Messages' => 'Canned messages',
+    'Widget_Blacklist' => 'Widget blacklist',
+    'History' => 'History',
+    'Settings' => 'Settings',
+
+
+
 ];
 
 ?>

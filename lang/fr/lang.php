@@ -31,4 +31,12 @@ return[
     'FAVEO_Password_Reset'       => 'FAVEO Réinitialisation du mot de passe',
     'Invalid_Credentials'        => "Les informations d'identification invalides",
 
+//    Admin Page
+    'Admin'            => 'Administratrice',
+    'Faveo_Chat'       => 'FAVEO Discuter',
+    'Online'           => 'En ligne',
+    'Offline'          => 'Hors ligne',
+    'Edit_Profile'    => 'Editer le profil',
+
+
 ];
