@@ -21,15 +21,15 @@ Route::get('logout', function () {
     return redirect('/');
 });
 
-Route::group(
-    ['middleware' => ['checkLogin']],
-    function () {
+//Route::group(
+//    ['middleware' => ['checkLogin']],
+//    function () {
 
         Route::get('/', function () {
 //            App::setlocale(session('myLang'));
             return view('login');
         });
-        Route::post('checklogin', [loginController::class, 'checkLogin']);
+//        Route::post('checklogin', [loginController::class, 'checkLogin']);
         Route::get('forgetpassword', function () {
             return view('forgetpassword');
         });
@@ -43,20 +43,20 @@ Route::group(
 
         Route::post('selectlanguage',[loginController::class,'selectLanguage']);
 
-    }
-);
-Route::group(
-    ['middleware' => ['checkAdmin']],
-    function () {
+//    }
+//);
+//Route::group(
+//    ['middleware' => ['checkAdmin']],
+//    function () {
         Route::view('admin', 'admin');
-    }
-);
+//    }
+//);
 
-Route::group(
-    ['middleware' => ['checkAgent']],
-    function () {
+//Route::group(
+//    ['middleware' => ['checkAgent']],
+//    function () {
         Route::view('agent', 'agent');
-    }
-);
+//    }
+//);
 
 

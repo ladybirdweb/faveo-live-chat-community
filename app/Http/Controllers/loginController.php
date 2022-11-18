@@ -11,32 +11,62 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
 class loginController extends Controller
 {
+
     public function checkLogin(Request $req)
     {
-        $req->validate([
+        $validator = Validator::make($req->all(),[
             'email'   => ['required'],
             'password'=> ['required'],
         ]);
+
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>'400',
+                'error'=>$validator->messages()
+            ]);
+        }
+
         $user = User::where('email', $req->email)->get()->first();
         if ($user) {
             $isValidPassword = Hash::check($req->password, $user->password);
             if ($isValidPassword)
             {
                 Auth::login($user);
+                $user = Auth::user();
+//                $token = $user->createToken('loginToken')->accessToken;
+
                 if (Auth::user()->role == 'admin') {
-                    return redirect('admin');
+
+                    return response()->json([
+                        'data'=> 'logged in as admin',
+                        'status'=> 200,
+                        'role'=>'admin'
+//                        'token'=>$token
+                    ]);
+//                    return response('logged in as admin',200);
+//                    return redirect('admin');
                 }
                 if (Auth::user()->role == 'agent') {
-                    return redirect('agent');
+                    return response()->json([
+                        'data'=> 'logged in as agent',
+                        'status'=> 200,
+                        'role'=>'agent'
+//                        'token'=>$token
+                    ]);
+//                    return redirect('agent');
                 }
             }
-            return redirect('/')->with('error', trans('lang.Invalid_Password'));
+            return response()->json(['error'=> trans('lang.Invalid_Password'),'status'=> 400]);
+//            return redirect('/')->with('error', trans('lang.Invalid_Password'));
         }
-        return redirect('/')->with('error', trans('lang.Invalid_Email'));
+        return response()->json(['error'=> trans('lang.Invalid_Email'),'status'=> 400]);
+//        return redirect('/')->with('error', trans('lang.Invalid_Email'));
     }
 
 
@@ -122,4 +152,5 @@ class loginController extends Controller
         }
             return redirect('setpassword')->with('error', trans('lang.Invalid_Email'));
     }
+
 }
