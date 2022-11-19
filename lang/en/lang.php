@@ -49,6 +49,7 @@ return[
     'History' => 'History',
     'Settings' => 'Settings',
 
+    'map_no_api_key_info' => "Enter your Google Maps API key in the 'Settings' tab and refresh the page.",
 
 
 ];

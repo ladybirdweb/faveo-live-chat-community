@@ -1,7 +1,3 @@
-{{--<form method="GET" action="logout">--}}
-{{--    <button class="w-100 btn btn-sm btn-primary mt-3 mb-3" type="submit"> {{__('lang.Logout')}} </button>--}}
-{{--</form>--}}
-
 
 <!DOCTYPE html>
 <html>
@@ -11,15 +7,15 @@
 
             <!-- Styles -->
 
-{{--    <link rel="icon" type="image/icon" href="{{ asset('img/faveo-logo.png') }}">--}}
+    <link rel="icon" type="image/icon" href="{{ asset('img/faveo-logo.png') }}">
 {{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">--}}
     <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-popover.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/colorpicker.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.10.3.custom.css') }}" />
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-popover.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/colorpicker.css') }}" >
+    <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.10.3.custom.css') }}" >
 </head>
 <body>
 <div id="customer-chat" class="customer-chat customer-chat-admin">
@@ -67,12 +63,12 @@
         <div class="customer-chat-content-wrapper">
             <div id="customer-chat-admin-chat"></div>
 
-{{--            <div id="customer-chat-admin-map">--}}
-{{--                <div class="map-wrapper"></div>--}}
-{{--                <div class="no-key-info">--}}
-{{--                    <p><?php echo $app->trans('map.no.api.key.info') ?></p>--}}
-{{--                </div>--}}
-{{--            </div>--}}
+            <div id="customer-chat-admin-map">
+                <div class="map-wrapper"></div>
+                <div class="no-key-info">
+{{--                    <p> {{__('lang.map_no_api_key_info')}} </p>--}}
+                </div>
+            </div>
 
             <div id="customer-chat-admin-settings">
 
@@ -140,24 +136,24 @@
 {{--            <![endif]-->--}}
 {{--<script src="https://ditu.google.cn/maps/api/js?key=<?php echo $vars['gMapsKey'] ?>"></script>--}}
 
-{{--<script src="<?php echo $app->asset('js/lib/jquery.extramouse.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/jquery.cookie.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/jquery.ui.min.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/jquery.mousewhell.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/jquery.displayevents.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/jquery.mCustomScrollbar.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/colorpicker.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/bootstrap-popover.min.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/jQuery.AjaxFileUpload.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/AjaxUploader.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/json2.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/qrcode.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/underscore.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/handlebars.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/backbone.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/backbone.marionette.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/soundmanager2-nodebug-jsmin.js') ?>"></script>--}}
-{{--<script src="<?php echo $app->asset('js/lib/desktop-notify.min.js') ?>"></script>--}}
+<script src="{{ ('js/lib/jquery.extramouse.js') }}"></script>
+<script src="{{ ('js/lib/jquery.cookie.js') }}"></script>
+<script src="{{ ('js/lib/jquery.ui.min.js') }}"></script>
+<script src="{{ ('js/lib/jquery.mousewhell.js') }}"></script>
+<script src="{{ ('js/lib/jquery.displayevents.js') }}"></script>
+<script src="{{ ('js/lib/jquery.mCustomScrollbar.js') }}"></script>
+<script src="{{ ('js/lib/colorpicker.js') }}"></script>
+<script src="{{ ('js/lib/bootstrap-popover.min.js') }}"></script>
+<script src="{{ ('js/lib/jQuery.AjaxFileUpload.js') }}"></script>
+<script src="{{ ('js/lib/AjaxUploader.js') }}"></script>
+<script src="{{ ('js/lib/json2.js') }}"></script>
+<script src="{{ ('js/lib/qrcode.js') }}"></script>
+<script src="{{ ('js/lib/underscore.js') }}"></script>
+<script src="{{ ('js/lib/handlebars.js') }}"></script>
+<script src="{{ ('js/lib/backbone.js') }}"></script>
+<script src="{{ ('js/lib/backbone.marionette.js') }}"></script>
+<script src="{{ ('js/lib/soundmanager2-nodebug-jsmin.js') }}"></script>
+<script src="{{ ('js/lib/desktop-notify.min.js') }}"></script>
 {{--<?php } ?>--}}
 
 {{--<script type="text/javascript">--}}
