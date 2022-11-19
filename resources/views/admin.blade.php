@@ -25,7 +25,7 @@
 <div id="customer-chat" class="customer-chat customer-chat-admin">
     <div class="customer-chat-header">
         <div class="customer-chat-header-title">
-{{--            <img src="{{ asset('img/faveo-logo.png') }}" />--}}
+            <img style="width: 80px; height: auto;" src="{{ asset('img/faveo.png') }}" />
             {{__('lang.Faveo_Chat')}}
         </div>
         <div id="customer-chat-button-menu" class="customer-chat-header-button">
@@ -119,8 +119,8 @@
 
 {{--<!-- Templates -->--}}
 
-<?php echo $app->renderView('js-templates/common.html'); ?>
-<?php echo $app->renderView('js-templates/admin.html'); ?>
+{{--<php echo $app->renderView('js-templates/common.html'); ?>--}}
+{{--<php echo $app->renderView('js-templates/admin.html'); ?>--}}
 
 {{--        <!-- Scripts -->--}}
 
