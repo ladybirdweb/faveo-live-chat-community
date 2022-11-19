@@ -6,6 +6,7 @@
     <title> {{__('lang.Login')}} </title>
 
     <!-- Styles -->
+    <link rel="icon" type="image/icon" href="{{ asset('img/faveo-logo.png') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />

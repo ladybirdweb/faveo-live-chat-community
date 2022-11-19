@@ -38,6 +38,8 @@ return[
     'Offline'          => 'Hors ligne',
     'Edit_Profile'    => 'Editer le profil',
 
+    'map_no_api_key_info' => "Entrez votre clé API Google Maps dans l'onglet 'Paramètres' et actualisez la page.",
+
 
 ];
 
