@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title> {{__('lang.Forget_Password')}} </title>
 
     <!-- Styles -->
@@ -11,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
     <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 </head>
 
 <body class="login">
@@ -23,45 +25,129 @@
     </div>
 
     <div id="customer-chat-content-login-form" class="customer-chat-content">
-        <div class="customer-chat-content-info">
-            @if (session('error'))
-                <div class="customer-chat-login-errors">
-                    <ul>
-                        <li> {{ session('error') }}</li>
-                    </ul>
-                </div>
-            @elseif (session('success'))
-                <div class="customer-chat-login-success">
-                    <ul>
-                        <li>{{ session('success') }}</li>
-                    </ul>
-                </div>
-            @elseif ($errors->any())
-                <div class="customer-chat-login-errors">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @else
+        <div class="customer-chat-content-info" id="message">
+{{--            @if (session('error'))--}}
+{{--                <div class="customer-chat-login-errors">--}}
+{{--                    <ul>--}}
+{{--                        <li> {{ session('error') }}</li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            @elseif (session('success'))--}}
+{{--                <div class="customer-chat-login-success">--}}
+{{--                    <ul>--}}
+{{--                        <li>{{ session('success') }}</li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            @elseif ($errors->any())--}}
+{{--                <div class="customer-chat-login-errors">--}}
+{{--                    <ul>--}}
+{{--                        @foreach ($errors->all() as $error)--}}
+{{--                            <li>{{ $error }}</li>--}}
+{{--                        @endforeach--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            @else--}}
+
+            <div id ="intro">
                 {{__('lang.Forget_Password_Intro') }}
-            @endif
+            </div>
+
+{{--            @endif--}}
         </div>
 
-        <form action="checkForgetpassword" method="POST">
-            @csrf
+{{--        <form action="checkForgetpassword" method="POST">--}}
+{{--            @csrf--}}
             <div class="customer-chat-content-message-input">
                 <input id="name" type="email" name="email" class="customer-chat-content-message-input-field" placeholder=" {{__('lang.Email')}} " />
             </div>
             <div class="customer-chat-content-row">
                 <button type="submit" id="customer-chat-login-start" class="customer-chat-content-button"> {{__('lang.Submit')}} <i class="icon-circle-arrow-right icon-white" style="margin: 3px 0 0 3px;"></i></button>
             </div>
-        </form>
+{{--        </form>--}}
     </div>
 </div>
 
-<script type="text/javascript" src="{{ asset('js/lib/jquery.min.js') }}"></script>
+{{--<script type="text/javascript" src="{{ asset('js/lib/jquery.min.js') }}"></script>--}}
+
+<script>
+    $(document).ready(function(){
+        $(document).on('click','#customer-chat-login-start',function() {
+
+            let data = {
+                'email': $("#name").val(),
+            }
+            sendData(data);
+            $('.customer-chat-login-errors').hide();
+        });
+
+        function sendData(data) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: 'checkForgetpassword',
+                type: 'post',
+                data: data,
+                dataType: 'JSON',
+                success: function (response) {
+                    // var msg = "";
+                    // console.log(response.token);
+                    if (response.status == 200)
+                    {
+                        $("#message").append(
+                            "<div class='customer-chat-login-success'>"+
+                            "<ul>"+
+                            "<li>"+  response.success + "</li>"+
+                            "</ul>"+
+                            "</div>"
+                        );
+
+                        setTimeout(function () {
+                            window.location = "/";
+                        }, 7000);
+
+                        $('#intro').hide();
+                    }
+                    else {
+                        if(response.validation_error == 0)
+                        {
+                            $("#message").append(
+                                "<div class='customer-chat-login-errors'>"+
+                                "<ul>"+
+                                "<li>"+  response.error + "</li>"+
+                                "</ul>"+
+                                "</div>"
+                            );
+                            // setTimeout(function () {
+                            //     location.reload(true);
+                            // }, 5000);
+                            $('#intro').hide();
+                        }
+                        else
+                        {
+                            var errors = response.error;
+                            $.each(errors, function (key, val) {
+                                $("#message").append(
+                                    "<div class='customer-chat-login-errors'>"+
+                                    "<ul>"+
+                                    "<li>"+  val + "</li>"+
+                                    "</ul>"+
+                                    "</div>"
+                                );
+                                $('#intro').hide();
+                            });
+                        }
+                    }
+                }
+            });
+        }
+        // }
+        // });
+    });
+</script>
 
 <script type="text/javascript">
     jQuery(function($)

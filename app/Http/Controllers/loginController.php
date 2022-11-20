@@ -28,7 +28,8 @@ class loginController extends Controller
         {
             return response()->json([
                 'status'=>'400',
-                'error'=>$validator->messages()
+                'error'=>$validator->messages(),
+                'validation_error' => 1,
             ]);
         }
 
@@ -39,15 +40,16 @@ class loginController extends Controller
             {
                 Auth::login($user);
                 $user = Auth::user();
-//                $token = $user->createToken('loginToken')->accessToken;
+                $token = $user->createToken('loginToken')->accessToken;
+//                dd($token);
 
                 if (Auth::user()->role == 'admin') {
 
                     return response()->json([
                         'data'=> 'logged in as admin',
                         'status'=> 200,
-                        'role'=>'admin'
-//                        'token'=>$token
+                        'role'=>'admin',
+                        'token'=>$token
                     ]);
 //                    return response('logged in as admin',200);
 //                    return redirect('admin');
@@ -62,10 +64,10 @@ class loginController extends Controller
 //                    return redirect('agent');
                 }
             }
-            return response()->json(['error'=> trans('lang.Invalid_Password'),'status'=> 400]);
+            return response()->json(['error'=> trans('lang.Invalid_Password'),'status'=> 400, 'validation_error'=> 0]);
 //            return redirect('/')->with('error', trans('lang.Invalid_Password'));
         }
-        return response()->json(['error'=> trans('lang.Invalid_Email'),'status'=> 400]);
+        return response()->json(['error'=> trans('lang.Invalid_Email'),'status'=> 400, 'validation_error'=> 0]);
 //        return redirect('/')->with('error', trans('lang.Invalid_Email'));
     }
 
@@ -80,9 +82,18 @@ class loginController extends Controller
 
     public function forgetpassword(Request $req)
     {
-        $req->validate([
+        $validator = Validator::make($req->all(),[
             'email'   => ['required'],
         ]);
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>'400',
+                'error'=>$validator->messages(),
+                'validation_error' => 1,
+            ]);
+        }
+
         $user = User::where('email', $req->email)->get()->first();
         if ($user)
         {
@@ -105,11 +116,20 @@ class loginController extends Controller
             $resetPasswordLink =  url('checkLink' .'/' .$id .'/'.$otp);
             $emailData = [ 'link' => $resetPasswordLink , 'name' => $user->name];
             Mail::to($req->email)->send(new resetpasswordemail($emailData));
-            return redirect('/')->with('success', trans('lang.Success_Link_Intro'));
+//            return redirect('/')->with('success', trans('lang.Success_Link_Intro'));
+            return response()->json([
+                'success'=> trans('lang.Success_Link_Intro'),
+                'status'=> 200,
+            ]);
         }
         else
         {
-            return redirect('forgetpassword')->with('error', trans('lang.Invalid_Email'));
+//            return redirect('forgetpassword')->with('error', trans('lang.Invalid_Email'));
+            return response()->json([
+                'error'=> trans('lang.Invalid_Email'),
+                'status'=>400,
+                'validation_error' => 0,
+            ]);
         }
     }
 
@@ -132,10 +152,18 @@ class loginController extends Controller
 
     function setPassword(Request $req)
     {
-        $req->validate([
-            'password'   => ['required', Password::min(6)->mixedCase()->numbers()->symbols()],
+        $validator = Validator::make($req->all(),[
+            'password'   => ['required', Password::min(6)->letters()->numbers()->symbols()],
             'confirmpassword'   => ['required'],
         ]);
+        if($validator->fails())
+        {
+            return response()->json([
+                'status'=>'400',
+                'error'=>$validator->messages(),
+                'validation_error' => 1,
+            ]);
+        }
         $user = User::where('email', Cache::get('email'))->get()->first();
         if($user)
         {
@@ -146,11 +174,27 @@ class loginController extends Controller
                 $data->password = Hash::make($req->password);
                 $data->save();
                 Cache::forget('email');
-                return redirect('/')->with('success', trans('lang.Success_Password_Intro'));
+//                return redirect('/')->with('success', trans('lang.Success_Password_Intro'));
+                return response()->json([
+                    'success'=> trans('lang.Success_Password_Intro'),
+                    'status'=>200,
+                ]);
             }
-                return redirect('setpassword')->with('error', trans('lang.Error_Password_Intro'));
+//            return redirect('setpassword')->with('error', trans('lang.Error_Password_Intro'));
+            return response()->json([
+                'error'=> trans('lang.Error_Password_Intro'),
+                'status'=>400,
+                'validation_error' => 0,
+            ]);
         }
-            return redirect('setpassword')->with('error', trans('lang.Invalid_Email'));
+//        return redirect('setpassword')->with('error', trans('lang.Invalid_Email'));
+        return response()->json([
+            'error'=> trans('lang.Invalid_Email'),
+            'status'=>400,
+            'validation_error' => 0,
+        ]);
     }
 
 }
+
+
