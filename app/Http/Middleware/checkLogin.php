@@ -24,11 +24,13 @@ class checkLogin
         }
 
         if (Auth::check()) {
-            if (Auth::user()->role == 'admin') {
-                return redirect('admin');
-            }
-            if (Auth::user()->role == 'agent') {
-                return redirect('agent');
+            if(session::has('token')) {
+                if (Auth::user()->role == 'admin') {
+                    return redirect('admin');
+                }
+                if (Auth::user()->role == 'agent') {
+                    return redirect('agent');
+                }
             }
         }
         return $next($request);

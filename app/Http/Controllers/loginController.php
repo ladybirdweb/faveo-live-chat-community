@@ -41,6 +41,7 @@ class loginController extends Controller
                 Auth::login($user);
                 $user = Auth::user();
                 $token = $user->createToken('loginToken')->accessToken;
+                session(['token' => $token]);
 
                 if (Auth::user()->role == 'admin') {
 
