@@ -6,7 +6,6 @@ use App\Mail\resetpasswordemail;
 use App\Models\Resetpassword;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +26,7 @@ class loginController extends Controller
         if($validator->fails())
         {
             return response()->json([
-                'status'=>'400',
+                'status'=>'401',
                 'error'=>$validator->messages(),
                 'validation_error' => 1,
             ]);
@@ -56,14 +55,14 @@ class loginController extends Controller
                     return response()->json([
                         'data'=> 'logged in as agent',
                         'status'=> 200,
-                        'role'=>'agent'
-//                        'token'=>$token
+                        'role'=>'agent',
+                        'token'=>$token
                     ]);
                 }
             }
-            return response()->json(['error'=> trans('lang.Invalid_Password'),'status'=> 400, 'validation_error'=> 0]);
+            return response()->json(['error'=> trans('lang.Invalid_Password'),'status'=> 401, 'validation_error'=> 0]);
         }
-        return response()->json(['error'=> trans('lang.Invalid_Email'),'status'=> 400, 'validation_error'=> 0]);
+        return response()->json(['error'=> trans('lang.Invalid_Email'),'status'=> 401, 'validation_error'=> 0]);
     }
 
 
@@ -83,7 +82,7 @@ class loginController extends Controller
         if($validator->fails())
         {
             return response()->json([
-                'status'=>'400',
+                'status'=>'401',
                 'error'=>$validator->messages(),
                 'validation_error' => 1,
             ]);
@@ -120,7 +119,7 @@ class loginController extends Controller
         {
             return response()->json([
                 'error'=> trans('lang.Invalid_Email'),
-                'status'=>400,
+                'status'=>401,
                 'validation_error' => 0,
             ]);
         }
@@ -152,7 +151,7 @@ class loginController extends Controller
         if($validator->fails())
         {
             return response()->json([
-                'status'=>'400',
+                'status'=>'401',
                 'error'=>$validator->messages(),
                 'validation_error' => 1,
             ]);
@@ -174,13 +173,13 @@ class loginController extends Controller
             }
             return response()->json([
                 'error'=> trans('lang.Error_Password_Intro'),
-                'status'=>400,
+                'status'=>401,
                 'validation_error' => 0,
             ]);
         }
         return response()->json([
             'error'=> trans('lang.Invalid_Email'),
-            'status'=>400,
+            'status'=>401,
             'validation_error' => 0,
         ]);
     }
