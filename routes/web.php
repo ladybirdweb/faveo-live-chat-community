@@ -26,7 +26,6 @@ Route::group(
     function () {
 
         Route::get('/', function () {
-//            App::setlocale(session('myLang'));
             return view('login');
         });
         Route::post('checklogin', [loginController::class, 'checkLogin']);
@@ -52,11 +51,11 @@ Route::group(
     }
 );
 
-//Route::group(
-//    ['middleware' => ['checkAgent']],
-//    function () {
+Route::group(
+    ['middleware' => ['checkAgent']],
+    function () {
         Route::view('agent', 'agent');
-//    }
-//);
+    }
+);
 
 

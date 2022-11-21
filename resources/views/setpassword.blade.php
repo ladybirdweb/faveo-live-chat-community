@@ -25,37 +25,14 @@
 
     <div id="customer-chat-content-login-form" class="customer-chat-content">
         <div class="customer-chat-content-info" id="message">
-{{--            @if (session('error'))--}}
-{{--                <div class="customer-chat-login-errors">--}}
-{{--                    <ul>--}}
-{{--                        <li> {{ session('error') }}</li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            @elseif (session('success'))--}}
-{{--                <div class="customer-chat-login-success">--}}
-{{--                    <ul>--}}
-{{--                        <li>{{ session('success') }}</li>--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            @elseif ($errors->any())--}}
-{{--                <div class="customer-chat-login-errors">--}}
-{{--                    <ul>--}}
-{{--                        @foreach ($errors->all() as $error)--}}
-{{--                            <li>{{ $error }}</li>--}}
-{{--                        @endforeach--}}
-{{--                    </ul>--}}
-{{--                </div>--}}
-{{--            @else--}}
+
 
             <div id ="intro">
                 {{__('lang.Set_Password_Intro') }}
             </div>
 
-{{--            @endif--}}
         </div>
 
-{{--        <form action="checkSetpassword" method="POST" style="padding-top: 5px;" >--}}
-{{--            @csrf--}}
             <div class="customer-chat-content-message-input">
                 <input id="pass" type="password" name="password" class="customer-chat-content-message-input-field" placeholder=" {{__('lang.Password')}} " />
             </div>
@@ -65,12 +42,11 @@
             <div class="customer-chat-content-row">
                 <button type="submit" id="customer-chat-login-start" class="customer-chat-content-button"> {{__('lang.Submit')}} <i class="icon-circle-arrow-right icon-white" style="margin: 3px 0 0 3px;"></i></button>
             </div>
-{{--        </form>--}}
 
     </div>
 </div>
 
-{{--<script type="text/javascript" src="{{ asset('js/lib/jquery.min.js') }}"></script>--}}
+<script type="text/javascript" src="{{ asset('js/lib/jquery.min.js') }}"></script>
 
 <script>
     $(document).ready(function(){
@@ -125,9 +101,6 @@
                                 "</ul>"+
                                 "</div>"
                             );
-                            // setTimeout(function () {
-                            //     location.reload(true);
-                            // }, 5000);
                             $('#intro').hide();
                         }
                         else
@@ -150,8 +123,6 @@
                 }
             });
         }
-        // }
-        // });
     });
 </script>
 
@@ -166,5 +137,6 @@
 <!--[if lte IE 9]>
         <script type="text/javascript" src="{{ asset('js/lib/placeholders.jquery.min.js') }}"></script>
         <![endif]-->
+
 </body>
 </html>

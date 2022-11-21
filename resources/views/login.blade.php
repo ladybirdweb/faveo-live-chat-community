@@ -40,20 +40,6 @@
                                     <li> {{ session('error') }}</li>
                                 </ul>
                             </div>
-            {{--            @elseif (session('success'))--}}
-            {{--                <div class="customer-chat-login-success" id="message">--}}
-            {{--                    <ul>--}}
-            {{--                        <li>{{ session('success') }}</li>--}}
-            {{--                    </ul>--}}
-            {{--                </div>--}}
-            {{--            @elseif ($errors->any())--}}
-            {{--                <div class="customer-chat-login-errors" id="message">--}}
-            {{--                    <ul>--}}
-            {{--                        @foreach ($errors->all() as $error)--}}
-            {{--                            <li>{{ $error }}</li>--}}
-            {{--                        @endforeach--}}
-            {{--                    </ul>--}}
-            {{--                </div>--}}
                         @else
             <div id ="intro">
                 {{__('lang.Login_Intro') }}
@@ -61,8 +47,6 @@
                         @endif
         </div>
 
-        {{--        <form action="" method="POST">--}}
-        {{--            @csrf--}}
         <div class="customer-chat-content-message-input">
             <input id="name" type="email" name="email" class="customer-chat-content-message-input-field" placeholder=" {{__('lang.Email')}} " />
         </div>
@@ -71,24 +55,21 @@
         </div>
         <div class="customer-chat-content-row">
             <button type="submit" id="customer-chat-login-start" class="customer-chat-content-button" style="margin-bottom: 10px;"> {{__('lang.Login')}} <i class="icon-circle-arrow-right icon-white" style="margin: 3px 0 0 3px;"></i></button>
-            {{--                <br>--}}
             <a class="btn btn-primary" style="margin-left: 30px;" href="forgetpassword" role="button">{{__('lang.Forgot_Password')}}</a>
         </div>
-        {{--        </form>--}}
     </div>
 </div>
 
-{{--<script type="text/javascript" src="{{ asset('js/lib/jquery.min.js') }}"></script>--}}
+<script type="text/javascript" src="{{ asset('js/lib/jquery.min.js') }}"></script>
+
 <script>
     $(document).ready(function(){
         $(document).on('click','#customer-chat-login-start',function() {
-            // console.log('button clicked');
 
             let data = {
                 'email': $("#name").val(),
                 'password': $("#pass").val()
             }
-            // console.log(data);
             sendData(data);
             $('.customer-chat-login-errors').hide();
         });
@@ -127,9 +108,6 @@
                                 "</ul>"+
                                 "</div>"
                             );
-                            // setTimeout(function () {
-                            //     location.reload(true);
-                            // }, 5000);
                             $('#intro').hide();
                         }
                         else
@@ -150,20 +128,20 @@
                 }
             });
         }
-        // }
-        // });
     });
 </script>
-{{--<script type="text/javascript">--}}
-{{--    jQuery(function($)--}}
-{{--    {--}}
-{{--        // Activate the first input--}}
 
-{{--        $('#name').focus();--}}
-{{--    });--}}
-{{--</script>--}}
+<script type="text/javascript">
+    jQuery(function($)
+    {
+        // Activate the first input
+
+        $('#name').focus();
+    });
+</script>
 <!--[if lte IE 9]>
-{{--<!--        <script type="text/javascript" src="{{ asset('js/lib/placeholders.jquery.min.js') }}"></script>-->--}}
+        <script type="text/javascript" src="{{ asset('js/lib/placeholders.jquery.min.js') }}"></script>
         <![endif]-->
+
 </body>
 </html>
