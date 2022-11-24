@@ -17,53 +17,56 @@ use Illuminate\Validation\Rules\Password;
 class loginController extends Controller
 {
 
-    public function checkLogin(Request $req)
+    public function checkLogin(LoginRequest $req)
     {
-        $validator = Validator::make($req->all(),[
-            'email'   => ['required'],
-            'password'=> ['required'],
-        ]);
+//        $validator = Validator::make($req->all(),[
+//            'email'   => ['required'],
+//            'password'=> ['required'],
+//        ]);
+//
+//        if($validator->fails())
+//        {
+//            return response()->json([
+//                'status'=>'401',
+//                'error'=>$validator->messages(),
+//                'validation_error' => 1,
+//            ]);
+//        }
 
-        if($validator->fails())
-        {
+        if (!$user = User::where('email', $req->email)->first()) {
             return response()->json([
-                'status'=>'401',
-                'error'=>$validator->messages(),
-                'validation_error' => 1,
+                'error' => trans('lang.Invalid_Email'),
+                'status' => 401,
+//            'validation_error'=> 0
             ]);
         }
-
-        $user = User::where('email', $req->email)->first();
-        if ($user) {
-            $isValidPassword = Hash::check($req->password, $user->password);
-            if ($isValidPassword)
-            {
-                Auth::login($user);
-                $user = Auth::user();
-                $token = $user->createToken('loginToken')->accessToken;
-                session(['token' => $token]);
-
-                if (Auth::user()->role == 'admin') {
-
-                    return response()->json([
-                        'data'=> 'logged in as admin',
-                        'status'=> 200,
-                        'role'=>'admin',
-                        'token'=>$token
-                    ]);
-                }
-                if (Auth::user()->role == 'agent') {
-                    return response()->json([
-                        'data'=> 'logged in as agent',
-                        'status'=> 200,
-                        'role'=>'agent',
-                        'token'=>$token
-                    ]);
-                }
-            }
-            return response()->json(['error'=> trans('lang.Invalid_Password'),'status'=> 401, 'validation_error'=> 0]);
+        if (!$isValidPassword = Hash::check($req->password, $user->password)) {
+            return response()->json([
+                'error' => trans('lang.Invalid_Password'),
+                'status' => 401,
+//            'validation_error'=> 0
+            ]);
         }
-        return response()->json(['error'=> trans('lang.Invalid_Email'),'status'=> 401, 'validation_error'=> 0]);
+        Auth::login($user);
+        $user = Auth::user();
+        $token = $user->createToken('loginToken')->accessToken;
+        session(['token' => $token]);
+        if (Auth::user()->role == 'admin') {
+            return response()->json([
+                'data'=> 'logged in as admin',
+                'status'=> 200,
+                'role'=>'admin',
+                'token'=>$token
+            ]);
+        }
+        if (Auth::user()->role == 'agent') {
+            return response()->json([
+                'data'=> 'logged in as agent',
+                'status'=> 200,
+                'role'=>'agent',
+                'token'=>$token
+            ]);
+        }
     }
 
 
@@ -89,57 +92,45 @@ class loginController extends Controller
             ]);
         }
 
-        $user = User::where('email', $req->email)->first();
-        if ($user)
-        {
-            $emailExists = Resetpassword::where('email',$req->email)->first();
-            $otp = random_int(100000, 999999);
-            if($emailExists)
-            {
-                $emailExists->otp = $otp;
-                $emailExists->save();
-                $id = $emailExists->id;
-            }
-            else
-            {
-                $row = new ResetPassword;
-                $row->email = $req->email;
-                $row->otp = $otp;
-                $row->save();
-                $id = $row->id;
-            }
-            $resetPasswordLink =  url('checkLink' .'/' .$id .'/'.$otp);
-            $emailData = [ 'link' => $resetPasswordLink , 'name' => $user->name];
-            Mail::to($req->email)->send(new resetpasswordemail($emailData));
+        if (!$user = User::where('email', $req->email)->first()) {
             return response()->json([
-                'success'=> trans('lang.Success_Link_Intro'),
-                'status'=> 200,
-            ]);
-        }
-        else
-        {
-            return response()->json([
-                'error'=> trans('lang.Invalid_Email'),
-                'status'=>401,
+                'error' => trans('lang.Invalid_Email'),
+                'status' => 401,
                 'validation_error' => 0,
             ]);
         }
+        $otp = random_int(100000, 999999);
+        if(!$emailExists = Resetpassword::where('email',$req->email)->first()) {
+            $row = new ResetPassword;
+            $row->email = $req->email;
+            $row->otp = $otp;
+            $row->save();
+            $id = $row->id;
+        }
+        $emailExists->otp = $otp;
+        $emailExists->save();
+        $id = $emailExists->id;
+
+        $resetPasswordLink =  url('checkLink' .'/' .$id .'/'.$otp);
+        $emailData = [ 'link' => $resetPasswordLink , 'name' => $user->name];
+        Mail::to($req->email)->send(new resetpasswordemail($emailData));
+        return response()->json([
+            'success'=> trans('lang.Success_Link_Intro'),
+            'status'=> 200,
+        ]);
     }
 
 
     function checkOtp($id, $otp)
     {
-        $user = Resetpassword::find($id);
-        if($user)
-        {
-            if ($user->otp == $otp)
-            {
-                Cache::add('email', $user->email);
-                return redirect('setpassword');
-            }
-            return redirect("/")->with('error', trans('lang.Invalid_OTP'));
+        if(!$user = Resetpassword::find($id)) {
+            return redirect("/")->with('error', trans('lang.Invalid_Email'));
         }
-        return redirect("/")->with('error', trans('lang.Invalid_Email'));
+        if ($user->otp == $otp) {
+            Cache::add('email', $user->email);
+            return redirect('setpassword');
+        }
+        return redirect("/")->with('error', trans('lang.Invalid_OTP'));
     }
 
 
@@ -157,29 +148,27 @@ class loginController extends Controller
                 'validation_error' => 1,
             ]);
         }
-        $user = User::where('email', Cache::get('email'))->first();
-        if($user)
-        {
-            if ($req->password == $req->confirmpassword)
-            {
-                $id = $user->id;
-                $data = User::find($id);
-                $data->password = Hash::make($req->password);
-                $data->save();
-                Cache::forget('email');
-                return response()->json([
-                    'success'=> trans('lang.Success_Password_Intro'),
-                    'status'=>200,
-                ]);
-            }
+        if(!$user  = User::where('email', Cache::get('email'))->first()) {
             return response()->json([
-                'error'=> trans('lang.Error_Password_Intro'),
-                'status'=>401,
+                'error' => trans('lang.Invalid_Email'),
+                'status' => 401,
                 'validation_error' => 0,
             ]);
         }
+        if ($req->password == $req->confirmpassword)
+        {
+            $id = $user->id;
+            $data = User::find($id);
+            $data->password = Hash::make($req->password);
+            $data->save();
+            Cache::forget('email');
+            return response()->json([
+                'success'=> trans('lang.Success_Password_Intro'),
+                'status'=>200,
+            ]);
+        }
         return response()->json([
-            'error'=> trans('lang.Invalid_Email'),
+            'error'=> trans('lang.Error_Password_Intro'),
             'status'=>401,
             'validation_error' => 0,
         ]);
