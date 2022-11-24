@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
 use App\Mail\resetpasswordemail;
 use App\Models\Resetpassword;
 use App\Models\User;
@@ -32,7 +33,7 @@ class loginController extends Controller
             ]);
         }
 
-        $user = User::where('email', $req->email)->get()->first();
+        $user = User::where('email', $req->email)->first();
         if ($user) {
             $isValidPassword = Hash::check($req->password, $user->password);
             if ($isValidPassword)
@@ -88,10 +89,10 @@ class loginController extends Controller
             ]);
         }
 
-        $user = User::where('email', $req->email)->get()->first();
+        $user = User::where('email', $req->email)->first();
         if ($user)
         {
-            $emailExists = Resetpassword::where('email',$req->email)->get()->first();
+            $emailExists = Resetpassword::where('email',$req->email)->first();
             $otp = random_int(100000, 999999);
             if($emailExists)
             {
@@ -156,7 +157,7 @@ class loginController extends Controller
                 'validation_error' => 1,
             ]);
         }
-        $user = User::where('email', Cache::get('email'))->get()->first();
+        $user = User::where('email', Cache::get('email'))->first();
         if($user)
         {
             if ($req->password == $req->confirmpassword)
