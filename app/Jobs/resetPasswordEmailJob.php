@@ -15,6 +15,7 @@ class resetPasswordEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $details;
     /**
      * Create a new job instance.
      *
@@ -32,7 +33,6 @@ class resetPasswordEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        // resetpasswordemail
         $email = new resetpasswordemail($this->details);
         Mail::to($this->details['email'])->send($email);
     }
