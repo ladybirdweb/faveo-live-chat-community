@@ -1,20 +1,5 @@
-
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <title> {{__('lang.Set_Password')}} </title>
-
-    <!-- Styles -->
-
-    <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-</head>
-<body class="login">
+@extends('login_layouts.header')
+@section('content')
 
 <img class="logo" src="{{ asset('img/faveo-logo.png') }}">
 
@@ -46,8 +31,6 @@
     </div>
 </div>
 
-<script type="text/javascript" src="{{ asset('js/lib/jquery.min.js') }}"></script>
-
 <script>
     $(document).ready(function(){
         $(document).on('click','#customer-chat-login-start',function() {
@@ -74,7 +57,6 @@
                 data: data,
                 dataType: 'JSON',
                 success: function (response) {
-
                     if (response.status == 200)
                     {
                         $("#message").append(
@@ -91,52 +73,33 @@
 
                         $('#intro').hide();
                     }
-                    else {
-                        if(response.validation_error == 0)
-                        {
-                            $("#message").append(
-                                "<div class='customer-chat-login-errors'>"+
-                                "<ul>"+
-                                "<li>"+  response.error + "</li>"+
-                                "</ul>"+
-                                "</div>"
-                            );
-                            $('#intro').hide();
-                        }
-                        else
-                        {
-                            var errors = response.error;
-                            $.each(errors, function (key, val) {
-                                $.each(val, function (key1, val1) {
-                                    $("#message").append(
-                                        "<div class='customer-chat-login-errors'>" +
-                                        "<ul>" +
-                                        "<li>" + val1 + "</li>" +
-                                        "</ul>" +
-                                        "</div>"
-                                    );
-                                });
-                                $('#intro').hide();
-                            });
-                        }
+                    if (response.status == 401)
+                    {
+                        $("#message").append(
+                            "<div class='customer-chat-login-errors'>"+
+                            "<ul>"+
+                            "<li>"+  response.error + "</li>"+
+                            "</ul>"+
+                            "</div>"
+                        );
+                        $('#intro').hide();
                     }
-                }
+                },
+                error: function (error) {
+                    let messages = error.responseJSON.errors;
+                    $.each(messages, function (key, val) {
+                        $("#message").append(
+                            "<div class='customer-chat-login-errors'>"+
+                            "<ul>"+
+                            "<li>"+  val + "</li>"+
+                            "</ul>"+
+                            "</div>"
+                        );
+                    });
+                    $('#intro').hide();
+                },
             });
         }
     });
 </script>
-
-<script type="text/javascript">
-    jQuery(function($)
-    {
-        // Activate the first input
-
-        $('#name').focus();
-    });
-</script>
-<!--[if lte IE 9]>
-        <script type="text/javascript" src="{{ asset('js/lib/placeholders.jquery.min.js') }}"></script>
-        <![endif]-->
-
-</body>
-</html>
+@endsection

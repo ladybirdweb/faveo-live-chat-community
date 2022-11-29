@@ -24,26 +24,14 @@ Route::get('logout', function () {
 Route::group(
     ['middleware' => ['checkLogin']],
     function () {
-
-//        Route::get('/', function () {
-//            return view('login');
-//        });
         Route::view('/','login');
         Route::post('checklogin', [loginController::class, 'checkLogin']);
-//        Route::get('forgetpassword', function () {
-//            return view('forgetpassword');
-//        });
         Route::view('forgetpassword','forgetpassword');
         Route::post('checkForgetpassword', [loginController::class, 'forgetpassword']);
         Route::get('checkLink/{id}/{otp}', [loginController::class, 'checkotp']);
-//        Route::get('setpassword', function () {
-//            return view('setpassword');
-//        });
         Route::view('setpassword','setpassword');
         Route::post('checkSetpassword', [loginController::class, 'setpassword']);
-
         Route::post('selectlanguage',[loginController::class,'selectLanguage']);
-
     }
 );
 Route::group(

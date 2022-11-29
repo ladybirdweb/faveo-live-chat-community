@@ -2,67 +2,49 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\forgetPasswordRequest;
 use App\Http\Requests\LoginRequest;
-use App\Mail\resetpasswordemail;
+use App\Http\Requests\setPasswordRequest;
 use App\Models\Resetpassword;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Password;
+use App\Jobs\resetPasswordEmailJob;
 
 class loginController extends Controller
 {
 
     public function checkLogin(LoginRequest $req)
     {
-//        $validator = Validator::make($req->all(),[
-//            'email'   => ['required'],
-//            'password'=> ['required'],
-//        ]);
-//
-//        if($validator->fails())
-//        {
-//            return response()->json([
-//                'status'=>'401',
-//                'error'=>$validator->messages(),
-//                'validation_error' => 1,
-//            ]);
-//        }
+//        $user = User::where('email', $req->email)->first();
+        $user = Auth::attempt(['email' => $req->email, 'password' => $req->password]);
+        if (!$user)
+        {
+            return Response()->json([
+                'error' => trans('lang.Invalid_Credentials'),
+                'status' => 401,
+            ]);
+//            return errorResponse(trans('lang.Invalid_Credentials'), 401);
 
-        if (!$user = User::where('email', $req->email)->first()) {
-            return response()->json([
-                'error' => trans('lang.Invalid_Email'),
-                'status' => 401,
-//            'validation_error'=> 0
-            ]);
         }
-        if (!$isValidPassword = Hash::check($req->password, $user->password)) {
-            return response()->json([
-                'error' => trans('lang.Invalid_Password'),
-                'status' => 401,
-//            'validation_error'=> 0
-            ]);
-        }
-        Auth::login($user);
+//        Auth::login($user);
         $user = Auth::user();
         $token = $user->createToken('loginToken')->accessToken;
         session(['token' => $token]);
         if (Auth::user()->role == 'admin') {
-            return response()->json([
+            return successResponse()([
                 'data'=> 'logged in as admin',
-                'status'=> 200,
+//                'status'=> 200,
                 'role'=>'admin',
                 'token'=>$token
             ]);
         }
         if (Auth::user()->role == 'agent') {
-            return response()->json([
+            return successResponse()([
                 'data'=> 'logged in as agent',
-                'status'=> 200,
+//                'status'=> 200,
                 'role'=>'agent',
                 'token'=>$token
             ]);
@@ -78,25 +60,13 @@ class loginController extends Controller
     }
 
 
-    public function forgetpassword(Request $req)
+    public function forgetpassword(forgetPasswordRequest $req)
     {
-        $validator = Validator::make($req->all(),[
-            'email'   => ['required'],
-        ]);
-        if($validator->fails())
-        {
-            return response()->json([
-                'status'=>'401',
-                'error'=>$validator->messages(),
-                'validation_error' => 1,
-            ]);
-        }
-
-        if (!$user = User::where('email', $req->email)->first()) {
+        $user = User::where('email',$req->email)->first();
+        if (!$user) {
             return response()->json([
                 'error' => trans('lang.Invalid_Email'),
                 'status' => 401,
-                'validation_error' => 0,
             ]);
         }
         $otp = random_int(100000, 999999);
@@ -112,8 +82,14 @@ class loginController extends Controller
         $id = $emailExists->id;
 
         $resetPasswordLink =  url('checkLink' .'/' .$id .'/'.$otp);
-        $emailData = [ 'link' => $resetPasswordLink , 'name' => $user->name];
-        Mail::to($req->email)->send(new resetpasswordemail($emailData));
+//        $emailData = [ 'link' => $resetPasswordLink , 'name' => $user->name];
+//        Mail::to($req->email)->send(new resetpasswordemail($emailData));
+//        $details['email'] = $req->email;
+        $details = [ 'link' => $resetPasswordLink , 'name' => $user->name,'email' => $req->email];
+
+        resetPasswordEmailJob::dispatch($details);
+//        dispatch(new App\Jobs\resetPasswordEmailJob($details));
+//        return response()->json(['message'=>'Mail Send Successfully!!']);
         return response()->json([
             'success'=> trans('lang.Success_Link_Intro'),
             'status'=> 200,
@@ -134,25 +110,14 @@ class loginController extends Controller
     }
 
 
-    function setPassword(Request $req)
+    function setPassword(setPasswordRequest $req)
     {
-        $validator = Validator::make($req->all(),[
-            'password'   => ['required', Password::min(6)->letters()->numbers()->symbols()],
-            'confirmpassword'   => ['required'],
-        ]);
-        if($validator->fails())
-        {
-            return response()->json([
-                'status'=>'401',
-                'error'=>$validator->messages(),
-                'validation_error' => 1,
-            ]);
-        }
-        if(!$user  = User::where('email', Cache::get('email'))->first()) {
+        $user = User::where('email', Cache::get('email'))->first();
+//        $user = Auth::attempt(['email'=> Cache::get('email')]);
+        if(!$user) {
             return response()->json([
                 'error' => trans('lang.Invalid_Email'),
                 'status' => 401,
-                'validation_error' => 0,
             ]);
         }
         if ($req->password == $req->confirmpassword)
@@ -170,7 +135,6 @@ class loginController extends Controller
         return response()->json([
             'error'=> trans('lang.Error_Password_Intro'),
             'status'=>401,
-            'validation_error' => 0,
         ]);
     }
 
