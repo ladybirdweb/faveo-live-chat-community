@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\loginController;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -18,13 +17,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('logout', function () {
     Auth::logout();
+
     return redirect('/');
 });
 
 Route::group(
     ['middleware' => ['checkLogin']],
     function () {
-
         Route::get('/', function () {
             return view('login');
         });
@@ -45,8 +44,7 @@ Route::group(
 
         Route::post('checkSetpassword', [loginController::class, 'setpassword']);
 
-        Route::post('selectlanguage',[loginController::class,'selectLanguage']);
-
+        Route::post('selectlanguage', [loginController::class, 'selectLanguage']);
     }
 );
 
@@ -63,5 +61,3 @@ Route::group(
         Route::view('agent', 'agent');
     }
 );
-
-

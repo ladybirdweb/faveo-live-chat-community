@@ -13,8 +13,9 @@ class checkAgent
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next)
@@ -23,14 +24,13 @@ class checkAgent
             App::setLocale(Session::get('myLang'));
         }
 
-        if(Auth::check() == false)
-        {
+        if (Auth::check() == false) {
             return redirect('/');
         }
-        if(Auth::user()->role == 'admin')
-        {
+        if (Auth::user()->role == 'admin') {
             return redirect('admin');
         }
+
         return $next($request);  //agent
     }
 }
