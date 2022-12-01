@@ -25,8 +25,8 @@ class setPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' => ['required',Password::min(6)->letters()->numbers()->symbols()],
-            'confirmpassword' => ['required']
+            'password'        => ['required', Password::min(6)->letters()->numbers()->symbols()],
+            'confirmpassword' => ['required'],
         ];
     }
 }
