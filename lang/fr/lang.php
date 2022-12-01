@@ -1,7 +1,6 @@
 <?php
 
 return[
-
     'Login'                      => 'connexion',
     'Email'                      => 'adresse e-mail',
     'Password'                   => 'Mot de passe',
@@ -31,14 +30,13 @@ return[
     'FAVEO_Password_Reset'       => 'FAVEO Réinitialisation du mot de passe',
     'Invalid_Credentials'        => "Les informations d'identification invalides",
 
-//    Admin Page
+    //    Admin Page
     'Admin'            => 'Administratrice',
     'Faveo_Chat'       => 'FAVEO Discuter',
     'Online'           => 'En ligne',
     'Offline'          => 'Hors ligne',
-    'Edit_Profile'    => 'Editer le profil',
+    'Edit_Profile'     => 'Editer le profil',
 
     'map_no_api_key_info' => "Entrez votre clé API Google Maps dans l'onglet 'Paramètres' et actualisez la page.",
-
 
 ];

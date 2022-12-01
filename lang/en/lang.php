@@ -22,7 +22,6 @@ return[
     'Invalid_OTP'           => 'Invalid OTP',
 
     'Invalid_Credentials' => 'Invalid Credentials',
-
     'Success_Link_Intro'         => "We've sent you a verification email. Open it and tap the link to continue.",
     'Success_Password_Intro'     => 'Your password has  been changed successfully',
     'Error_Password_Intro'       => 'Password and confirm password should be same',
@@ -33,24 +32,23 @@ return[
     'Team_FAVEO'                 => 'Team FAVEO',
     'FAVEO_Password_Reset'       => 'FAVEO Password Reset',
 
-//    Admin Page
+    //    Admin Page
     'Admin'            => 'Admin',
     'Faveo_Chat'       => 'FAVEO Chat',
     'Online'           => 'Online',
     'Offline'          => 'Offline',
-    'Edit_Profile'    => 'Edit Profile',
+    'Edit_Profile'     => 'Edit Profile',
 
-    'Departments' => 'Departments',
-    'Operators' => 'Operators',
-    'Widget_Settings' => 'Widget settings',
-    'Widget_Theme' => 'Widget theme',
-    'Canned_Messages' => 'Canned messages',
+    'Departments'      => 'Departments',
+    'Operators'        => 'Operators',
+    'Widget_Settings'  => 'Widget settings',
+    'Widget_Theme'     => 'Widget theme',
+    'Canned_Messages'  => 'Canned messages',
     'Widget_Blacklist' => 'Widget blacklist',
-    'History' => 'History',
-    'Settings' => 'Settings',
+    'History'          => 'History',
+    'Settings'         => 'Settings',
 
     'map_no_api_key_info' => "Enter your Google Maps API key in the 'Settings' tab and refresh the page.",
-
 
 ];
 
