@@ -57,44 +57,54 @@
                 data: data,
                 dataType: 'JSON',
                 success: function (response) {
-                    if (response.status == 200)
-                    {
                         $("#message").append(
                             "<div class='customer-chat-login-success'>"+
                             "<ul>"+
-                            "<li>"+  response.success + "</li>"+
+                            "<li>"+  response['message'] + "</li>"+
                             "</ul>"+
                             "</div>"
                         );
 
                         setTimeout(function () {
                             window.location = "/";
-                        }, 7000);
+                        }, 5000);
 
                         $('#intro').hide();
-                    }
-                    if (response.status == 401)
+                },
+                error: function (error) {
+                    if (error.status == 401)
                     {
                         $("#message").append(
                             "<div class='customer-chat-login-errors'>"+
                             "<ul>"+
-                            "<li>"+  response.error + "</li>"+
+                            "<li>"+  error.responseJSON.message + "</li>"+
                             "</ul>"+
                             "</div>"
                         );
                         $('#intro').hide();
                     }
-                },
-                error: function (error) {
                     let messages = error.responseJSON.errors;
                     $.each(messages, function (key, val) {
-                        $("#message").append(
-                            "<div class='customer-chat-login-errors'>"+
-                            "<ul>"+
-                            "<li>"+  val + "</li>"+
-                            "</ul>"+
-                            "</div>"
-                        );
+                        if($.isArray(val)) {
+                            $.each(val, function (key, value) {
+                                $("#message").append(
+                                    "<div class='customer-chat-login-errors'>"+
+                                    "<ul>"+
+                                    "<li>"+  value + "</li>"+
+                                    "</ul>"+
+                                    "</div>"
+                                );
+                            });
+                        }
+                        else {
+                            $("#message").append(
+                                "<div class='customer-chat-login-errors'>" +
+                                "<ul>" +
+                                "<li>" + val + "</li>" +
+                                "</ul>" +
+                                "</div>"
+                            );
+                        }
                     });
                     $('#intro').hide();
                 },

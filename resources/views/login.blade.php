@@ -72,8 +72,8 @@
                 data: data,
                 dataType: 'JSON',
                 success: function (response) {
-                    if (response.status == 200) {
-                        if(response.role == 'admin')
+                    if (response['success'] == true) {
+                        if(response['message'] == 'admin')
                         {
                             window.location = "admin";
                         }
@@ -81,19 +81,18 @@
                             window.location = "agent";
                         }
                     }
-                    if (response.status == 401) {
-                        console.log(hello);
+                },
+                error: function (error) {
+                    if (error.status == 401) {
                         $("#message").append(
                             "<div class='customer-chat-login-errors'>"+
                             "<ul>"+
-                            "<li>"+  response.message + "</li>"+
+                            "<li>"+  error.responseJSON.message + "</li>"+
                             "</ul>"+
                             "</div>"
                         );
                         $('#intro').hide();
                     }
-                },
-                error: function (error) {
                     let messages = error.responseJSON.errors;
                     $.each(messages, function (key, val) {
                         $("#message").append(

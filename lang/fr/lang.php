@@ -29,6 +29,7 @@ return[
     'Thanks'           => 'Merci!',
     'Team_FAVEO'       => 'Équipe FAVEO',
     'FAVEO_Password_Reset' => 'FAVEO Réinitialisation du mot de passe',
+    'Invalid_Credentials' => "Les informations d'identification invalides"
 
 ];
 
