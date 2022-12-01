@@ -1,12 +1,14 @@
 <?php
 
-function errorResponse($message, $statusCode = 401) {
+function errorResponse($message, $statusCode = 401)
+{
+    $statusCode = ($statusCode) ?: 401;
 
-    $statusCode = ($statusCode)?:401;
     return response()->json(['success' => false, 'message' => $message], $statusCode);
 }
 
-function successResponse($message = '', $data = '', $statusCode = 200) {
+function successResponse($message = '', $data = '', $statusCode = 200)
+{
     $response = ['success' => true];
 
     // if message given
@@ -21,4 +23,3 @@ function successResponse($message = '', $data = '', $statusCode = 200) {
 
     return response()->json($response, $statusCode);
 }
-
