@@ -50,10 +50,8 @@ class loginController extends Controller
         $id = $emailExists->id;
 
         $resetPasswordLink = url('checkLink'.'/'.$id.'/'.$otp);
-
         $details = ['link' => $resetPasswordLink, 'name' => $user->name, 'email' => $req->email];
         dispatch(new resetPasswordEmailJob($details));
-
         return successResponse(trans('lang.Success_Link_Intro'), '', 200);
     }
 
@@ -64,10 +62,8 @@ class loginController extends Controller
         }
         if ($user->otp == $otp) {
             Cache::add('email', $user->email);
-
             return redirect('setpassword');
         }
-
         return redirect('/')->with('error', trans('lang.Invalid_OTP'));
     }
 
@@ -83,10 +79,8 @@ class loginController extends Controller
             $data->password = Hash::make($req->password);
             $data->save();
             Cache::forget('email');
-
             return successResponse(trans('lang.Success_Password_Intro'), '', 200);
         }
-
         return errorResponse(trans('lang.Error_Password_Intro'), 401);
     }
 
@@ -94,7 +88,7 @@ class loginController extends Controller
     {
         $lang = $req->lang;
         session(['myLang'=> $lang]);
-
         return redirect('/');
     }
+
 }

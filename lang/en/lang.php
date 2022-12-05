@@ -50,6 +50,16 @@ return[
 
     'map_no_api_key_info' => "Enter your Google Maps API key in the 'Settings' tab and refresh the page.",
 
+
+    'Username'         => 'Username',
+    'Back'             => 'Back to list',
+    'Add_new_operator' => 'Add New operator',
+    'Add_new'          => 'Add New',
+    'Name'             => 'Name',
+    'Description'      => 'Description',
+    'Add_new_department' => 'Add New Department',
+    'Add_new_canned'   => 'Add New Canned Messages',
+    'Body'             => 'Body'
 ];
 
 ?>

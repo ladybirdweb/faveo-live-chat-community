@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\departmentController;
 use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('logout', function () {
     Auth::logout();
-
     return redirect('/');
 });
 
@@ -34,10 +34,17 @@ Route::group(
         Route::post('selectlanguage', [loginController::class, 'selectLanguage']);
     }
 );
+
 Route::group(
     ['middleware' => ['checkAdmin']],
     function () {
         Route::view('admin', 'admin');
+        Route::view('settings','settings');
+        Route::view('addOperators','admin_add_operators');
+        Route::view('addDepartments','admin_add_departments');
+        Route::view('cannedMessages','admin_add_canned_messages');
+        Route::view('systemSettings','admin_system_settings');
+        Route::post('addDepartment', [departmentController::class, 'addDepartment']);
     }
 );
 

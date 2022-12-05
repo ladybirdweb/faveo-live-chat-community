@@ -1,104 +1,120 @@
+@extends('admin_layouts.app')
+@section('content')
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title> {{__('lang.Admin')}} </title>
+{{--    -------------------------------------app.blade.php-------------------------------------}}
 
-            <!-- Styles -->
+{{--<!DOCTYPE html>--}}
+{{--<html>--}}
+{{--<head>--}}
+{{--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">--}}
+{{--    <title> {{__('lang.Admin')}} </title>--}}
 
-    <link rel="icon" type="image/icon" href="{{ asset('img/faveo-logo.png') }}">
+{{--            <!-- Styles -->--}}
+
+{{--    <link rel="icon" type="image/icon" href="{{ asset('img/faveo-logo.png') }}">--}}
 {{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">--}}
-    <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}" >
-    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" >
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" >
-    <link rel="stylesheet" href="{{ asset('css/bootstrap-popover.css') }}" >
-    <link rel="stylesheet" href="{{ asset('css/colorpicker.css') }}" >
-    <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.10.3.custom.css') }}" >
-</head>
-<body>
-<div id="customer-chat" class="customer-chat customer-chat-admin">
-    <div class="customer-chat-header">
-        <div class="customer-chat-header-title">
-            <img style="width: 80px; height: auto;" src="{{ asset('img/faveo.png') }}" />
-            {{__('lang.Faveo_Chat')}}
-        </div>
-        <div id="customer-chat-button-menu" class="customer-chat-header-button">
-            <div class="customer-chat-content-message-avatar-operator"></div>
-            <div class="customer-chat-header-button-text"></div>
-            <i class="icon-chevron-down icon-white"></i>
-        </div>
-        <div class="status-switch">
-            <span class="online"><i class="icon fa fa-circle"></i> {{__('lang.Online')}} </span>
-            <span class="offline"><i class="icon fa fa-circle"></i> {{__('lang.Offline')}}</span>
-        </div>
+{{--    <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.css') }}" />--}}
+{{--    <link rel="stylesheet" href="{{ asset('css/main.css') }}" >--}}
+{{--    <link rel="stylesheet" href="{{ asset('css/admin.css') }}" >--}}
+{{--    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" >--}}
+{{--    <link rel="stylesheet" href="{{ asset('css/bootstrap-popover.css') }}" >--}}
+{{--    <link rel="stylesheet" href="{{ asset('css/colorpicker.css') }}" >--}}
+{{--    <link rel="stylesheet" href="{{ asset('css/jquery-ui-1.10.3.custom.css') }}" >--}}
+{{--</head>--}}
+{{--<body>--}}
+{{--<div id="customer-chat" class="customer-chat customer-chat-admin">--}}
 
-        <div class="customer-chat-header-menu">
-            <div class="customer-chat-header-menu-triangle"></div>
+{{------------------------------------app.blade.php end----------------------------------------------}}
 
-            <a href="#" id="customer-chat-header-menu-edit" class="customer-chat-header-menu-item" data-id="0"><i class="icon-user"></i> <div> {{__('lang.Edit_Profile')}} </div></a>
+{{--------------------------------------------header.blade.php-------------------------------------------------------}}
+
+{{--    <div class="customer-chat-header">--}}
+{{--        <div class="customer-chat-header-title">--}}
+{{--            <img style="width: 80px; height: auto;" src="{{ asset('img/faveo.png') }}" />--}}
+{{--            {{__('lang.Faveo_Chat')}}--}}
+{{--        </div>--}}
+{{--        <div id="customer-chat-button-menu" class="customer-chat-header-button">--}}
+{{--            <div class="customer-chat-content-message-avatar-operator"></div>--}}
+{{--            <div class="customer-chat-header-button-text"></div>--}}
+{{--            <i class="icon-chevron-down icon-white"></i>--}}
+{{--        </div>--}}
+{{--        <div class="status-switch">--}}
+{{--            <span class="online"><i class="icon fa fa-circle"></i> {{__('lang.Online')}} </span>--}}
+{{--            <span class="offline"><i class="icon fa fa-circle"></i> {{__('lang.Offline')}}</span>--}}
+{{--        </div>--}}
+
+{{--        <div class="customer-chat-header-menu">--}}
+{{--            <div class="customer-chat-header-menu-triangle"></div>--}}
+
+{{--            <a href="#" id="customer-chat-header-menu-edit" class="customer-chat-header-menu-item" data-id="0"><i class="icon-user"></i> <div> {{__('lang.Edit_Profile')}} </div></a>--}}
 {{--            <a href="" id="customer-chat-header-menu-install" class="customer-chat-header-menu-item"><i class="icon-chevron-right"></i> <div> <?php echo $app->trans('install') ?> </div></a>--}}
 {{--            <?php if($vars["installed"]) { ?>--}}
 {{--            <a href="#" id="customer-chat-header-menu-edit-config" class="customer-chat-header-menu-item"><i class="icon-chevron-right"></i> <div><?php echo $app->trans('edit.config') ?></div></a>--}}
 {{--            <?php } ?>--}}
-            <a href="logout" class="customer-chat-header-menu-item"><i class="icon-off"></i> <div> {{__('lang.Logout')}} </div></a>
-        </div>
-    </div>
+{{--            <a href="logout" class="customer-chat-header-menu-item"><i class="icon-off"></i> <div> {{__('lang.Logout')}} </div></a>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
-    <div class="customer-chat-content">
-        <div class="customer-chat-side-menu">
-            <a href="#" id="customer-chat-side-button-chat" class="customer-chat-side-menu-item"><i class="icon-comment icon-white"></i></a>
-            <a href="#" id="customer-chat-side-button-map" class="customer-chat-side-menu-item"><i class="icon-map-marker icon-white"></i></a>
-            <a href="#" id="customer-chat-side-button-settings" class="customer-chat-side-menu-item"><i class="icon-wrench icon-white"></i></a>
-            <a href="#" id="customer-chat-side-button-qr" class="customer-chat-side-menu-item"><i class="icon-qrcode icon-white"></i></a>
-            <a href="#" id="customer-chat-side-button-logs" class="customer-chat-side-menu-item"><i class="icon-info-sign icon-white"></i></a>
+{{------------------------------------------------header.blade.php end-----------------------------------------------------}}
+
+
+{{-----------------------------------------------------sidebar.blade.php------------------------------------------------------}}
+
+{{--    <div class="customer-chat-content">--}}
+{{--        <div class="customer-chat-side-menu">--}}
+{{--            <a href="#" id="customer-chat-side-button-chat" class="customer-chat-side-menu-item"><i class="icon-comment icon-white"></i></a>--}}
+{{--            <a href="#" id="customer-chat-side-button-map" class="customer-chat-side-menu-item"><i class="icon-map-marker icon-white"></i></a>--}}
+{{--            <a href="settings" id="customer-chat-side-button-settings" class="customer-chat-side-menu-item"><i class="icon-wrench icon-white"></i></a>--}}
+{{--            <a href="#" id="customer-chat-side-button-qr" class="customer-chat-side-menu-item"><i class="icon-qrcode icon-white"></i></a>--}}
+{{--            <a href="#" id="customer-chat-side-button-logs" class="customer-chat-side-menu-item"><i class="icon-info-sign icon-white"></i></a>--}}
 {{--            <a title="Widget preview" href="<?php echo $app->path('Admin:widgetTest') ?>" id="customer-chat-side-button-widget-test" class="customer-chat-side-menu-item" target="_blank"><i class="icon-eye-open icon-white"></i></a>--}}
-            <a title="Get widget script" href="#" id="customer-chat-side-button-widget-snippet" class="customer-chat-side-menu-item"><i class="icon-align-left icon-white"></i></a>
-            <a title="Logout" href="logout" class="customer-chat-side-menu-item"><i class="icon-off icon-white"></i></a>
+{{--            <a title="Get widget script" href="#" id="customer-chat-side-button-widget-snippet" class="customer-chat-side-menu-item"><i class="icon-align-left icon-white"></i></a>--}}
+{{--            <a title="Logout" href="logout" class="customer-chat-side-menu-item"><i class="icon-off icon-white"></i></a>--}}
 
-            <div class="customer-chat-side-menu-triangle"></div>
-        </div>
+{{--            <div class="customer-chat-side-menu-triangle"></div>--}}
+{{--        </div>--}}
 
-        <div class="customer-chat-content-wrapper">
-            <div id="customer-chat-admin-chat"></div>
+{{---------------------------------------------------sidebar.blade.php end---------------------------------------------------------------}}
 
-            <div id="customer-chat-admin-map">
-                <div class="map-wrapper"></div>
-                <div class="no-key-info">
+{{--        <div class="customer-chat-content-wrapper">--}}
+{{--            <div id="customer-chat-admin-chat"></div>--}}
+
+{{--            <div id="customer-chat-admin-map">--}}
+{{--                <div class="map-wrapper"></div>--}}
+{{--                <div class="no-key-info">--}}
 {{--                    <p> {{__('lang.map_no_api_key_info')}} </p>--}}
-                </div>
-            </div>
+{{--                </div>--}}
+{{--            </div>--}}
 
-            <div id="customer-chat-admin-settings">
+{{--            <div id="customer-chat-admin-settings">--}}
 
 {{--                <!-- Tabs -->--}}
 
-                <div class="customer-chat-tabs">
-                    <a href="#" class="customer-chat-tab customer-chat-tab-prev"><i class="icon-chevron-left"></i></a>
-                    <div class="customer-chat-tabs-wrapper">
-                        <a data-tag="operators" href="#" class="customer-chat-tab customer-chat-tab-button operators"><i class="fa fa-user"></i> <span> {{__('lang.Operators')}}</span></a>
-                        <a data-tag="departments" href="#" class="customer-chat-tab customer-chat-tab-button departments"><i class="fa fa-cubes"></i> {{__('lang.Departments')}}</a>
-                        <a data-tag="canned-messages" href="#" class="customer-chat-tab customer-chat-tab-button canned-messages"><i class="fa fa-comments"></i> {{__('lang.Canned_Mmmessages')}}</a>
-                        <a data-tag="history" href="#" class="customer-chat-tab customer-chat-tab-button"><i class="fa fa-search"></i>  {{__('lang.History')}}</a>
-                        <a data-tag="widget-theme" href="#" class="customer-chat-tab customer-chat-tab-button widget-theme"><i class="fa fa-eyedropper"></i>  {{__('lang.Widget_Settings')}}</a>
-                        <a data-tag="blacklist" href="#" class="customer-chat-tab customer-chat-tab-button"><i class="fa fa-ban"></i> {{__('lang.Widget_Blacklist') }}</a>
-                        <a data-tag="settings" href="#" class="customer-chat-tab customer-chat-tab-button customer-chat-active"><i class="fa fa-wrench"></i> {{__('lang.Settings')}}</a>
-                    </div>
-                    <a href="#" class="customer-chat-tab customer-chat-tab-next"><i class="icon-chevron-right"></i></a>
-                </div>
+{{--                <div class="customer-chat-tabs">--}}
+{{--                    <a href="#" class="customer-chat-tab customer-chat-tab-prev"><i class="icon-chevron-left"></i></a>--}}
+{{--                    <div class="customer-chat-tabs-wrapper">--}}
+{{--                        <a data-tag="operators" href="#" class="customer-chat-tab customer-chat-tab-button operators"><i class="fa fa-user"></i> <span> {{__('lang.Operators')}}</span></a>--}}
+{{--                        <a data-tag="departments" href="#" class="customer-chat-tab customer-chat-tab-button departments"><i class="fa fa-cubes"></i> {{__('lang.Departments')}}</a>--}}
+{{--                        <a data-tag="canned-messages" href="#" class="customer-chat-tab customer-chat-tab-button canned-messages"><i class="fa fa-comments"></i> {{__('lang.Canned_Mmmessages')}}</a>--}}
+{{--                        <a data-tag="history" href="#" class="customer-chat-tab customer-chat-tab-button"><i class="fa fa-search"></i>  {{__('lang.History')}}</a>--}}
+{{--                        <a data-tag="widget-theme" href="#" class="customer-chat-tab customer-chat-tab-button widget-theme"><i class="fa fa-eyedropper"></i>  {{__('lang.Widget_Settings')}}</a>--}}
+{{--                        <a data-tag="blacklist" href="#" class="customer-chat-tab customer-chat-tab-button"><i class="fa fa-ban"></i> {{__('lang.Widget_Blacklist') }}</a>--}}
+{{--                        <a data-tag="settings" href="#" class="customer-chat-tab customer-chat-tab-button customer-chat-active"><i class="fa fa-wrench"></i> {{__('lang.Settings')}}</a>--}}
+{{--                    </div>--}}
+{{--                    <a href="#" class="customer-chat-tab customer-chat-tab-next"><i class="icon-chevron-right"></i></a>--}}
+{{--                </div>--}}
 
 {{--                <!-- Tabs contents -->--}}
 
-                <div data-tag="operators" id="customer-chat-operators-tab" class="customer-chat-tab-content"></div>
-                <div data-tag="departments" id="customer-chat-departments-tab" class="customer-chat-tab-content"></div>
-                <div data-tag="canned-messages" id="customer-chat-canned-messages-tab" class="customer-chat-tab-content"></div>
-                <div data-tag="history" id="customer-chat-history" class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-history"></div>
-                <div data-tag="widget-theme" id="customer-chat-widget-theme-tab" class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-settings-ui customer-chat-tab-content-widget-theme"></div>
-                <div data-tag="blacklist" id="customer-chat-pages-list" class="customer-chat-tab-content customer-chat-tab-content-pages-list"></div>
-                <div data-tag="settings" class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-settings-ui"></div>
+{{--                <div data-tag="operators" id="customer-chat-operators-tab" class="customer-chat-tab-content"></div>--}}
+{{--                <div data-tag="departments" id="customer-chat-departments-tab" class="customer-chat-tab-content"></div>--}}
+{{--                <div data-tag="canned-messages" id="customer-chat-canned-messages-tab" class="customer-chat-tab-content"></div>--}}
+{{--                <div data-tag="history" id="customer-chat-history" class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-history"></div>--}}
+{{--                <div data-tag="widget-theme" id="customer-chat-widget-theme-tab" class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-settings-ui customer-chat-tab-content-widget-theme"></div>--}}
+{{--                <div data-tag="blacklist" id="customer-chat-pages-list" class="customer-chat-tab-content customer-chat-tab-content-pages-list"></div>--}}
+{{--                <div data-tag="settings" class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-settings-ui"></div>--}}
 
-            </div>
+{{--            </div>--}}
 
 {{--            <!-- QR Code -->--}}
 
@@ -109,14 +125,24 @@
 {{--            <div id="customer-chat-admin-logs"></div>--}}
 
 {{--            <!-- /Logs -->--}}
-        </div>
-    </div>
-</div>
+{{--        </div>--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 {{--<!-- Templates -->--}}
 
 {{--<php echo $app->renderView('js-templates/common.html'); ?>--}}
-{{--<php echo $app->renderView('js-templates/admin.html'); ?>--}}
+{{--<php--}}
+{{--$view = view('js-templates/common');--}}
+{{--echo $view->render();--}}
+{{--?>--}}
+{{--@include('js-templates/common')--}}
+{{--<php echo $app->renderView('js-templates/adminCrud.html'); ?>--}}
+{{--<php--}}
+{{--$view = view('js-templates/adminCrud');--}}
+{{--echo $view->render();--}}
+{{--?>--}}
+{{--@include('js-templates/adminCrud')--}}
 
 {{--        <!-- Scripts -->--}}
 
@@ -136,24 +162,28 @@
 {{--            <![endif]-->--}}
 {{--<script src="https://ditu.google.cn/maps/api/js?key=<?php echo $vars['gMapsKey'] ?>"></script>--}}
 
-<script src="{{ ('js/lib/jquery.extramouse.js') }}"></script>
-<script src="{{ ('js/lib/jquery.cookie.js') }}"></script>
-<script src="{{ ('js/lib/jquery.ui.min.js') }}"></script>
-<script src="{{ ('js/lib/jquery.mousewhell.js') }}"></script>
-<script src="{{ ('js/lib/jquery.displayevents.js') }}"></script>
-<script src="{{ ('js/lib/jquery.mCustomScrollbar.js') }}"></script>
-<script src="{{ ('js/lib/colorpicker.js') }}"></script>
-<script src="{{ ('js/lib/bootstrap-popover.min.js') }}"></script>
-<script src="{{ ('js/lib/jQuery.AjaxFileUpload.js') }}"></script>
-<script src="{{ ('js/lib/AjaxUploader.js') }}"></script>
-<script src="{{ ('js/lib/json2.js') }}"></script>
-<script src="{{ ('js/lib/qrcode.js') }}"></script>
-<script src="{{ ('js/lib/underscore.js') }}"></script>
-<script src="{{ ('js/lib/handlebars.js') }}"></script>
-<script src="{{ ('js/lib/backbone.js') }}"></script>
-<script src="{{ ('js/lib/backbone.marionette.js') }}"></script>
-<script src="{{ ('js/lib/soundmanager2-nodebug-jsmin.js') }}"></script>
-<script src="{{ ('js/lib/desktop-notify.min.js') }}"></script>
+
+
+{{--<script src="{{ ('js/lib/jquery.extramouse.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/jquery.cookie.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/jquery.ui.min.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/jquery.mousewhell.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/jquery.displayevents.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/jquery.mCustomScrollbar.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/colorpicker.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/bootstrap-popover.min.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/jQuery.AjaxFileUpload.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/AjaxUploader.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/json2.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/qrcode.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/underscore.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/handlebars.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/backbone.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/backbone.marionette.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/soundmanager2-nodebug-jsmin.js') }}"></script>--}}
+{{--<script src="{{ ('js/lib/desktop-notify.min.js') }}"></script>--}}
+
+
 {{--<?php } ?>--}}
 
 {{--<script type="text/javascript">--}}
@@ -243,73 +273,73 @@
 {{--<?php if($app->env == 'prod') { ?>--}}
 {{--<script src="{{ asset('js/customer-chat-admin.min.js') }}" type="text/javascript"></script>--}}
 {{--<?php } else { ?>--}}
-<script src="{{ asset('js/app/Application.js') }}"></script>
+{{--<script src="{{ asset('js/app/Application.js') }}"></script>--}}
 
-<script src="{{ ('js/app/service/SoundPlayer.js') }}"></script>
-<script src="{{ ('js/app/service/Notify.js') }}"></script>
-<script src="{{ ('js/app/service/I18n.js') }}"></script>
-<script src="{{ ('js/app/service/QR.js') }}"></script>
+{{--<script src="{{ ('js/app/service/SoundPlayer.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/service/Notify.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/service/I18n.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/service/QR.js') }}"></script>--}}
 
-<script src="{{ ('js/app/model/UISettingsModel.js') }}"></script>
-<script src="{{ ('js/app/model/LogsModel.js') }}"></script>
-<script src="{{ ('js/app/model/DepartmentsModel.js') }}"></script>
-<script src="{{ ('js/app/model/CannedMessagesModel.js') }}"></script>
-<script src="{{ ('js/app/model/AdminSettingsModel.js') }}"></script>
-<script src="{{ ('js/app/model/MessageModel.js') }}"></script>
-<script src="{{ ('js/app/model/SharedFileModel.js') }}"></script>
-<script src="{{ ('js/app/model/UploadModel.js') }}"></script>
-<script src="{{ ('js/app/model/UserModel.js') }}"></script>
-<script src="{{ ('js/app/model/ChatViewModel.js') }}"></script>
-<script src="{{ ('js/app/model/AdminChatModel.js') }}"></script>
+{{--<script src="{{ ('js/app/model/UISettingsModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/LogsModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/DepartmentsModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/CannedMessagesModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/AdminSettingsModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/MessageModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/SharedFileModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/UploadModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/UserModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/ChatViewModel.js') }}"></script>--}}
+{{--<script src="{{ ('js/app/model/AdminChatModel.js') }}"></script>--}}
 
-<script src="{{ asset('js/app/collection/WatchedUploadsCollection.js') }}"></script>
+{{--<script src="{{ asset('js/app/collection/WatchedUploadsCollection.js') }}"></script>--}}
 
-<script src="{{ asset('js/app/controller/ActionController.js') }}"></script>
-<script src="{{ asset('js/app/controller/UploadController.js') }}"></script>
+{{--<script src="{{ asset('js/app/controller/ActionController.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/controller/UploadController.js') }}"></script>--}}
 
-<script src="{{ asset('js/app/view/MailTranscriptView.js') }}"></script>
-<script src="{{ asset('js/app/view/AvatarView.js') }}"></script>
-<script src="{{ asset('js/app/view/MessageView.js') }}"></script>
-<script src="{{ asset('js/app/view/message/MessageImageView.js') }}"></script>
-<script src="{{ asset('js/app/view/message/MessageVideoView.js') }}"></script>
-<script src="{{ asset('js/app/view/message/MessageFileView.js') }}"></script>
-<script src="{{ asset('js/app/view/ChatBoxView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/OnlineUsersItemView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/ParticipantView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/TabsView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/MenuView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/ChatTabView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/MapView.js') }}"></script>
-<script src="{{ asset('js/app/view/FileDropZoneView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/ChatView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/input/InputView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/input/TextInputView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/input/CheckboxInputView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/input/SelectInputView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/input/SoundInputView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/input/WidgetThemeInputView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/input/ColorInputView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/SettingsView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/QRCodeView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/LogsView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/OperatorsView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/CannedMessagesView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/BlacklistView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/WidgetCodeView.js') }}"></script>
-<script src="{{ asset('js/app/view/SelectAvatarView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/SelectCannedMessageView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/SelectUserView.js') }}"></script>
-<script src="{{ asset('js/app/view/SelectListView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/DepartmentsView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/TransferAndLeaveView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/HistoryView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/WindowView.js') }}"></script>
-<script src="{{ asset('js/app/view/admin/DialogsView.js') }}"></script>
-<script src="{{ asset('js/app/view/UserInfoPopoverView.js') }}"></script>
+{{--<script src="{{ asset('js/app/view/MailTranscriptView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/AvatarView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/MessageView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/message/MessageImageView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/message/MessageVideoView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/message/MessageFileView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/ChatBoxView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/OnlineUsersItemView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/ParticipantView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/TabsView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/MenuView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/ChatTabView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/MapView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/FileDropZoneView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/ChatView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/input/InputView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/input/TextInputView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/input/CheckboxInputView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/input/SelectInputView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/input/SoundInputView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/input/WidgetThemeInputView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/input/ColorInputView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/SettingsView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/QRCodeView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/LogsView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/OperatorsView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/CannedMessagesView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/BlacklistView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/WidgetCodeView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/SelectAvatarView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/SelectCannedMessageView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/SelectUserView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/SelectListView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/DepartmentsView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/TransferAndLeaveView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/HistoryView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/WindowView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/admin/DialogsView.js') }}"></script>--}}
+{{--<script src="{{ asset('js/app/view/UserInfoPopoverView.js') }}"></script>--}}
 
-<script src="{{ asset('js/admin.js') }}"></script>
+{{--<script src="{{ asset('js/admin.js') }}"></script>--}}
 {{--<?php } ?>--}}
 
-</body>
-</html>
-
+{{--</body>--}}
+{{--</html>--}}
+@endsection

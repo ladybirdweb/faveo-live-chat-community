@@ -10,12 +10,9 @@
 
     <div id="customer-chat-content-login-form" class="customer-chat-content">
         <div class="customer-chat-content-info" id="message">
-
-
             <div id ="intro">
                 {{__('lang.Set_Password_Intro') }}
             </div>
-
         </div>
 
             <div class="customer-chat-content-message-input">
@@ -34,7 +31,6 @@
 <script>
     $(document).ready(function(){
         $(document).on('click','#customer-chat-login-start',function() {
-            console.log('abcx');
 
             let data = {
                 'password': $("#pass").val(),

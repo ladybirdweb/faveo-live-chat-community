@@ -84,6 +84,7 @@
                 },
                 error: function (error) {
                     if (error.status == 401) {
+                        console.log(error.responseJSON);
                         $("#message").append(
                             "<div class='customer-chat-login-errors'>"+
                             "<ul>"+
