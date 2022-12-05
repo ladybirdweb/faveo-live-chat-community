@@ -18,16 +18,16 @@ class loginController extends Controller
     public function checkLogin(LoginRequest $req)
     {
         if (!$user = Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
-            return errorResponse(trans('lang.Invalid_Credentials'), 401);
+            return errorResponse(trans('lang.Invalid_Credentials'));
         }
         $user = Auth::user();
         $token = $user->createToken('loginToken')->accessToken;
         session(['token' => $token]);
         if (Auth::user()->role == 'admin') {
-            return successResponse('admin', $token, 200);
+            return successResponse('admin', $token);
         }
         if (Auth::user()->role == 'agent') {
-            return successResponse('agent', $token, 200);
+            return successResponse('agent', $token);
         }
     }
 
@@ -35,7 +35,7 @@ class loginController extends Controller
     {
         $user = User::where('email', $req->email)->first();
         if (!$user) {
-            return errorResponse(trans('lang.Invalid_Email'), 401);
+            return errorResponse(trans('lang.Invalid_Email'));
         }
         $otp = random_int(100000, 999999);
         if (!$emailExists = Resetpassword::where('email', $req->email)->first()) {
@@ -50,11 +50,9 @@ class loginController extends Controller
         $id = $emailExists->id;
 
         $resetPasswordLink = url('checkLink'.'/'.$id.'/'.$otp);
-
         $details = ['link' => $resetPasswordLink, 'name' => $user->name, 'email' => $req->email];
         dispatch(new resetPasswordEmailJob($details));
-
-        return successResponse(trans('lang.Success_Link_Intro'), '', 200);
+        return successResponse(trans('lang.Success_Link_Intro'), '');
     }
 
     public function checkOtp($id, $otp)
@@ -67,7 +65,6 @@ class loginController extends Controller
 
             return redirect('setpassword');
         }
-
         return redirect('/')->with('error', trans('lang.Invalid_OTP'));
     }
 
@@ -75,7 +72,7 @@ class loginController extends Controller
     {
         $user = User::where('email', Cache::get('email'))->first();
         if (!$user) {
-            return errorResponse(trans('lang.Invalid_Email'), 401);
+            return errorResponse(trans('lang.Invalid_Email'));
         }
         if ($req->password == $req->confirmpassword) {
             $id = $user->id;
@@ -84,17 +81,15 @@ class loginController extends Controller
             $data->save();
             Cache::forget('email');
 
-            return successResponse(trans('lang.Success_Password_Intro'), '', 200);
+            return successResponse(trans('lang.Success_Password_Intro'), '');
         }
-
-        return errorResponse(trans('lang.Error_Password_Intro'), 401);
+        return errorResponse(trans('lang.Error_Password_Intro'));
     }
 
     public function selectLanguage(Request $req)
     {
         $lang = $req->lang;
         session(['myLang'=> $lang]);
-
         return redirect('/');
     }
 }
