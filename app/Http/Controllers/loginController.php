@@ -52,6 +52,7 @@ class loginController extends Controller
         $resetPasswordLink = url('checkLink'.'/'.$id.'/'.$otp);
         $details = ['link' => $resetPasswordLink, 'name' => $user->name, 'email' => $req->email];
         dispatch(new resetPasswordEmailJob($details));
+
         return successResponse(trans('lang.Success_Link_Intro'), '');
     }
 
@@ -65,6 +66,7 @@ class loginController extends Controller
 
             return redirect('setpassword');
         }
+
         return redirect('/')->with('error', trans('lang.Invalid_OTP'));
     }
 
@@ -83,6 +85,7 @@ class loginController extends Controller
 
             return successResponse(trans('lang.Success_Password_Intro'), '');
         }
+
         return errorResponse(trans('lang.Error_Password_Intro'));
     }
 
@@ -90,6 +93,7 @@ class loginController extends Controller
     {
         $lang = $req->lang;
         session(['myLang'=> $lang]);
+
         return redirect('/');
     }
 }
