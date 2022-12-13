@@ -67,6 +67,8 @@ return[
     'Operations' => 'Operations',
     'Update_Department' => 'Update Department',
     'Edit_Agent' => 'Edit Agent',
+    'Department_saved' => 'Department saved successfully',
+    'Department_deleted' => 'Department deleted Successfully',
 ];
 
 ?>

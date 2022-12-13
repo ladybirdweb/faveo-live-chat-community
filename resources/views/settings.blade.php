@@ -88,35 +88,36 @@
             </div>
 
 
-            <div class="container">
-                <h2 class="text-center" style="padding-top:14px;">{{__('lang.Departments_List')}}</h2>
-                <form method="get" action='settings'>
-                    <div class="form-floating" style="text-align: right!important;">
-                        <input type="text" name='search'>
-                        <button type='submit'> <i class="fas fa-search fa-fw"></i> </button>
-                    </div>
-                </form>
-            </div>
-
-            <div class="container col-lg-11">
-                <table class="table table-bordered table-hover text-center">
+{{--            <div class="container">--}}
+{{--                <h2 class="text-center" style="padding-top:14px;">{{__('lang.Departments_List')}}</h2>--}}
+{{--                <form method="get" action='settings'>--}}
+{{--                    <div class="form-floating" style="text-align: right!important;">--}}
+{{--                        <input type="text" id="search" name='search'>--}}
+{{--                        <button type='submit' id = "save"> <i class="fas fa-search fa-fw"></i> </button>--}}
+{{--                    </div>--}}
+{{--                </form>--}}
+{{--            </div>--}}
+            <div id="list" class="container col-lg-11">
+                <div id ="list2"></div>
+                <table  id ="rows" class="table table-bordered table-hover text-center">
                     <tr class="table-success">
                         <td>{{__('lang.ID')}}</td>
                         <td>{{__('lang.Department_Name')}}</td>
                         <td>{{__('lang.Description')}}</td>
                         <td>{{__('lang.Operations')}}</td>
                     </tr>
-                                    @foreach($departments as $department)
-                                        <tr>
-                                            <td> {{$department['id']}} </td>
-                                            <td> {{$department['name']}} </td>
-                                            <td> {{$department['description']}} </td>
-                                            <td>
-                                                <a href="edit/{{$department['id']}}" > <button type="button" class="btn btn-primary mb-3"> <i class="fas fa-edit"></i> </button> </a>
-                                                <a href="deleteDepartment/{{$department['id']}}" > <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button> </a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+
+{{--                                    @foreach($departments as $department)--}}
+{{--                                        <tr>--}}
+{{--                                            <td> {{$department['id']}} </td>--}}
+{{--                                            <td> {{$department['name']}} </td>--}}
+{{--                                            <td> {{$department['description']}} </td>--}}
+{{--                                            <td>--}}
+{{--                                                <a href="edit/{{$department['id']}}" > <button type="button" class="btn btn-primary mb-3"> <i class="fas fa-edit"></i> </button> </a>--}}
+{{--                                                <a href="deleteDepartment/{{$department['id']}}" > <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button> </a>--}}
+{{--                                            </td>--}}
+{{--                                        </tr>--}}
+{{--                                    @endforeach--}}
                 </table>
             </div>
 
@@ -173,6 +174,102 @@
             });
         });
     </script>
+
+
+
+<script>
+    $(document).ready(function(){
+
+        // function sendData(data) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept' : 'application/json',
+                    'Authorization' : 'Bearer '.$accessToken,
+                }
+            });
+
+            $.ajax({
+                url: 'show-department-list',
+                type: 'get',
+                dataType: 'JSON',
+                success: function (response) {
+                    if (response['success'] == true) {
+                        $.each(response.data, function (key, value) {
+                            $("#rows").append(
+                                "<tr>"+
+                                " <td>" + value.id + "</td>" +
+                                "<td>" + value.name + "</td>" +
+                                "<td>" + value.description + "</td>" +
+                                "<td>" +
+                                "<button type='button' id = 'edit' data-id = '"+ value.id +"'class='btn btn-primary mb-3'> <i class='fas fa-edit'></i> </button>" +
+                                "<button type='submit' id = 'delete' data-id = '"+ value.id +"'class='btn btn-danger mb-3'> <i class='fas fa-trash'></i> </button>" +
+                                "</td>"+
+                                "</tr>"
+                            );
+                        });
+                    }
+                }
+            });
+        // }
+        // $(document).on('click','#save',function() {
+        //
+        //     let data = {
+        //         'search': $("#search").val(),
+        //     }
+        //     sendData(data);
+        // });
+
+
+    });
+</script>
+    <script>
+        $(document).ready(function() {
+            $(document).on('click','#edit',function() {
+                var id = $(this).attr("data-id");
+                   console.log(id);
+                });
+        });
+    </script>
+
+<script>
+    $(document).ready(function() {
+        $(document).on('click','#edit',function() {
+            var id = $(this).attr("data-id");
+            localStorage.setItem('id',id);
+            window.location.replace('/edit');
+        });
+
+        $(document).on("click","#delete",function ()
+        {
+            var id = $(this).attr("data-id");
+            // var obj = $(this)
+            $.ajax({
+                type:"GET",
+                url:"deleteDepartment/"+id,
+                success:function (response){
+                    console.log(response);
+                    $("#list2").append(
+                       " <div class='alert alert-success' role='alert'>" +
+                            response.message +
+                       " </div>"
+                    )
+                    setTimeout(function () {
+                        window.location.replace('/settings');
+                    }, 5000);
+
+                },
+                error:function (err){
+
+                },
+            })
+
+
+        });
+
+    });
+</script>
+
 
 
 @endsection

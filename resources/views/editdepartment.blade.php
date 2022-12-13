@@ -3,64 +3,131 @@
 
     <div class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-operators" style="border:2px solid black; margin-top: -8px; margin-left: 55px;" id="customer-chat-operators-edit">
 
-        <div class="customer-chat-content-message" style="margin-top: 55px;margin-left: 69px;">
-            <div class="customer-chat-tabs-header">{{__('lang.Edit_Agent')}}</div>
-            <a id="customer-chat-operators-back" href="settings" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Back')}}</a>
+        <div class="customer-chat-content-message" id="messages" style="margin-top: 55px;margin-left: 69px;">
+            <div id="intro" class="customer-chat-tabs-header">{{__('lang.Edit_Agent')}}</div>
+            <a id="button" href="settings" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Back')}}</a>
         </div>
-{{--        <form action ="editDepartment" method ="post" >--}}
-        <form action ="{{url('editDepartment')}}" method ="post" >
-            @csrf
+{{--        <form action ="{{url('editDepartment')}}" method ="post" >--}}
+{{--            @csrf--}}
             <div class="customer-chat-content-messages edit-operator" style = "margin-left: 67px;margin-top: 65px;">
                 <div class="customer-chat-content-row add-only edit-only">
                     <div class="customer-chat-label">{{__('lang.Department_Name')}}</div>
-                    <input type="text"  value="{{$departments->name}}" name="name" id="usernameField" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="Username" data-validator-state-ex="pass" />
+                    <input type="text"  value="" name="name" id="name" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="Username" data-validator-state-ex="pass" />
                 </div>
                 <div class="customer-chat-content-row add-only edit-only">
                     <div class="customer-chat-label">{{__('lang.Description')}}</div>
-                    <input type="text" value="{{$departments->description}}" name="description" id="mailField" class="customer-chat-content-message-input-field" data-validator="mail" data-validator-label="E-mail" data-validator-state-ex="pass" />
+                    <input type="text" value="" name="description" id="description" class="customer-chat-content-message-input-field" data-validator="mail" data-validator-label="E-mail" data-validator-state-ex="pass" />
                 </div>
-                <input type="hidden" name ="id" value="{{$departments->id}}">
+                <input type="hidden" name ="id" id="id" value="">
                 <div class="customer-chat-content-message button-row">
 {{--                    <a id="customer-chat-operators-save" href="#" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Update_Department')}}</a>--}}
-                    <button type="submit" class="btn btn-sm" style="background: linear-gradient(to right, #36a9e1, #36a9e1);padding-bottom: 2px;padding-top: 2px;font-size: x-large;">{{__('lang.Update_Department')}}</button>
+                    <button type="submit" id="edit" class="btn btn-sm" style="background: linear-gradient(to right, #36a9e1, #36a9e1);padding-bottom: 2px;padding-top: 2px;font-size: x-large;">{{__('lang.Update_Department')}}</button>
                 </div>
             </div>
-        </form>
-
-
+{{--        </form>--}}
     </div>
 
 
 
-{{--    <div class="row">--}}
-{{--        <div class="container col-lg-12">--}}
-{{--            <h3 class="text-center fw-bold mt-3">Edit Agent</h3>--}}
-{{--        </div>--}}
-{{--        <div class="contaier col-lg-12" style = "height:531px;">--}}
-{{--            <div class="container col-lg-4 bg-light" style="margin-top:36px; height:300px;width:594px;">--}}
-{{--                <main class="form-signin text-center" style="padding-top:80px;padding-right:55px;padding-left:55px;">--}}
-{{--                    <form method="POST" action="editDepartment">--}}
-{{--                        @csrf--}}
-{{--                        @dd($data);--}}
-{{--                        @dd($departments->name);--}}
-{{--                        <div class="form-floating">--}}
-{{--                            <input type="text" value="{{$departments->name}}" class="form-control" id="floatingInput"  name="name" placeholder="name@example.com" required>--}}
-{{--                            <label for="floatingInput">{{__('lang.Department_Name')}}</label>--}}
-{{--                        </div>--}}
-{{--                        <div class="form-floating">--}}
-{{--                            <input type="text" value="{{$departments->description}}" class="form-control" id="floatingInput"  name="name" placeholder="name@example.com" required>--}}
-{{--                            <label for="floatingInput">{{__('lang.Description')}}</label>--}}
-{{--                        </div>--}}
-{{--                        <input type="hidden" name ="id" value="{{$departments->id}}">--}}
-{{--                        <a href="https://laravel.com/docs/9.x/passport#main-content"> {{__('lang.Update_Department')}} </a>--}}
-{{--                        <button class="w-100 btn btn-primary mt-3" type="submit"><a href="https://laravel.com/docs/9.x/passport#main-content"> {{__('lang.Update_Department')}} </a> </button>--}}
-{{--                        <input type ="submit"  class="w-100 btn btn-primary mt-3" name="{{__('lang.Update_Department')}}"></input>--}}
+    <script>
+        $(document).ready(function(){
 
-{{--                    </form>--}}
-{{--                </main>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept' : 'application/json',
+                    'Authorization' : 'Bearer '.$accessToken,
+                }
+            });
+
+            $.ajax({
+                url: "edit/"+localStorage.getItem('id'),
+                type: 'get',
+                dataType: 'JSON',
+                success: function (response) {
+                    if (response['success'] == true) {
+                        console.log(response['data'].id);
+                        $("#name").val(response['data'].name),
+                        $("#description").val(response['data'].description),
+                        $("#id").val(response['data'].id)
+                    }
+                    localStorage.clear();
+                }
+            });
+
+
+            $(document).on('click','#edit',function() {
+
+                let data = {
+                    'name': $("#name").val(),
+                    'description': $("#description").val(),
+                    'id': $("#id").val(),
+
+                }
+                sendData(data);
+            });
+
+            function sendData(data) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'Accept' : 'application/json',
+                        'Authorization' : 'Bearer '.$accessToken,
+                    }
+                });
+
+                $.ajax({
+                    url: 'editDepartment',
+                    type: 'post',
+                    data: data,
+                    dataType: 'JSON',
+                    success: function (response) {
+                        if (response['success'] == true) {
+                            $('#intro').hide();
+                            $('#button').hide();
+                            $("#messages").append(
+
+                                " <div class='alert alert-success' role='alert'>" +
+                                "<strong>" + response.message + "</strong>" +
+                                // "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close></button>" +
+                                "</div>"
+                            );
+                            setTimeout(function () {
+                                window.location = "settings";
+                            }, 5000);
+                        }
+                    },
+                    error: function (error) {
+                        if (error.status == 401) {
+                            console.log(error.responseJSON);
+                            $("#message").append(
+                                "<div class='customer-chat-login-errors'>"+
+                                "<ul>"+
+                                "<li>"+  error.responseJSON.message + "</li>"+
+                                "</ul>"+
+                                "</div>"
+                            );
+                            $('#intro').hide();
+                        }
+                        let messages = error.responseJSON.errors;
+                        $.each(messages, function (key, val) {
+                            $("#message").append(
+                                "<div class='customer-chat-login-errors'>"+
+                                "<ul>"+
+                                "<li>"+  val + "</li>"+
+                                "</ul>"+
+                                "</div>"
+                            );
+                        });
+                        $('#intro').hide();
+                    },
+                });
+            }
+        });
+    </script>
+
+
 
 
 @endsection

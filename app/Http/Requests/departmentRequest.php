@@ -25,6 +25,7 @@ class departmentRequest extends FormRequest
     {
         return [
             'name'    => 'required|unique:departments,name,' .$this->id,
+//        'name' => ['required', 'unique:departments' ],
         ];
     }
 }
