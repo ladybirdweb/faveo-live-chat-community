@@ -45,8 +45,23 @@ Route::group(
         Route::view('cannedMessages','admin_add_canned_messages');
         Route::view('systemSettings','admin_system_settings');
         Route::post('addDepartment', [departmentController::class, 'addDepartment']);
+//        Route::post('addDepartment', [departmentController::class, 'updateOrCreate']);
+
+
+        Route::get('settings',[departmentController::class,'showList']);
+        Route::get('settings/{search}',[departmentController::class,'showList']);
+
+
+
+        Route::get('/deleteDepartment/{id}',[departmentController::class,'deleteDepartment']);
     }
 );
+
+//Route::view('edit/{id}/{name}','admin_edit_department');
+Route::get('edit/{id}',[departmentController::class,'get_editDepartment']);
+Route::post('editDepartment',[departmentController::class,'editDepartment']);
+//Route::post('editDepartment',[departmentController::class,'updateOrCreate']);
+
 
 Route::group(
     ['middleware' => ['checkAgent']],
@@ -54,3 +69,8 @@ Route::group(
         Route::view('agent', 'agent');
     }
 );
+
+
+//Route::get('/test', function (){
+//    return url ('editDepartment');
+//});

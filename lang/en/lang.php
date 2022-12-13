@@ -59,7 +59,14 @@ return[
     'Description'      => 'Description',
     'Add_new_department' => 'Add New Department',
     'Add_new_canned'   => 'Add New Canned Messages',
-    'Body'             => 'Body'
+    'Body'             => 'Body',
+
+    'Departments_List' => 'Departments List',
+    "ID" => 'ID',
+    'Department_Name' => 'Department Name',
+    'Operations' => 'Operations',
+    'Update_Department' => 'Update Department',
+    'Edit_Agent' => 'Edit Agent',
 ];
 
 ?>

@@ -25,7 +25,6 @@
         <div class="customer-chat-tabs-header">{{__('lang.Add_new_department')}}</div>
         <a id="customer-chat-operators-back" href="settings" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Back')}}</a>
     </div>
-xyz
     <form action ="addDepartment" method ="post" >
         @csrf
     <div class="customer-chat-content-messages edit-operator" style = "margin-left: 67px;margin-top: 65px;">

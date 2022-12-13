@@ -86,6 +86,41 @@
                    <div class="col-2"> <a id="" href="systemSettings" class=""><button class="btn btn-sm btn-success">{{__('lang.Settings')}}</button></a> </div>
                 </div>
             </div>
+
+
+            <div class="container">
+                <h2 class="text-center" style="padding-top:14px;">{{__('lang.Departments_List')}}</h2>
+                <form method="get" action='settings'>
+                    <div class="form-floating" style="text-align: right!important;">
+                        <input type="text" name='search'>
+                        <button type='submit'> <i class="fas fa-search fa-fw"></i> </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="container col-lg-11">
+                <table class="table table-bordered table-hover text-center">
+                    <tr class="table-success">
+                        <td>{{__('lang.ID')}}</td>
+                        <td>{{__('lang.Department_Name')}}</td>
+                        <td>{{__('lang.Description')}}</td>
+                        <td>{{__('lang.Operations')}}</td>
+                    </tr>
+                                    @foreach($departments as $department)
+                                        <tr>
+                                            <td> {{$department['id']}} </td>
+                                            <td> {{$department['name']}} </td>
+                                            <td> {{$department['description']}} </td>
+                                            <td>
+                                                <a href="edit/{{$department['id']}}" > <button type="button" class="btn btn-primary mb-3"> <i class="fas fa-edit"></i> </button> </a>
+                                                <a href="deleteDepartment/{{$department['id']}}" > <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button> </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                </table>
+            </div>
+
+
         </div>
 
 {{--        <div class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-operators customer-chat-tab-content-operators-list" id="customer-chat-operators-list">--}}
