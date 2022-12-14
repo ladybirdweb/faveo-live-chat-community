@@ -98,7 +98,7 @@
                     $('#button').hide();
                     if (error.status == 401) {
                         console.log(error.responseJSON);
-                        $("#message").append(
+                        $("#messages").append(
                             "<div class='customer-chat-tabs-header'>"+
                             "<ul>"+
                             "<li>"+  error.responseJSON.message + "</li>"+
@@ -108,7 +108,7 @@
                     }
                     let messages = error.responseJSON.errors;
                     $.each(messages, function (key, val) {
-                        $("#message").append(
+                        $("#messages").append(
                             "<div class='customer-chat-tabs-header'>"+
                             "<ul>"+
                             "<li>"+  val + "</li>"+
