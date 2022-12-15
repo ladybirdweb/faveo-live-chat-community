@@ -69,6 +69,7 @@ return[
     'Edit_Agent' => 'Edit Agent',
     'Department_saved' => 'Department saved successfully',
     'Department_deleted' => 'Department deleted Successfully',
+    'Invalid_ID' => 'Invalid ID',
 ];
 
 ?>

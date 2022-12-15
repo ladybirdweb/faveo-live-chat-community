@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class departmentController extends Controller
 {
+
 //    public function addDepartment(departmentRequest $req)
 //    {
 //        $department = new Department;
@@ -48,6 +49,10 @@ class departmentController extends Controller
     {
         try{
         $data = Department::find($id);
+            if($data->isEmpty())
+            {
+                return errorResponse(trans('lang.Invalid_ID'));
+            }
 //        return view('editdepartment', ["departments"=>$data]);
             return successResponse('',$data);
 
@@ -63,6 +68,7 @@ class departmentController extends Controller
 //        {
 //            $data = Department::where('name','LIKE',"%$req->search%")->get();
             $data = Department::all();
+
 //            return view("settings", ["departments"=>$data]);
             return successResponse('',$data);
 //        }

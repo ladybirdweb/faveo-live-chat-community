@@ -5,31 +5,32 @@ namespace Tests\Unit;
 //use PHPUnit\Framework\TestCase;
 use App\Models\Department;
 use App\Models\User;
-use Tests\TestCase;
+use Tests\DBTestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class DepartmentControllerTest extends TestCase
+class DepartmentControllerTest extends DBTestCase
 {
+    use RefreshDatabase;
+
     public function test_addDeppartment() {
-       $userId =  User::factory()->create(['role' => 'admin'])->id;
-//       dd($userId);
-     $user =  User::find($userId);
-//     dd($user['name']);
-      $response = $this->call('post','checklogin', ['email'=>$user['email'],'password' => 'password']);
-//      dd($response);
-//        dd($user['password']);
-       $response->assertStatus(200);
-//       $response->assertRedirect('/admin');
-        $response = $this->post('addDepartment', ['name' => 'sales dept', 'description' => 'sales']);
+//       $userId =  User::factory()->create(['role' => 'admin'])->id;
+//     $user =  User::find($userId);
+//      $response = $this->call('post','checklogin', ['email'=>$user['email'],'password' => 'password']);
+//       $response->assertStatus(200);
+        $this->getLoggedInUserForWeb('admin');
+
+        $response = $this->post('addDepartment', ['name' => 'hii', 'description' => 'hii']);
         $response->assertStatus(200);
-        $this->assertDatabaseHas('departments', ['name' => 'sales dept', 'description' => 'sales']);
+        $this->assertDatabaseHas('departments', ['name' => 'hii', 'description' => 'hii']);
     }
 
 
     public function test_deleteDepartment() {
-        $userId =  User::factory()->create(['role' => 'admin'])->id;
-        $user =  User::find($userId);
-        $response = $this->call('post','checklogin', ['email'=>$user['email'],'password' => 'password']);
-        $response->assertStatus(200);
+//        $userId =  User::factory()->create(['role' => 'admin'])->id;
+//        $user =  User::find($userId);
+//        $response = $this->call('post','checklogin', ['email'=>$user['email'],'password' => 'password']);
+//        $response->assertStatus(200);
+        $this->getLoggedInUserForWeb('admin');
 
 //        $departmentId = Department::factory()->create()->id;
 //        $department = Department::find($departmentId);
@@ -47,10 +48,11 @@ class DepartmentControllerTest extends TestCase
 
     public function test_editDepartmnt()
     {
-        $userId =  User::factory()->create(['role' => 'admin'])->id;
-        $user =  User::find($userId);
-        $response = $this->call('post','checklogin', ['email'=>$user['email'],'password' => 'password']);
-        $response->assertStatus(200);
+//        $userId =  User::factory()->create(['role' => 'admin'])->id;
+//        $user =  User::find($userId);
+//        $response = $this->call('post','checklogin', ['email'=>$user['email'],'password' => 'password']);
+//        $response->assertStatus(200);
+        $this->getLoggedInUserForWeb('admin');
 
         $response = $this->post('addDepartment', ['name' => 'sales 17', 'description' => 'sales desc']);
         $response->assertStatus(200);
@@ -59,7 +61,6 @@ class DepartmentControllerTest extends TestCase
         $departmentId = Department::where('name','sales 17')->pluck('id')->toArray();
         $response = $this->get('edit/'.$departmentId[0]);
         $department = json_decode($response->getContent())->data;
-//        dd($department);
         $this->assertEquals($department->name,'sales 17');
 
         $response = $this->post('editDepartment', ['name' => 'updated department', 'description' => 'sales desc']);
