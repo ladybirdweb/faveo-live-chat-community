@@ -95,7 +95,7 @@
                             );
                             setTimeout(function () {
                                 window.location = "settings";
-                            }, 5000);
+                            }, 3000);
                         }
                     },
                     error: function (error) {

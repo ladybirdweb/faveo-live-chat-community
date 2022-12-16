@@ -256,7 +256,7 @@
                     )
                     setTimeout(function () {
                         window.location.replace('/settings');
-                    }, 5000);
+                    }, 3000);
 
                 },
                 error:function (err){

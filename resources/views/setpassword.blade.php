@@ -63,7 +63,7 @@
 
                         setTimeout(function () {
                             window.location = "/";
-                        }, 5000);
+                        }, 3000);
 
                         $('#intro').hide();
                 },

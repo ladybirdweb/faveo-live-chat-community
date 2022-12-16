@@ -49,10 +49,11 @@ class departmentController extends Controller
     {
         try{
         $data = Department::find($id);
-            if($data->isEmpty())
-            {
-                return errorResponse(trans('lang.Invalid_ID'));
-            }
+//            if($data->isEmpty())
+//            {
+//                return errorResponse(trans('lang.Invalid_ID'));
+//            }
+
 //        return view('editdepartment', ["departments"=>$data]);
             return successResponse('',$data);
 
