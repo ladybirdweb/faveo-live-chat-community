@@ -1,4 +1,4 @@
-@extends('admin_layouts.app')
+@extends('admin-layouts.app')
 @section('content')
 
 <div class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-operators" style="border:2px solid black; margin-top: -8px; margin-left: 55px;" id="customer-chat-operators-edit">

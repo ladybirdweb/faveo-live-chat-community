@@ -19,7 +19,7 @@
 <body class="login">
 
 @yield('content')
-@include('login_layouts.footer')
+@include('login-layouts.footer')
 
 </body>
 

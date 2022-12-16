@@ -26,10 +26,10 @@ Route::group(
     function () {
         Route::view('/', 'login');
         Route::post('checklogin', [LoginController::class, 'checkLogin']);
-        Route::view('forgetpassword', 'forgetpassword');
+        Route::view('forgetpassword', 'forget-password');
         Route::post('checkForgetpassword', [LoginController::class, 'forgetpassword']);
         Route::get('checkLink/{id}/{otp}', [LoginController::class, 'checkotp']);
-        Route::view('setpassword', 'setpassword');
+        Route::view('setpassword', 'set-password');
         Route::post('checkSetpassword', [LoginController::class, 'setpassword']);
         Route::post('selectlanguage', [LoginController::class, 'selectLanguage']);
     }
@@ -39,12 +39,12 @@ Route::group(
     ['middleware' => ['checkAdmin']],
     function () {
         Route::view('admin', 'admin');
-        Route::view('edit', 'editdepartment');
+        Route::view('edit', 'edit-department');
         Route::view('settings','settings');
-        Route::view('addOperators','admin_add_operators');
-        Route::view('addDepartments','admin_add_departments');
-        Route::view('cannedMessages','admin_add_canned_messages');
-        Route::view('systemSettings','admin_system_settings');
+        Route::view('addOperators','add-agents');
+        Route::view('addDepartments','add-departments');
+        Route::view('cannedMessages','add-canned-messages');
+        Route::view('systemSettings','system-settings');
 //        Route::post('addDepartment', [DepartmentController::class, 'addDepartment']);
         Route::post('addDepartment', [DepartmentController::class, 'updateOrCreate']);
 

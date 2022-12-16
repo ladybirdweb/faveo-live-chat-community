@@ -1,26 +1,30 @@
-@extends('login_layouts.header')
+@extends('login-layouts.header')
 @section('content')
 
 <img class="logo" src="{{ asset('img/faveo-logo.png') }}">
 
 <div id="customer-chat-widget" class="customer-chat customer-chat-login customer-chat-widget login-form">
     <div class="customer-chat-header">
-        <div class="customer-chat-header-title"> {{__('lang.Forget_Password')}} </div>
+        <div class="customer-chat-header-title"> {{__('lang.Set_Password')}} </div>
     </div>
 
     <div id="customer-chat-content-login-form" class="customer-chat-content">
         <div class="customer-chat-content-info" id="message">
             <div id ="intro">
-                {{__('lang.Forget_Password_Intro') }}
+                {{__('lang.Set_Password_Intro') }}
             </div>
         </div>
 
             <div class="customer-chat-content-message-input">
-                <input id="name" type="email" name="email" class="customer-chat-content-message-input-field" placeholder=" {{__('lang.Email')}} " />
+                <input id="pass" type="password" name="password" class="customer-chat-content-message-input-field" placeholder=" {{__('lang.Password')}} " />
+            </div>
+            <div class="customer-chat-content-message-input">
+                <input  id="confirmpass" type="password" name="confirmpassword" class="customer-chat-content-message-input-field" placeholder=" {{__('lang.Confirm_Password')}} " />
             </div>
             <div class="customer-chat-content-row">
                 <button type="submit" id="customer-chat-login-start" class="customer-chat-content-button"> {{__('lang.Submit')}} <i class="icon-circle-arrow-right icon-white" style="margin: 3px 0 0 3px;"></i></button>
             </div>
+
     </div>
 </div>
 
@@ -29,7 +33,8 @@
         $(document).on('click','#customer-chat-login-start',function() {
 
             let data = {
-                'email': $("#name").val(),
+                'password': $("#pass").val(),
+                'confirmpassword': $("#confirmpass").val(),
             }
             sendData(data);
             $('.customer-chat-login-errors').hide();
@@ -43,7 +48,7 @@
             });
 
             $.ajax({
-                url: 'checkForgetpassword',
+                url: 'checkSetpassword',
                 type: 'post',
                 data: data,
                 dataType: 'JSON',
@@ -63,7 +68,8 @@
                         $('#intro').hide();
                 },
                 error: function (error) {
-                    if (error.status == 401) {
+                    if (error.status == 401)
+                    {
                         $("#message").append(
                             "<div class='customer-chat-login-errors'>"+
                             "<ul>"+
@@ -75,13 +81,26 @@
                     }
                     let messages = error.responseJSON.errors;
                     $.each(messages, function (key, val) {
-                        $("#message").append(
-                            "<div class='customer-chat-login-errors'>"+
-                            "<ul>"+
-                            "<li>"+  val + "</li>"+
-                            "</ul>"+
-                            "</div>"
-                        );
+                        if($.isArray(val)) {
+                            $.each(val, function (key, value) {
+                                $("#message").append(
+                                    "<div class='customer-chat-login-errors'>"+
+                                    "<ul>"+
+                                    "<li>"+  value + "</li>"+
+                                    "</ul>"+
+                                    "</div>"
+                                );
+                            });
+                        }
+                        else {
+                            $("#message").append(
+                                "<div class='customer-chat-login-errors'>" +
+                                "<ul>" +
+                                "<li>" + val + "</li>" +
+                                "</ul>" +
+                                "</div>"
+                            );
+                        }
                     });
                     $('#intro').hide();
                 },
