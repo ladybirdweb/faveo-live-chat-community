@@ -242,28 +242,29 @@
 
         $(document).on("click","#delete",function ()
         {
-            var id = $(this).attr("data-id");
-            // var obj = $(this)
-            $.ajax({
-                type:"GET",
-                url:"deleteDepartment/"+id,
-                success:function (response){
-                    console.log(response);
-                    $("#list2").append(
-                       " <div class='alert alert-success' role='alert'>" +
+            if(confirm('Are you sure you want to delete this department')) {
+                var id = $(this).attr("data-id");
+                // var obj = $(this)
+                $.ajax({
+                    type: "GET",
+                    url: "deleteDepartment/" + id,
+                    success: function (response) {
+                        console.log(response);
+                        $("#list2").append(
+                            " <div class='alert alert-success' role='alert'>" +
                             response.message +
-                       " </div>"
-                    )
-                    setTimeout(function () {
-                        window.location.replace('/settings');
-                    }, 3000);
+                            " </div>"
+                        )
+                        setTimeout(function () {
+                            window.location.replace('/settings');
+                        }, 3000);
 
-                },
-                error:function (err){
+                    },
+                    error: function (err) {
 
-                },
-            })
-
+                    },
+                });
+            }
 
         });
 
