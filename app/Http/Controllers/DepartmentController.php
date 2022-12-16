@@ -7,7 +7,7 @@ use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class departmentController extends Controller
+class DepartmentController extends Controller
 {
 
 //    public function addDepartment(departmentRequest $req)

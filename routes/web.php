@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\departmentController;
-use App\Http\Controllers\loginController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,13 +25,13 @@ Route::group(
     ['middleware' => ['checkLogin']],
     function () {
         Route::view('/', 'login');
-        Route::post('checklogin', [loginController::class, 'checkLogin']);
+        Route::post('checklogin', [LoginController::class, 'checkLogin']);
         Route::view('forgetpassword', 'forgetpassword');
-        Route::post('checkForgetpassword', [loginController::class, 'forgetpassword']);
-        Route::get('checkLink/{id}/{otp}', [loginController::class, 'checkotp']);
+        Route::post('checkForgetpassword', [LoginController::class, 'forgetpassword']);
+        Route::get('checkLink/{id}/{otp}', [LoginController::class, 'checkotp']);
         Route::view('setpassword', 'setpassword');
-        Route::post('checkSetpassword', [loginController::class, 'setpassword']);
-        Route::post('selectlanguage', [loginController::class, 'selectLanguage']);
+        Route::post('checkSetpassword', [LoginController::class, 'setpassword']);
+        Route::post('selectlanguage', [LoginController::class, 'selectLanguage']);
     }
 );
 
@@ -45,20 +45,20 @@ Route::group(
         Route::view('addDepartments','admin_add_departments');
         Route::view('cannedMessages','admin_add_canned_messages');
         Route::view('systemSettings','admin_system_settings');
-//        Route::post('addDepartment', [departmentController::class, 'addDepartment']);
-        Route::post('addDepartment', [departmentController::class, 'updateOrCreate']);
+//        Route::post('addDepartment', [DepartmentController::class, 'addDepartment']);
+        Route::post('addDepartment', [DepartmentController::class, 'updateOrCreate']);
 
-        Route::get('show-department-list',[departmentController::class,'showList']);
-        Route::get('show-department-list/{search}',[departmentController::class,'showList']);
+        Route::get('show-department-list',[DepartmentController::class,'showList']);
+        Route::get('show-department-list/{search}',[DepartmentController::class,'showList']);
 
-        Route::get('/deleteDepartment/{id}',[departmentController::class,'deleteDepartment']);
+        Route::get('/deleteDepartment/{id}',[DepartmentController::class,'deleteDepartment']);
     }
 );
 
 //Route::view('edit/{id}/{name}','admin_edit_department');
-Route::get('edit/{id}',[departmentController::class,'get_editDepartment']);
-//Route::post('editDepartment',[departmentController::class,'editDepartment']);
-Route::post('editDepartment',[departmentController::class,'updateOrCreate']);
+Route::get('edit/{id}',[DepartmentController::class,'get_editDepartment']);
+//Route::post('editDepartment',[DepartmentController::class,'editDepartment']);
+Route::post('editDepartment',[DepartmentController::class,'updateOrCreate']);
 
 
 Route::group(
