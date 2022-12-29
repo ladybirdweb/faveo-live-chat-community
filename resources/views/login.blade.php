@@ -19,17 +19,17 @@
 
     <div id="customer-chat-content-login-form" class="customer-chat-content">
         <div class="customer-chat-content-info" id="message">
-                        @if (session('error'))
-                            <div class="customer-chat-login-errors">
-                                <ul>
-                                    <li> {{ session('error') }}</li>
-                                </ul>
-                            </div>
-                        @else
+            @if (session('error'))
+                <div class="customer-chat-login-errors">
+                    <ul>
+                        <li> {{ session('error') }}</li>
+                    </ul>
+                </div>
+            @else
             <div id ="intro">
                 {{__('lang.Login_Intro') }}
             </div>
-                        @endif
+            @endif
         </div>
 
         <div class="customer-chat-content-message-input">

@@ -56,9 +56,22 @@
             <div class="customer-chat-content-message" id = "addOperator">
                 <div class="row">
                     <div class="col-1" style="font-size: 18px; margin-right: 0px;">{{__('lang.Operators')}}</div>
-                    <div class="col-2"> <a id="" href="addOperators" class=""><button class="btn btn-sm btn-success">{{__('lang.Add_new')}}</button></a> </div>
+                    <div class="col-2"> <a id="" href="addAgents" class=""><button class="btn btn-sm btn-success">{{__('lang.Add_new')}}</button></a> </div>
+                </div>
 
-                    </div>
+                <div id="agentlist" class="container col-lg-11">
+                    <div id ="agentlist2"></div>
+                    <table  id ="agentrows" class="table table-bordered table-hover text-center">
+                        <tr class="table-success">
+                            <td>{{__('lang.ID')}}</td>
+                            <td>{{__('lang.Agent_Name')}}</td>
+                            <td>{{__('lang.Department_Name')}}</td>
+                            <td>{{__('lang.Operations')}}</td>
+                        </tr>
+
+                    </table>
+                </div>
+
             </div>
 {{--        </div>--}}
 
@@ -67,6 +80,29 @@
                 <div class="row">
                     <div class="col-1" style="font-size: 18px; margin-right: 24px;">{{__('lang.Departments')}}</div>
                     <div class="col-2"> <a id="" href="addDepartments" class=""><button class="btn btn-sm btn-success">{{__('lang.Add_new')}}</button></a> </div>
+                </div>
+
+                <div id="list" class="container col-lg-11">
+                    <div id ="list2"></div>
+                    <table  id ="rows" class="table table-bordered table-hover text-center">
+                        <tr class="table-success">
+                            <td>{{__('lang.ID')}}</td>
+                            <td>{{__('lang.Department_Name')}}</td>
+                            <td>{{__('lang.Description')}}</td>
+                            <td>{{__('lang.Operations')}}</td>
+                        </tr>
+                        {{--                                    @foreach($departments as $department)--}}
+                        {{--                                        <tr>--}}
+                        {{--                                            <td> {{$department['id']}} </td>--}}
+                        {{--                                            <td> {{$department['name']}} </td>--}}
+                        {{--                                            <td> {{$department['description']}} </td>--}}
+                        {{--                                            <td>--}}
+                        {{--                                                <a href="edit/{{$department['id']}}" > <button type="button" class="btn btn-primary mb-3"> <i class="fas fa-edit"></i> </button> </a>--}}
+                        {{--                                                <a href="deleteDepartment/{{$department['id']}}" > <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button> </a>--}}
+                        {{--                                            </td>--}}
+                        {{--                                        </tr>--}}
+                        {{--                                    @endforeach--}}
+                    </table>
                 </div>
             </div>
 {{--        </div>--}}
@@ -86,42 +122,6 @@
                    <div class="col-2"> <a id="" href="systemSettings" class=""><button class="btn btn-sm btn-success">{{__('lang.Settings')}}</button></a> </div>
                 </div>
             </div>
-
-
-{{--            <div class="container">--}}
-{{--                <h2 class="text-center" style="padding-top:14px;">{{__('lang.Departments_List')}}</h2>--}}
-{{--                <form method="get" action='settings'>--}}
-{{--                    <div class="form-floating" style="text-align: right!important;">--}}
-{{--                        <input type="text" id="search" name='search'>--}}
-{{--                        <button type='submit' id = "save"> <i class="fas fa-search fa-fw"></i> </button>--}}
-{{--                    </div>--}}
-{{--                </form>--}}
-{{--            </div>--}}
-            <div id="list" class="container col-lg-11">
-                <div id ="list2"></div>
-                <table  id ="rows" class="table table-bordered table-hover text-center">
-                    <tr class="table-success">
-                        <td>{{__('lang.ID')}}</td>
-                        <td>{{__('lang.Department_Name')}}</td>
-                        <td>{{__('lang.Description')}}</td>
-                        <td>{{__('lang.Operations')}}</td>
-                    </tr>
-
-{{--                                    @foreach($departments as $department)--}}
-{{--                                        <tr>--}}
-{{--                                            <td> {{$department['id']}} </td>--}}
-{{--                                            <td> {{$department['name']}} </td>--}}
-{{--                                            <td> {{$department['description']}} </td>--}}
-{{--                                            <td>--}}
-{{--                                                <a href="edit/{{$department['id']}}" > <button type="button" class="btn btn-primary mb-3"> <i class="fas fa-edit"></i> </button> </a>--}}
-{{--                                                <a href="deleteDepartment/{{$department['id']}}" > <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button> </a>--}}
-{{--                                            </td>--}}
-{{--                                        </tr>--}}
-{{--                                    @endforeach--}}
-                </table>
-            </div>
-
-
         </div>
 
 {{--        <div class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-operators customer-chat-tab-content-operators-list" id="customer-chat-operators-list">--}}
@@ -137,13 +137,14 @@
         <div id="customer-chat-admin-logs"></div>
 
 {{--    </div>--}}
-</div>
+    </div>
+
     <script>
         $(document).ready(function() {
             $("#addDepartment").hide();
             $("#addCannedMessages").hide();
             $("#addSettings").hide();
-            // $("#addOperators").hide();
+            // $("#addAgents").hide();
             $("#operators").click(function() {
                 console.log('button clicked');
                 $("#addOperator").show();
@@ -176,53 +177,97 @@
     </script>
 
 
+    <script>
+        $(document).ready(function(){
+
+            // function sendData(data) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'Accept' : 'application/json',
+                        'Authorization' : 'Bearer '.$accessToken,
+                    }
+                });
+
+                $.ajax({
+                    url: 'show-department-list',
+                    type: 'get',
+                    dataType: 'JSON',
+                    success: function (response) {
+                        if (response['success'] == true) {
+                            $.each(response.data, function (key, value) {
+                                $("#rows").append(
+                                    "<tr>"+
+                                    " <td>" + value.id + "</td>" +
+                                    "<td>" + value.name + "</td>" +
+                                    "<td>" + value.description + "</td>" +
+                                    "<td>" +
+                                    "<button type='button' id = 'edit' data-id = '"+ value.id +"'class='btn btn-primary mb-3'> <i class='fas fa-edit'></i> </button>" +
+                                    "<button type='submit' id = 'delete' data-id = '"+ value.id +"'class='btn btn-danger mb-3'> <i class='fas fa-trash'></i> </button>" +
+                                    "</td>"+
+                                    "</tr>"
+                                );
+                            });
+                        }
+                    }
+                });
+            // }
+            // $(document).on('click','#save',function() {
+            //
+            //     let data = {
+            //         'search': $("#search").val(),
+            //     }
+            //     sendData(data);
+            // });
+
+
+        });
+    </script>
 
 <script>
     $(document).ready(function(){
 
         // function sendData(data) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    'Accept' : 'application/json',
-                    'Authorization' : 'Bearer '.$accessToken,
-                }
-            });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Accept' : 'application/json',
+                'Authorization' : 'Bearer '.$accessToken,
+            }
+        });
 
-            $.ajax({
-                url: 'show-department-list',
-                type: 'get',
-                dataType: 'JSON',
-                success: function (response) {
-                    if (response['success'] == true) {
-                        $.each(response.data, function (key, value) {
-                            $("#rows").append(
-                                "<tr>"+
-                                " <td>" + value.id + "</td>" +
-                                "<td>" + value.name + "</td>" +
-                                "<td>" + value.description + "</td>" +
-                                "<td>" +
-                                "<button type='button' id = 'edit' data-id = '"+ value.id +"'class='btn btn-primary mb-3'> <i class='fas fa-edit'></i> </button>" +
-                                "<button type='submit' id = 'delete' data-id = '"+ value.id +"'class='btn btn-danger mb-3'> <i class='fas fa-trash'></i> </button>" +
-                                "</td>"+
-                                "</tr>"
-                            );
-                        });
-                    }
+        $.ajax({
+            url: 'show-agent-list',
+            type: 'get',
+            dataType: 'JSON',
+            success: function (response) {
+                if (response['success'] == true) {
+                    $.each(response.data, function (key, value) {
+                        // console.log(value.department[0].name);
+                        // console.log(value.departments.length);
+                        let department = "---";
+                        if (value.departments.length != 0) {
+                            department = value.departments[0].name;
+                        }
+                        $("#agentrows").append(
+                            "<tr>"+
+                            " <td>" + value.id + "</td>" +
+                            "<td>" + value.name + "</td>" +
+                            "<td>" + department + "</td>" +
+                            "<td>" +
+                            "<button type='button' id = 'editUser' data-id = '"+ value.id +"'class='btn btn-primary mb-3'> <i class='fas fa-edit'></i> </button>" +
+                            "<button type='submit' id = 'deleteUser' data-id = '"+ value.id +"'class='btn btn-danger mb-3'> <i class='fas fa-trash'></i> </button>" +
+                            "</td>"+
+                            "</tr>"
+                        );
+                    });
                 }
-            });
-        // }
-        // $(document).on('click','#save',function() {
-        //
-        //     let data = {
-        //         'search': $("#search").val(),
-        //     }
-        //     sendData(data);
-        // });
-
+            }
+        });
 
     });
 </script>
+
     <script>
         $(document).ready(function() {
             $(document).on('click','#edit',function() {
@@ -232,25 +277,74 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function() {
+            $(document).on('click','#edit',function() {
+                var id = $(this).attr("data-id");
+                localStorage.setItem('id',id);
+                window.location.replace('/edit');
+            });
+
+            $(document).on("click","#delete",function ()
+            {
+                if(confirm('Are you sure you want to delete this department')) {
+                    var id = $(this).attr("data-id");
+                    // var obj = $(this)
+                    $.ajax({
+                        type: "GET",
+                        url: "deleteDepartment/" + id,
+                        success: function (response) {
+                            console.log(response);
+                            $("#list2").append(
+                                " <div class='alert alert-success' role='alert'>" +
+                                response.message +
+                                " </div>"
+                            )
+                            setTimeout(function () {
+                                window.location.replace('/settings');
+                            }, 3000);
+
+                        },
+                        error: function (err) {
+
+                        },
+                    });
+                }
+
+            });
+
+        });
+    </script>
+
+
+{{--<script>--}}
+{{--    $(document).ready(function() {--}}
+{{--        $(document).on('click','#editUser',function() {--}}
+{{--            var id = $(this).attr("data-id");--}}
+{{--            console.log(id);--}}
+{{--        });--}}
+{{--    });--}}
+{{--</script>--}}
+
 <script>
     $(document).ready(function() {
-        $(document).on('click','#edit',function() {
+        $(document).on('click','#editUser',function() {
             var id = $(this).attr("data-id");
             localStorage.setItem('id',id);
-            window.location.replace('/edit');
+            window.location.replace('/editUser');
         });
 
-        $(document).on("click","#delete",function ()
+        $(document).on("click","#deleteUser",function ()
         {
             if(confirm('Are you sure you want to delete this department')) {
                 var id = $(this).attr("data-id");
                 // var obj = $(this)
                 $.ajax({
                     type: "GET",
-                    url: "deleteDepartment/" + id,
+                    url: "deleteUser/" + id,
                     success: function (response) {
                         console.log(response);
-                        $("#list2").append(
+                        $("#agentlist2").append(
                             " <div class='alert alert-success' role='alert'>" +
                             response.message +
                             " </div>"
@@ -270,7 +364,5 @@
 
     });
 </script>
-
-
 
 @endsection

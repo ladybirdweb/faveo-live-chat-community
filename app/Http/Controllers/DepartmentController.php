@@ -62,7 +62,7 @@ class DepartmentController extends Controller
         }
     }
 
-    public function showList(Request $req)
+    public function showList()
     {
         try{
 //        if($req->search)

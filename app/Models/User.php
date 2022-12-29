@@ -29,4 +29,14 @@ class User extends Authenticatable
     {
         // TODO: Implement has() method.
     }
+
+    public function departments()
+    {
+        return $this->belongsToMany(
+            \App\Models\Department::class,
+            'user_assign_departments',
+            'user_id',
+            'department_id'
+        );
+    }
 }

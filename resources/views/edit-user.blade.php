@@ -4,35 +4,33 @@
     <div class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-operators" style="border:2px solid black; margin-top: -8px; margin-left: 55px;" id="customer-chat-operators-edit">
 
         <div class="customer-chat-content-message" id="messages" style="margin-top: 55px;margin-left: 69px;">
-            <div id="intro" class="customer-chat-tabs-header">{{__('lang.Edit_Department')}}</div>
+            <div id="intro" class="customer-chat-tabs-header">{{__('lang.Edit_Agent')}}</div>
             <a id="button" href="settings" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Back')}}</a>
         </div>
-{{--        <form action ="{{url('editDepartment')}}" method ="post" >--}}
-{{--            @csrf--}}
-            <div class="customer-chat-content-messages edit-operator" style = "margin-left: 67px;margin-top: 65px;">
-                <div class="customer-chat-content-row add-only edit-only">
-                    <div class="customer-chat-label">{{__('lang.Department_Name')}}</div>
-                    <input type="text"  value="" name="name" id="name" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="Username" data-validator-state-ex="pass" />
-                </div>
-                <div class="customer-chat-content-row add-only edit-only">
-                    <div class="customer-chat-label">{{__('lang.Description')}}</div>
-                    <input type="text" value="" name="description" id="description" class="customer-chat-content-message-input-field" data-validator="mail" data-validator-label="E-mail" data-validator-state-ex="pass" />
-                </div>
-                <input type="hidden" name ="id" id="id" value="">
-                <div class="customer-chat-content-message button-row">
-{{--                    <a id="customer-chat-operators-save" href="#" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Update_Department')}}</a>--}}
-                    <button type="submit" id="edit" class="btn btn-sm" style="background: linear-gradient(to right, #36a9e1, #36a9e1);padding-bottom: 2px;padding-top: 2px;font-size: x-large;">{{__('lang.Update_Department')}}</button>
-                </div>
+
+        <div class="customer-chat-content-messages edit-operator" style = "margin-left: 67px;margin-top: 65px;">
+            <div class="customer-chat-content-row add-only edit-only">
+                <div class="customer-chat-label">{{__('lang.Agent_Name')}}</div>
+                <input type="text"  value="" name="agent_name" id="agent_name" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="Username" data-validator-state-ex="pass" />
             </div>
-{{--        </form>--}}
+            <div class="customer-chat-content-row add-only edit-only">
+                <div class="customer-chat-label">{{__('lang.Department_Name')}}</div>
+                <select id="department_name" name="department_name" class="customer-chat-content-message-input-field">
+                    <option value="" selected="selected"> Select Department </option>
+                </select>
+            </div>
+            <input type="hidden" name ="id" id="id" value="">
+            <div class="customer-chat-content-message button-row">
+                <button type="submit" id="edit" class="btn btn-sm" style="background: linear-gradient(to right, #36a9e1, #36a9e1);padding-bottom: 2px;padding-top: 2px;font-size: x-large;">{{__('lang.Update_Agent')}}</button>
+            </div>
+        </div>
     </div>
+
 
 
 
     <script>
         $(document).ready(function(){
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -40,34 +38,34 @@
                     'Authorization' : 'Bearer '.$accessToken,
                 }
             });
-
             $.ajax({
-                url: "edit/"+localStorage.getItem('id'),
+                url: "editUser/"+localStorage.getItem('id'),
                 type: 'get',
                 dataType: 'JSON',
                 success: function (response) {
                     if (response['success'] == true) {
-                        console.log(response['data'].id);
-                        $("#name").val(response['data'].name),
-                        $("#description").val(response['data'].description),
-                        $("#id").val(response['data'].id)
+                        // console.log(response.data[0].departments);
+                        $("#agent_name").val(response.data[0].name);
+                        console.log(response.data[0].departments.length);
+                        if(response.data[0].departments.length > 0) {
+                            let deptName = response.data[0].departments[0].name;
+                            let deptId = response.data[0].departments[0].id;
+                            $('#department_name').empty().append("<option value="+deptId+">"+deptName+"</option>");
+                        }
+                        $("#id").val(response.data[0].id)
                     }
                     localStorage.clear();
                 }
             });
-
-
             $(document).on('click','#edit',function() {
 
                 let data = {
-                    'name': $("#name").val(),
-                    'description': $("#description").val(),
+                    'username': $("#agent_name").val(),
+                    'department_name': $("#department_name").val(),
                     'id': $("#id").val(),
-
                 }
                 sendData(data);
             });
-
             function sendData(data) {
                 $.ajaxSetup({
                     headers: {
@@ -76,9 +74,8 @@
                         'Authorization' : 'Bearer '.$accessToken,
                     }
                 });
-
                 $.ajax({
-                    url: 'editDepartment',
+                    url: 'updateAgents',
                     type: 'post',
                     data: data,
                     dataType: 'JSON',
@@ -87,7 +84,6 @@
                             $('#intro').hide();
                             $('#button').hide();
                             $("#messages").append(
-
                                 " <div class='alert alert-success' role='alert'>" +
                                 "<strong>" + response.message + "</strong>" +
                                 // "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close></button>" +
@@ -127,7 +123,32 @@
         });
     </script>
 
-
+    <script>
+        $(document).ready(function(){
+            // function sendData(data) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept' : 'application/json',
+                    'Authorization' : 'Bearer '.$accessToken,
+                }
+            });
+            $.ajax({
+                url: 'show-department-list',
+                type: 'get',
+                dataType: 'JSON',
+                success: function (response) {
+                    if (response['success'] == true) {
+                        $.each(response.data, function (key, value) {
+                            $("#department_name").append(
+                                "<option value=" + value.id + ">" + value.name + "</option>"
+                            );
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 
 
 @endsection

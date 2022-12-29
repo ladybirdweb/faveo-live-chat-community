@@ -64,12 +64,18 @@ return[
     'Departments_List' => 'Departments List',
     "ID" => 'ID',
     'Department_Name' => 'Department Name',
+    'Agent_Name' => 'Agent Name',
     'Operations' => 'Operations',
     'Update_Department' => 'Update Department',
+    'Update_Agent' => 'Update Agent',
+    'Edit_Department' => 'Edit Department',
     'Edit_Agent' => 'Edit Agent',
     'Department_saved' => 'Department saved successfully',
     'Department_deleted' => 'Department deleted Successfully',
     'Invalid_ID' => 'Invalid ID',
+    'Agent_saved' => 'Agent Saved Successfully',
+    'Select_department' => 'Select Department',
+    'User_deleted' => 'User deleted successfully',
 ];
 
 ?>

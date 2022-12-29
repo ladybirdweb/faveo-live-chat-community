@@ -28,7 +28,7 @@
     <div class="customer-chat-content-messages edit-operator" style = "margin-left: 67px;margin-top: 65px;">
         <div class="customer-chat-content-row add-only edit-only">
             <div class="customer-chat-label">{{__('lang.Name')}}</div>
-            <input type="text" name="name" id="name" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="Username" data-validator-state-ex="pass" />
+            <input type="text" name="name" id="name" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="name" data-validator-state-ex="pass" />
         </div>
         <div class="customer-chat-content-row add-only edit-only">
             <div class="customer-chat-label">{{__('lang.Description')}}</div>

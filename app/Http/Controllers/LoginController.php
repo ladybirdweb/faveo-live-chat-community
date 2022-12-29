@@ -23,12 +23,7 @@ class LoginController extends Controller
         $user = Auth::user();
         $token = $user->createToken('loginToken')->accessToken;
         session(['token' => $token]);
-        if (Auth::user()->role == 'admin') {
-            return successResponse('admin', $token, 200);
-        }
-        if (Auth::user()->role == 'agent') {
-            return successResponse('agent', $token, 200);
-        }
+        return successResponse( Auth::user()->role, $token,);
     }
 
     public function forgetpassword(forgetPasswordRequest $req)

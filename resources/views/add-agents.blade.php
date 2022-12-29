@@ -28,34 +28,33 @@
 
         <div class="customer-chat-content-messages edit-operator" style = "margin-left: 67px;margin-top: 65px;">
             <div class="customer-chat-content-row add-only edit-only">
-                <div class="customer-chat-label">{{__('lang.Username')}}</div>
-                <input type="text" id="usernameField" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="Username" data-validator-state-ex="pass" />
+                <div class="customer-chat-label">{{__('lang.Name')}}</div>
+                <input type="text" name="name" id="name" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="Username" data-validator-state-ex="pass" />
             </div>
             <div class="customer-chat-content-row add-only edit-only">
                 <div class="customer-chat-label">{{__('lang.Email')}}</div>
-                <input type="text" id="mailField" class="customer-chat-content-message-input-field" data-validator="mail" data-validator-label="E-mail" data-validator-state-ex="pass" />
+                <input type="text" name="email" id="email" class="customer-chat-content-message-input-field" data-validator="mail" data-validator-label="E-mail" data-validator-state-ex="pass" />
             </div>
             <div class="customer-chat-content-row add-only">
                 <div class="customer-chat-label">{{__('lang.Password')}}</div>
-                <input type="password" id="passField" class="customer-chat-content-message-input-field" data-validator="password" data-validator-match="rePassField" data-validator-state="add" data-validator-label="Password" />
+                <input type="password" name="password" id="password" class="customer-chat-content-message-input-field" data-validator="password" data-validator-match="rePassField" data-validator-state="add" data-validator-label="Password" />
             </div>
             <div class="customer-chat-content-row add-only">
                 <div class="customer-chat-label">{{__('lang.Confirm_Password')}}</div>
-                <input type="password" id="rePassField" class="customer-chat-content-message-input-field" data-validator="password" data-validator-match="passField" data-validator-state="add" data-validator-msg="false" />
+                <input type="password" name="confirmpassword" id="confirmpassword" class="customer-chat-content-message-input-field" data-validator="password" data-validator-match="passField" data-validator-state="add" data-validator-msg="false" />
             </div>
 
             <div class="customer-chat-content-row select-list-row add-only edit-only">
                 <div class="customer-chat-label">{{__('lang.Departments')}}</div>
-                <select name="defaultLanguage" class="customer-chat-content-message-input-field">
-                    <option value="en" selected="selected">en</option>
-                    <option value="pl">pl</option>
+                <select id="departments" name="departments" class="customer-chat-content-message-input-field">
+                    <option value="" selected="selected"> Select Department </option>
                 </select>
-{{--                <button type="submit" class="btn btn-sm" style="background: linear-gradient(to right, #36a9e1, #36a9e1);padding-bottom: 2px;padding-top: 2px;font-size: x-large;">{{__('lang.Submit')}}</button>--}}
                 <div class="select-list"></div>
             </div>
 
             <div class="customer-chat-content-message button-row">
-                <a id="customer-chat-operators-save" href="#" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Submit')}}</a>
+                <button type="submit" id="save" class="customer-chat-content-button customer-chat-content-button-inline" >{{__('lang.Submit')}}</button>
+{{--                <a id="save" href="#" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Submit')}}</a>--}}
             </div>
 
             {{--            <div class="customer-chat-content-row edit-only">--}}
@@ -86,5 +85,117 @@
 {{--            <img class="customer-chat-content-loading-icon" src="<?php echo $app->asset('img/loading.gif') ?>" />--}}
 {{--        </div>--}}
     </div>
+
+
+    <script>
+        $(document).ready(function(){
+
+            // function sendData(data) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept' : 'application/json',
+                    'Authorization' : 'Bearer '.$accessToken,
+                }
+            });
+
+            $.ajax({
+                url: 'show-department-list',
+                type: 'get',
+                dataType: 'JSON',
+                success: function (response) {
+                    if (response['success'] == true) {
+                        $.each(response.data, function (key, value) {
+                            $("#departments").append(
+
+                                "<option value=" + value.id + ">" + value.name + "</option>"
+                                // "<option value='' selected='selected'>Select_Department </option>"
+                            );
+                        });
+
+                    }
+                }
+            });
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $(document).on('click','#save',function() {
+
+                let data = {
+                    'username': $("#name").val(),
+                    'email': $("#email").val(),
+                    'password' : $("#password").val(),
+                    'confirmpassword' : $("#confirmpassword").val(),
+                    'departments' : $("#departments").val()
+                }
+                console.log(data);
+                sendData(data);
+            });
+
+            function sendData(data) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                        'Accept' : 'application/json',
+                        'Authorization' : 'Bearer '.$accessToken,
+                    }
+                });
+
+                $.ajax({
+                    url: 'addAgents',
+                    type: 'post',
+                    data: data,
+                    dataType: 'JSON',
+                    success: function (response) {
+                        $('#intro').hide();
+                        $('#button').hide();
+                        if (response['success'] == true) {
+                            $("#messages").append(
+                                "<div class='customer-chat-tabs-header'>"+
+                                // "<div class='alert alert-warning alert-dismissible fade show' role='alert'>"+
+                                "<strong>" + response.message + "</strong>" +
+                                // "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close></button>" +
+                                // "</div>"+
+                                "</div>"
+                            );
+                            setTimeout(function () {
+                                window.location = "settings";
+                            }, 3000);
+
+                        }
+                    },
+                    error: function (error) {
+                        $('#intro').hide();
+                        $('#button').hide();
+                        if (error.status == 401) {
+                            console.log(error.responseJSON);
+                            $("#messages").append(
+                                "<div class='customer-chat-tabs-header'>"+
+                                "<ul>"+
+                                "<li>"+  error.responseJSON.message + "</li>"+
+                                "</ul>"+
+                                "</div>"
+                            );
+                        }
+                        let messages = error.responseJSON.errors;
+                        $.each(messages, function (key, val) {
+                            $("#messages").append(
+                                "<div class='customer-chat-tabs-header'>"+
+                                "<ul>"+
+                                "<li>"+  val + "</li>"+
+                                "</ul>"+
+                                "</div>"
+                            );
+                        });
+                    },
+                });
+            }
+        });
+    </script>
+
+
 
 @endsection
