@@ -48,7 +48,7 @@ Route::group(
         Route::view('cannedMessages','add-canned-messages');
         Route::view('systemSettings','system-settings');
 
-        Route::post('addAgents', [AgentController::class, 'updateOrCreate']);
+        Route::post('addAgents', [AgentController::class, 'createUser']);
         Route::post('updateAgents', [AgentController::class, 'updateUser']);
         Route::post('addDepartment', [DepartmentController::class, 'updateOrCreate']);
 

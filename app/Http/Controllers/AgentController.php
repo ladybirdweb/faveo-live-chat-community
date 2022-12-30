@@ -10,16 +10,19 @@ use Illuminate\Support\Facades\Hash;
 
 class AgentController extends Controller
 {
-    public function updateOrCreate(AgentRequest $request)
+    public function createUser(AgentRequest $request)
     {
         try{
 //            dd($request->all());
-            $user = User::updateOrCreate(['id' => $request->id],
-            [
+            if ($request->password != $request->confirmpassword)
+            {
+                return errorResponse(trans('lang.Error_Password_Intro'));
+            }
+            $user = User::updateOrCreate([
                 'name' => $request->username,
                 'email' => $request->email,
                 'password' => $request->password,
-                'role' => 'Agent',
+                'role' => 'agent',
 //                'confirmpassword' => $request->confirmpassword,
 //                'departments' => $request->departments  (id)
             ]);
@@ -32,16 +35,15 @@ class AgentController extends Controller
 
 //            dd($userDepartment);
 
-            if ($request->password == $request->confirmpassword) {
-                $id = $user->id;
-                $data = User::find($id);
-                $data->password = Hash::make($request->password);
-                $data->save();
-                return successResponse(trans('lang.Agent_saved'),'');
-            }
+//            if ($request->password == $request->confirmpassword) {
+//                $id = $user->id;
+//                $data = User::find($id);
+//                $data->password = Hash::make($request->password);
+//                $data->save();
+//                return successResponse(trans('lang.Agent_saved'),'');
+//            }
+            return successResponse(trans('lang.Agent_saved'),'');
 
-//            return redirect('settings')->with('success', 'Department saved successfully');
-//            return successResponse(trans('lang.Agent_saved'),'');
         }catch(\Exception $ex){
             return errorResponse($ex->getMessage());
         }
@@ -63,6 +65,7 @@ class AgentController extends Controller
 //                $department->user_id = $request->id;
 //                $department->depaartment_id = $request->department_name;
 //            }
+            return successResponse(trans('lang.Agent_saved'),'');
 
         }catch(\Exception $ex){
         return errorResponse($ex->getMessage());
@@ -76,7 +79,7 @@ class AgentController extends Controller
 //        {
 //            $data = User::where('name','LIKE',"%$req->search%")->get();
 //            $data = User::all();
-            $data = User::with('departments')->get()->toArray();
+            $data = User::with('departments')->where('role','agent')->get()->toArray();
 //            dd($data);
             return successResponse('',$data);
 //        }
