@@ -107,12 +107,10 @@
                     if (response['success'] == true) {
                         $.each(response.data, function (key, value) {
                             $("#departments").append(
-
                                 "<option value=" + value.id + ">" + value.name + "</option>"
                                 // "<option value='' selected='selected'>Select_Department </option>"
                             );
                         });
-
                     }
                 }
             });
@@ -150,6 +148,7 @@
                     data: data,
                     dataType: 'JSON',
                     success: function (response) {
+                        console.log(response);
                         $('#intro').hide();
                         $('#button').hide();
                         if (response['success'] == true) {

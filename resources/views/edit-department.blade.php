@@ -52,7 +52,7 @@
                         $("#description").val(response['data'].description),
                         $("#id").val(response['data'].id)
                     }
-                    localStorage.clear();
+                    // localStorage.clear();
                 }
             });
 
@@ -93,7 +93,9 @@
                                 // "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close></button>" +
                                 "</div>"
                             );
+                            localStorage.clear();
                             setTimeout(function () {
+
                                 window.location = "settings";
                             }, 3000);
                         }
