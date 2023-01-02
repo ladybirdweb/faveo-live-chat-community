@@ -23,7 +23,7 @@
                     <div class="col-2"> <a id="" href="addAgents" class=""><button class="btn btn-sm btn-success">{{__('lang.Add_new')}}</button></a> </div>
                 </div>
 
-                <div id ="agentlist2"></div>
+                <div id ="agentlist"></div>
                 <table  id ="agentrows" class="table table-bordered table-hover text-center">
                     <thead>
                     <tr class="table-success">
@@ -44,7 +44,7 @@
                     <div class="col-2"> <a id="" href="addDepartments" class=""><button class="btn btn-sm btn-success">{{__('lang.Add_new')}}</button></a> </div>
                 </div>
 
-                <div id ="list2"></div>
+                <div id ="list"></div>
                 <table  id ="rows" class="table table-bordered table-hover text-center">
                     <thead>
                     <tr class="table-success">
@@ -58,8 +58,6 @@
 
         </div>
     </div>
-
-
 
     <script>
         $(document).ready(function() {
@@ -153,7 +151,7 @@
                         url: "deleteDepartment/" + id,
                         success: function (response) {
                             console.log(response);
-                            $("#list2").append(
+                            $("#list").append(
                                 " <div class='alert alert-success' role='alert'>" +
                                 response.message +
                                 " </div>"
@@ -187,7 +185,7 @@
                         url: "deleteUser/" + id,
                         success: function (response) {
                             console.log(response);
-                            $("#agentlist2").append(
+                            $("#agentlist").append(
                                 " <div class='alert alert-success' role='alert'>" +
                                 response.message +
                                 " </div>"
