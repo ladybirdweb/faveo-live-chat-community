@@ -9,12 +9,9 @@
                     <div class="customer-chat-tabs-wrapper">
                         <a data-tag="operators" id="operators" href="#" class="customer-chat-tab customer-chat-tab-button operators"><i class="fa fa-user"></i> <span> {{__('lang.Operators')}}</span></a>
                         <a data-tag="departments" href="#" class="customer-chat-tab customer-chat-tab-button departments"><i class="fa fa-cubes"></i> {{__('lang.Departments')}}</a>
-{{--                        <a data-tag="canned-messages" href="#" class="customer-chat-tab customer-chat-tab-button canned-messages"><i class="fa fa-comments"></i> {{__('lang.Canned_Messages')}}</a>--}}
-{{--                        <a data-tag="settings" href="#" class="customer-chat-tab customer-chat-tab-button customer-chat-active"><i class="fa fa-wrench"></i> {{__('lang.Settings')}}</a>--}}
                     </div>
                     <a href="#" class="customer-chat-tab customer-chat-tab-next"><i class="icon-chevron-right"></i></a>
                 </div>
-
                 <div data-tag="operators" id="customer-chat-operators-tab" class="customer-chat-tab-content"></div>
                 <div data-tag="departments" id="customer-chat-departments-tab" class="customer-chat-tab-content"></div>
                 <div data-tag="settings" class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-settings-ui"></div>
@@ -43,7 +40,6 @@
                 <div class="customer-chat-label">{{__('lang.Confirm_Password')}}</div>
                 <input type="password" name="confirmpassword" id="confirmpassword" class="customer-chat-content-message-input-field" data-validator="password" data-validator-match="passField" data-validator-state="add" data-validator-msg="false" />
             </div>
-
             <div class="customer-chat-content-row select-list-row add-only edit-only">
                 <div class="customer-chat-label">{{__('lang.Departments')}}</div>
                 <select id="departments" name="departments" class="customer-chat-content-message-input-field">
@@ -51,46 +47,15 @@
                 </select>
                 <div class="select-list"></div>
             </div>
-
             <div class="customer-chat-content-message button-row">
                 <button type="submit" id="save" class="customer-chat-content-button customer-chat-content-button-inline" >{{__('lang.Submit')}}</button>
-{{--                <a id="save" href="#" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Submit')}}</a>--}}
             </div>
-
-            {{--            <div class="customer-chat-content-row edit-only">--}}
-{{--                <div class="customer-chat-label"><?php echo $app->trans('avatar') ?></div>--}}
-{{--                <i id="imageField" class="avatar customer-chat-content-message-avatar-operator"></i>--}}
-{{--                <div class="customer-chat-upload-field customer-chat-content-message-input-field">--}}
-{{--                    <input id="avatarUploadField" name="avatar" type="file" />--}}
-{{--                </div>--}}
-{{--                <a href="#" id="avatar-from-collection" class="customer-chat-content-button customer-chat-content-button-inline"><?php echo $app->trans('from.coll') ?></a>--}}
-{{--            </div>--}}
-{{--            <div class="customer-chat-content-row pass-only current-pass">--}}
-{{--                <div class="customer-chat-label"><?php echo $app->trans('curr.pass') ?></div>--}}
-{{--                <input type="password" id="changePassCurrentField" class="customer-chat-content-message-input-field" />--}}
-{{--            </div>--}}
-{{--            <div class="customer-chat-content-row pass-only">--}}
-{{--                <div class="customer-chat-label"><?php echo $app->trans('new.pass') ?></div>--}}
-{{--                <input type="password" id="changePassField" class="customer-chat-content-message-input-field" data-validator="password" data-validator-match="changePassRetypeField" data-validator-state="pass" data-validator-label="Password" />--}}
-{{--            </div>--}}
-{{--            <div class="customer-chat-content-row pass-only">--}}
-{{--                <div class="customer-chat-label"><?php echo $app->trans('retype.new.pass') ?></div>--}}
-{{--                <input type="password" id="changePassRetypeField" class="customer-chat-content-message-input-field" data-validator="password" data-validator-match="changePassField" data-validator-state="pass" data-validator-msg="false" />--}}
-{{--            </div>--}}
         </div>
-{{--        <div class="customer-chat-content-message button-row">--}}
-{{--            <a id="customer-chat-operators-change-password" href="#" class="customer-chat-content-button customer-chat-content-button-inline edit-only"><?php echo $app->trans('change.pass') ?></a>--}}
-{{--            <a id="customer-chat-operators-cancel" href="#" class="customer-chat-content-button customer-chat-content-button-inline pass-only"><?php echo $app->trans('cancel') ?></a>--}}
-{{--            <a id="customer-chat-operators-save" href="#" class="customer-chat-content-button customer-chat-content-button-inline"><?php echo $app->trans('save') ?></a>--}}
-{{--            <img class="customer-chat-content-loading-icon" src="<?php echo $app->asset('img/loading.gif') ?>" />--}}
-{{--        </div>--}}
     </div>
 
 
     <script>
         $(document).ready(function(){
-
-            // function sendData(data) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -108,20 +73,17 @@
                         $.each(response.data, function (key, value) {
                             $("#departments").append(
                                 "<option value=" + value.id + ">" + value.name + "</option>"
-                                // "<option value='' selected='selected'>Select_Department </option>"
                             );
                         });
                     }
                 }
             });
-
         });
     </script>
 
     <script>
         $(document).ready(function(){
             $(document).on('click','#save',function() {
-
                 let data = {
                     'username': $("#name").val(),
                     'email': $("#email").val(),
@@ -163,7 +125,6 @@
                             setTimeout(function () {
                                 window.location = "settings";
                             }, 3000);
-
                         }
                     },
                     error: function (error) {

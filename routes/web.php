@@ -53,7 +53,6 @@ Route::group(
         Route::post('addDepartment', [DepartmentController::class, 'updateOrCreate']);
 
         Route::get('show-department-list',[DepartmentController::class,'showList']);
-//        Route::get('show-department-list/{search}',[DepartmentController::class,'showList']);
         Route::get('show-agent-list',[AgentController::class,'showUserList']);
 
         Route::get('/deleteDepartment/{id}',[DepartmentController::class,'deleteDepartment']);
@@ -61,12 +60,9 @@ Route::group(
     }
 );
 
-//Route::view('edit/{id}/{name}','admin_edit_department');
 Route::get('edit/{id}',[DepartmentController::class,'get_editDepartment']);
 Route::get('editUser/{id}',[AgentController::class,'get_editUser']);
-//Route::post('editDepartment',[DepartmentController::class,'editDepartment']);
 Route::post('editDepartment',[DepartmentController::class,'updateOrCreate']);
-//Route::post('editAgent',[AgentController::class,'updateOrCreate']);
 
 
 Route::group(
@@ -75,8 +71,3 @@ Route::group(
         Route::view('agent', 'agent');
     }
 );
-
-
-//Route::get('/test', function (){
-//    return url ('editDepartment');
-//});

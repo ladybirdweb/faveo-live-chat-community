@@ -27,8 +27,6 @@ class AgentRequest extends FormRequest
             'username' => 'required',
             'email' => 'required|unique:users,email,' .$this->id,
             'password' => ['required', Password::min(6)->letters()->numbers()->symbols()],
-//            'email' => 'unique:users,email,' .$this->id,
-//            'password' => [Password::min(6)->letters()->numbers()->symbols()],
             'confirmpassword' => ['required'],
             'departments' => 'required',
         ];

@@ -27,8 +27,6 @@
     </div>
 
 
-
-
     <script>
         $(document).ready(function(){
             $.ajaxSetup({
@@ -44,7 +42,6 @@
                 dataType: 'JSON',
                 success: function (response) {
                     if (response['success'] == true) {
-                        // console.log(response.data[0].departments);
                         $("#agent_name").val(response.data[0].name);
                         console.log(response.data[0].departments.length);
                         if(response.data[0].departments.length > 0) {
@@ -54,11 +51,9 @@
                         }
                         $("#id").val(response.data[0].id)
                     }
-                    // localStorage.clear();
                 }
             });
             $(document).on('click','#edit',function() {
-
                 let data = {
                     'username': $("#agent_name").val(),
                     'department_name': $("#department_name").val(),
@@ -86,7 +81,6 @@
                             $("#messages").append(
                                 " <div class='alert alert-success' role='alert'>" +
                                 "<strong>" + response.message + "</strong>" +
-                                // "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close></button>" +
                                 "</div>"
                             );
                             localStorage.clear();
@@ -126,7 +120,6 @@
 
     <script>
         $(document).ready(function(){
-            // function sendData(data) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),

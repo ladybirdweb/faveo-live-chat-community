@@ -2,37 +2,28 @@
 @section('content')
 
     <div class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-operators" style="border:2px solid black; margin-top: -8px; margin-left: 55px;" id="customer-chat-operators-edit">
-
         <div class="customer-chat-content-message" id="messages" style="margin-top: 55px;margin-left: 69px;">
             <div id="intro" class="customer-chat-tabs-header">{{__('lang.Edit_Department')}}</div>
             <a id="button" href="settings" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Back')}}</a>
         </div>
-{{--        <form action ="{{url('editDepartment')}}" method ="post" >--}}
-{{--            @csrf--}}
-            <div class="customer-chat-content-messages edit-operator" style = "margin-left: 67px;margin-top: 65px;">
-                <div class="customer-chat-content-row add-only edit-only">
-                    <div class="customer-chat-label">{{__('lang.Department_Name')}}</div>
-                    <input type="text"  value="" name="name" id="name" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="Username" data-validator-state-ex="pass" />
-                </div>
-                <div class="customer-chat-content-row add-only edit-only">
-                    <div class="customer-chat-label">{{__('lang.Description')}}</div>
-                    <input type="text" value="" name="description" id="description" class="customer-chat-content-message-input-field" data-validator="mail" data-validator-label="E-mail" data-validator-state-ex="pass" />
-                </div>
-                <input type="hidden" name ="id" id="id" value="">
-                <div class="customer-chat-content-message button-row">
-{{--                    <a id="customer-chat-operators-save" href="#" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Update_Department')}}</a>--}}
-                    <button type="submit" id="edit" class="btn btn-sm" style="background: linear-gradient(to right, #36a9e1, #36a9e1);padding-bottom: 2px;padding-top: 2px;font-size: x-large;">{{__('lang.Update_Department')}}</button>
-                </div>
+        <div class="customer-chat-content-messages edit-operator" style = "margin-left: 67px;margin-top: 65px;">
+            <div class="customer-chat-content-row add-only edit-only">
+                <div class="customer-chat-label">{{__('lang.Department_Name')}}</div>
+                <input type="text"  value="" name="name" id="name" class="customer-chat-content-message-input-field" data-validator="notEmpty" data-validator-label="Username" data-validator-state-ex="pass" />
             </div>
-{{--        </form>--}}
+            <div class="customer-chat-content-row add-only edit-only">
+                <div class="customer-chat-label">{{__('lang.Description')}}</div>
+                <input type="text" value="" name="description" id="description" class="customer-chat-content-message-input-field" data-validator="mail" data-validator-label="E-mail" data-validator-state-ex="pass" />
+            </div>
+            <input type="hidden" name ="id" id="id" value="">
+            <div class="customer-chat-content-message button-row">
+                <button type="submit" id="edit" class="btn btn-sm" style="background: linear-gradient(to right, #36a9e1, #36a9e1);padding-bottom: 2px;padding-top: 2px;font-size: x-large;">{{__('lang.Update_Department')}}</button>
+            </div>
+        </div>
     </div>
-
-
 
     <script>
         $(document).ready(function(){
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
@@ -52,10 +43,8 @@
                         $("#description").val(response['data'].description),
                         $("#id").val(response['data'].id)
                     }
-                    // localStorage.clear();
                 }
             });
-
 
             $(document).on('click','#edit',function() {
 
@@ -63,7 +52,6 @@
                     'name': $("#name").val(),
                     'description': $("#description").val(),
                     'id': $("#id").val(),
-
                 }
                 sendData(data);
             });
@@ -87,15 +75,12 @@
                             $('#intro').hide();
                             $('#button').hide();
                             $("#messages").append(
-
                                 " <div class='alert alert-success' role='alert'>" +
                                 "<strong>" + response.message + "</strong>" +
-                                // "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close></button>" +
                                 "</div>"
                             );
                             localStorage.clear();
                             setTimeout(function () {
-
                                 window.location = "settings";
                             }, 3000);
                         }
@@ -128,8 +113,6 @@
             }
         });
     </script>
-
-
 
 
 @endsection
