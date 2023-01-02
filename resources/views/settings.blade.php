@@ -18,27 +18,25 @@
             <div data-tag="departments" id="customer-chat-departments-tab" class="customer-chat-tab-content"></div>
         </div>
 
-        {{-------------------------------------Add operator button--------------------------------------------------------------}}
         <div class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-operators customer-chat-tab-content-operators-list" id="customer-chat-operators-list">
+
             <div class="customer-chat-content-message" id = "addOperator">
                 <div class="row">
                     <div class="col-1" style="font-size: 18px; margin-right: 0px;">{{__('lang.Operators')}}</div>
                     <div class="col-2"> <a id="" href="addAgents" class=""><button class="btn btn-sm btn-success">{{__('lang.Add_new')}}</button></a> </div>
                 </div>
 
-                <div id="agentlist" class="container col-lg-11">
-                    <div id ="agentlist2"></div>
-                    <table  id ="agentrows" class="table table-bordered table-hover text-center">
-                        <thead>
-                        <tr class="table-success">
-                            <td>{{__('lang.Agent_Name')}}</td>
-                            <td>{{__('lang.Email')}}</td>
-                            <td>{{__('lang.Department_Name')}}</td>
-                            <td>{{__('lang.Operations')}}</td>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
+                <div id ="agentlist2"></div>
+                <table  id ="agentrows" class="table table-bordered table-hover text-center">
+                    <thead>
+                    <tr class="table-success">
+                        <td>{{__('lang.Agent_Name')}}</td>
+                        <td>{{__('lang.Email')}}</td>
+                        <td>{{__('lang.Department_Name')}}</td>
+                        <td>{{__('lang.Operations')}}</td>
+                    </tr>
+                    </thead>
+                </table>
             </div>
 
             <div class="customer-chat-content-message" id = "addDepartment">
@@ -47,31 +45,27 @@
                     <div class="col-2"> <a id="" href="addDepartments" class=""><button class="btn btn-sm btn-success">{{__('lang.Add_new')}}</button></a> </div>
                 </div>
 
-                <div id="list" class="container col-lg-11">
-                    <div id ="list2"></div>
-                    <table  id ="rows" class="table table-bordered table-hover text-center">
-                        <thead>
-                        <tr class="table-success">
-{{--                            <td>{{__('lang.ID')}}</td>--}}
-                            <td>{{__('lang.Department_Name')}}</td>
-                            <td>{{__('lang.Description')}}</td>
-                            <td>{{__('lang.Operations')}}</td>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>
+                <div id ="list2"></div>
+                <table  id ="rows" class="table table-bordered table-hover text-center">
+                    <thead>
+                    <tr class="table-success">
+                        <td>{{__('lang.Department_Name')}}</td>
+                        <td>{{__('lang.Description')}}</td>
+                        <td>{{__('lang.Operations')}}</td>
+                    </tr>
+                    </thead>
+                </table>
             </div>
         </div>
-
-        <div id="customer-chat-admin-qr"></div>
-        <div id="customer-chat-admin-logs"></div>
     </div>
 
     <script>
         $(document).ready(function() {
             $("#addDepartment").hide();
-            // $("#addOperator").hide();
-            // $("#addAgents").hide();
+            $("#addOperator").hide();
+            // $("#addOperator").show();
+            // $("#addDepartment").show();
+
             $("#operators").click(function() {
                 $("#addOperator").show();
                 $("#addDepartment").hide();
@@ -152,7 +146,6 @@
             {
                 if(confirm('Are you sure you want to delete this department')) {
                     var id = $(this).attr("data-id");
-                    // var obj = $(this)
                     $.ajax({
                         type: "GET",
                         url: "deleteDepartment/" + id,
@@ -166,16 +159,12 @@
                             setTimeout(function () {
                                 window.location.replace('/settings');
                             }, 3000);
-
                         },
                         error: function (err) {
-
                         },
                     });
                 }
-
             });
-
         });
     </script>
 
