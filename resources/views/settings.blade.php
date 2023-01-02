@@ -11,14 +11,11 @@
                 </div>
                 <a href="#" class="customer-chat-tab customer-chat-tab-next"><i class="icon-chevron-right"></i></a>
             </div>
-
-{{--            <!-- Tabs contents -->--}}
-
-            <div data-tag="operators" id="customer-chat-operators-tab" class="customer-chat-tab-content"></div>
-            <div data-tag="departments" id="customer-chat-departments-tab" class="customer-chat-tab-content"></div>
         </div>
 
         <div class="customer-chat-tab-content customer-chat-tab-content-settings customer-chat-tab-content-operators customer-chat-tab-content-operators-list" id="customer-chat-operators-list">
+
+            {{------------------------------------- Operators --------------------------------------------------------------}}
 
             <div class="customer-chat-content-message" id = "addOperator">
                 <div class="row">
@@ -39,6 +36,8 @@
                 </table>
             </div>
 
+            {{------------------------------------- Departments --------------------------------------------------------------}}
+
             <div class="customer-chat-content-message" id = "addDepartment">
                 <div class="row">
                     <div class="col-1" style="font-size: 18px; margin-right: 24px;">{{__('lang.Departments')}}</div>
@@ -56,8 +55,11 @@
                     </thead>
                 </table>
             </div>
+
         </div>
     </div>
+
+
 
     <script>
         $(document).ready(function() {
@@ -93,28 +95,6 @@
         $(document).ready(function () {
             $.noConflict();
 
-            $('#rows').DataTable({
-                ajax: {
-                    url: 'show-department-list',
-                    dataSrc: "data"
-                },
-                columns: [
-                    { data: 'name' },
-                    { data: 'description' },
-                    {
-                        data:null,
-                        mRender: function (data) { return '<button type="button" id = "edit" data-id = '+ data.id +'class="btn btn-primary mb-3"> <i class="fas fa-edit"></i></button> <button type="submit" id = "delete" data-id = '+ data.id +'class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button>'
-                            ; }}
-                ],
-                "pageLength": 8
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $.noConflict();
-
             $('#agentrows').DataTable({
                 ajax: {
                     url: 'show-agent-list',
@@ -127,7 +107,29 @@
                     {
                         data:null,
                         mRender: function (data) { return '<button type="button" id = "editUser" data-id = '+ data.id +'class="btn btn-primary mb-3"> <i class="fas fa-edit"></i></button> <button type="submit" id = "deleteUser" data-id = '+ data.id +'class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button>'
-                        ; }}
+                            ; }}
+                ],
+                "pageLength": 8
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $.noConflict();
+
+            $('#rows').DataTable({
+                ajax: {
+                    url: 'show-department-list',
+                    dataSrc: "data"
+                },
+                columns: [
+                    { data: 'name' },
+                    { data: 'description' },
+                    {
+                        data:null,
+                        mRender: function (data) { return '<button type="button" id = "edit" data-id = '+ data.id +'class="btn btn-primary mb-3"> <i class="fas fa-edit"></i></button> <button type="submit" id = "delete" data-id = '+ data.id +'class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button>'
+                            ; }}
                 ],
                 "pageLength": 8
             });
