@@ -19,6 +19,7 @@ return[
     'Invalid_Email'              => 'Email invalide',
     'Invalid_Password'           => 'Mot de passe incorrect',
     'Invalid_OTP'                => 'OTP invalide',
+    'Invalid_Credentials'        => "Les informations d'identification invalides",
     'Success_Link_Intro'         => 'Nous vous avons envoyé un e-mail de vérification. Ouvrez-le et appuyez sur le lien pour continuer.',
     'Success_Password_Intro'     => 'Votre mot de passe a été changé avec succès',
     'Error_Password_Intro'       => 'Le mot de passe et le mot de passe de confirmation doivent être identiques',
@@ -28,7 +29,6 @@ return[
     'Thanks'                     => 'Merci!',
     'Team_FAVEO'                 => 'Équipe FAVEO',
     'FAVEO_Password_Reset'       => 'FAVEO Réinitialisation du mot de passe',
-    'Invalid_Credentials'        => "Les informations d'identification invalides",
 
     //    Admin Page
     'Admin'            => 'Administratrice',
@@ -38,5 +38,30 @@ return[
     'Edit_Profile'     => 'Editer le profil',
 
     'map_no_api_key_info' => "Entrez votre clé API Google Maps dans l'onglet 'Paramètres' et actualisez la page.",
+
+    'Username'         => "Nom d'utilisateur",
+    'Back'             => 'Back to list',
+    'Add_new_operator' => 'Ajouter un nouvel opérateur',
+    'Add_new'          => 'Ajouter nouveau',
+    'Name'             => 'Nom',
+    'Description'      => 'Description',
+    'Add_new_department' => 'Ajouter un nouveau département',
+    'Body'             => 'Corps',
+
+    'Departments_List' => 'Liste des départements',
+    "ID" => 'IDENTIFIANT',
+    'Department_Name' => 'Nom du département',
+    'Agent_Name' => "Nom d'agent",
+    'Operations' => 'Opérations',
+    'Update_Department' => 'Service de mise à jour',
+    'Update_Agent' => 'Agent de mise à jour',
+    'Edit_Department' => 'Modifier le département',
+    'Edit_Agent' => "Modifier l'agent",
+    'Department_saved' => 'Département enregistré avec succès',
+    'Department_deleted' => 'Département supprimé avec succès',
+    'Invalid_ID' => 'ID invalide',
+    'Agent_saved' => 'Agent enregistré avec succès',
+    'Select_department' => 'Sélectionnez le département',
+    'User_deleted' => 'Utilisateur supprimé avec succès',
 
 ];

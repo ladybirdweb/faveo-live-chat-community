@@ -33,17 +33,6 @@ class AgentController extends Controller
         }
     }
 
-    public function updateUser(Request $request)
-    {
-        try{
-            $user = User::where ('id', $request->id)->update(['name'=> $request->username]);
-            UserDepartment::updateOrCreate(['user_id'=>$request->id],['department_id'=> $request->department_name]);
-            return successResponse(trans('lang.Agent_saved'),'');
-        }catch(\Exception $ex){
-            return errorResponse($ex->getMessage());
-        }
-    }
-
     public function showUserList()
     {
         try{
@@ -63,6 +52,17 @@ class AgentController extends Controller
                 return errorResponse(trans('lang.Invalid_ID'));
             }
             return successResponse('',$data);
+        }catch(\Exception $ex){
+            return errorResponse($ex->getMessage());
+        }
+    }
+
+    public function updateUser(Request $request)
+    {
+        try{
+            $user = User::where ('id', $request->id)->update(['name'=> $request->username]);
+            UserDepartment::updateOrCreate(['user_id'=>$request->id],['department_id'=> $request->department_name]);
+            return successResponse(trans('lang.Agent_saved'),'');
         }catch(\Exception $ex){
             return errorResponse($ex->getMessage());
         }

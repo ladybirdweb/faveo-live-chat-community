@@ -19,8 +19,8 @@
             </div>
         </div>
         <div class="customer-chat-content-message" id="messages" style="margin-top: 55px;margin-left: 69px;">
-            <div class="customer-chat-tabs-header">{{__('lang.Add_new_operator')}}</div>
-            <a id="customer-chat-operators-back" href="settings" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Back')}}</a>
+            <div class="customer-chat-tabs-header" id = "intro">{{__('lang.Add_new_operator')}}</div>
+            <a id="button" href="settings" class="customer-chat-content-button customer-chat-content-button-inline">{{__('lang.Back')}}</a>
         </div>
 
         <div class="customer-chat-content-messages edit-operator" style = "margin-left: 67px;margin-top: 65px;">
@@ -91,7 +91,6 @@
                     'confirmpassword' : $("#confirmpassword").val(),
                     'departments' : $("#departments").val()
                 }
-                console.log(data);
                 sendData(data);
             });
 
@@ -110,20 +109,16 @@
                     data: data,
                     dataType: 'JSON',
                     success: function (response) {
-                        console.log(response);
                         $('#intro').hide();
                         $('#button').hide();
                         if (response['success'] == true) {
                             $("#messages").append(
                                 "<div class='customer-chat-tabs-header'>"+
-                                // "<div class='alert alert-warning alert-dismissible fade show' role='alert'>"+
                                 "<strong>" + response.message + "</strong>" +
-                                // "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close></button>" +
-                                // "</div>"+
                                 "</div>"
                             );
                             setTimeout(function () {
-                                window.location = "settings";
+                                window.location.replace('/settings');
                             }, 3000);
                         }
                     },
@@ -131,7 +126,6 @@
                         $('#intro').hide();
                         $('#button').hide();
                         if (error.status == 401) {
-                            console.log(error.responseJSON);
                             $("#messages").append(
                                 "<div class='customer-chat-tabs-header'>"+
                                 "<ul>"+

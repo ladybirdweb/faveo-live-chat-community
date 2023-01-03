@@ -26,6 +26,31 @@
         </div>
     </div>
 
+    <script>
+        $(document).ready(function(){
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept' : 'application/json',
+                    'Authorization' : 'Bearer '.$accessToken,
+                }
+            });
+            $.ajax({
+                url: 'show-department-list',
+                type: 'get',
+                dataType: 'JSON',
+                success: function (response) {
+                    if (response['success'] == true) {
+                        $.each(response.data, function (key, value) {
+                            $("#department_name").append(
+                                "<option value=" + value.id + ">" + value.name + "</option>"
+                            );
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function(){
@@ -43,7 +68,6 @@
                 success: function (response) {
                     if (response['success'] == true) {
                         $("#agent_name").val(response.data[0].name);
-                        console.log(response.data[0].departments.length);
                         if(response.data[0].departments.length > 0) {
                             let deptName = response.data[0].departments[0].name;
                             let deptId = response.data[0].departments[0].id;
@@ -85,13 +109,12 @@
                             );
                             localStorage.clear();
                             setTimeout(function () {
-                                window.location = "settings";
+                                window.location.replace('/settings');
                             }, 3000);
                         }
                     },
                     error: function (error) {
                         if (error.status == 401) {
-                            console.log(error.responseJSON);
                             $("#message").append(
                                 "<div class='customer-chat-login-errors'>"+
                                 "<ul>"+
@@ -117,32 +140,5 @@
             }
         });
     </script>
-
-    <script>
-        $(document).ready(function(){
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                    'Accept' : 'application/json',
-                    'Authorization' : 'Bearer '.$accessToken,
-                }
-            });
-            $.ajax({
-                url: 'show-department-list',
-                type: 'get',
-                dataType: 'JSON',
-                success: function (response) {
-                    if (response['success'] == true) {
-                        $.each(response.data, function (key, value) {
-                            $("#department_name").append(
-                                "<option value=" + value.id + ">" + value.name + "</option>"
-                            );
-                        });
-                    }
-                }
-            });
-        });
-    </script>
-
 
 @endsection

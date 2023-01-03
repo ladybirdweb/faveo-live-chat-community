@@ -45,25 +45,20 @@ Route::group(
         Route::view('settings','settings');
         Route::view('addAgents','add-agents');
         Route::view('addDepartments','add-departments');
-        Route::view('cannedMessages','add-canned-messages');
-        Route::view('systemSettings','system-settings');
 
         Route::post('addAgents', [AgentController::class, 'createUser']);
         Route::post('updateAgents', [AgentController::class, 'updateUser']);
-        Route::post('addDepartment', [DepartmentController::class, 'updateOrCreate']);
-
-        Route::get('show-department-list',[DepartmentController::class,'showList']);
         Route::get('show-agent-list',[AgentController::class,'showUserList']);
-
-        Route::get('/deleteDepartment/{id}',[DepartmentController::class,'deleteDepartment']);
+        Route::get('editUser/{id}',[AgentController::class,'get_editUser']);
         Route::get('/deleteUser/{id}',[AgentController::class,'deleteUser']);
+
+        Route::post('addDepartment', [DepartmentController::class, 'updateOrCreate']);
+        Route::get('show-department-list',[DepartmentController::class,'showList']);
+        Route::get('edit/{id}',[DepartmentController::class,'get_editDepartment']);
+        Route::post('editDepartment',[DepartmentController::class,'updateOrCreate']);
+        Route::get('/deleteDepartment/{id}',[DepartmentController::class,'deleteDepartment']);
     }
 );
-
-Route::get('edit/{id}',[DepartmentController::class,'get_editDepartment']);
-Route::get('editUser/{id}',[AgentController::class,'get_editUser']);
-Route::post('editDepartment',[DepartmentController::class,'updateOrCreate']);
-
 
 Route::group(
     ['middleware' => ['checkAgent']],

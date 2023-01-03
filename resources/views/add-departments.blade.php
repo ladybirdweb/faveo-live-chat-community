@@ -67,14 +67,11 @@
                     if (response['success'] == true) {
                         $("#messages").append(
                             "<div class='customer-chat-tabs-header'>"+
-                            // "<div class='alert alert-warning alert-dismissible fade show' role='alert'>"+
                                 "<strong>" + response.message + "</strong>" +
-                                // "<button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close></button>" +
-                            // "</div>"+
                             "</div>"
                         );
                         setTimeout(function () {
-                            window.location = "settings";
+                            window.location.replace('/settings');
                         }, 3000);
                     }
                 },

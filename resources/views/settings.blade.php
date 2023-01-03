@@ -63,8 +63,6 @@
         $(document).ready(function() {
             $("#addDepartment").hide();
             $("#addOperator").hide();
-            // $("#addOperator").show();
-            // $("#addDepartment").show();
 
             $("#operators").click(function() {
                 $("#addOperator").show();
@@ -77,17 +75,13 @@
         });
     </script>
 
-{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>--}}
-{{--<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>--}}
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
-{{--<script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.3.1/js/dataTables.rowReorder.min.js"></script>--}}
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap4.min.js"></script>
-{{--<script type="text/javascript" src="https://cdn.datatables.net/rowreorder/1.3.1/js/dataTables.rowReorder.min.js"></script>--}}
 
     <script>
         $(document).ready(function () {
@@ -107,7 +101,7 @@
                         mRender: function (data) { return '<button type="button" id = "editUser" data-id = '+ data.id +'class="btn btn-primary mb-3"> <i class="fas fa-edit"></i></button> <button type="submit" id = "deleteUser" data-id = '+ data.id +'class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button>'
                             ; }}
                 ],
-                "pageLength": 8
+                "pageLength": 10
             });
         });
     </script>
@@ -129,7 +123,39 @@
                         mRender: function (data) { return '<button type="button" id = "edit" data-id = '+ data.id +'class="btn btn-primary mb-3"> <i class="fas fa-edit"></i></button> <button type="submit" id = "delete" data-id = '+ data.id +'class="btn btn-danger mb-3"> <i class="fas fa-trash"></i> </button>'
                             ; }}
                 ],
-                "pageLength": 8
+                "pageLength": 10
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $(document).on('click','#editUser',function() {
+                localStorage.setItem('id', $(this).attr("data-id"));
+                window.location.replace('/editUser');
+            });
+
+            $(document).on("click","#deleteUser",function ()
+            {
+                if(confirm('Are you sure you want to delete this user')) {
+                    var id = $(this).attr("data-id");
+                    $.ajax({
+                        type: "GET",
+                        url: "deleteUser/" + id,
+                        success: function (response) {
+                            $("#agentlist").append(
+                                " <div class='alert alert-success' role='alert'>" +
+                                    response.message +
+                                " </div>"
+                            )
+                            setTimeout(function () {
+                                window.location.replace('/settings');
+                            }, 3000);
+                        },
+                        error: function (err) {
+                        },
+                    });
+                }
             });
         });
     </script>
@@ -150,42 +176,7 @@
                         type: "GET",
                         url: "deleteDepartment/" + id,
                         success: function (response) {
-                            console.log(response);
                             $("#list").append(
-                                " <div class='alert alert-success' role='alert'>" +
-                                response.message +
-                                " </div>"
-                            )
-                            setTimeout(function () {
-                                window.location.replace('/settings');
-                            }, 3000);
-                        },
-                        error: function (err) {
-                        },
-                    });
-                }
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            $(document).on('click','#editUser',function() {
-                var id = $(this).attr("data-id");
-                localStorage.setItem('id',id);
-                window.location.replace('/editUser');
-            });
-
-            $(document).on("click","#deleteUser",function ()
-            {
-                if(confirm('Are you sure you want to delete this department')) {
-                    var id = $(this).attr("data-id");
-                    $.ajax({
-                        type: "GET",
-                        url: "deleteUser/" + id,
-                        success: function (response) {
-                            console.log(response);
-                            $("#agentlist").append(
                                 " <div class='alert alert-success' role='alert'>" +
                                 response.message +
                                 " </div>"

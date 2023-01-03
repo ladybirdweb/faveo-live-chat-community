@@ -58,7 +58,6 @@ return[
     'Name'             => 'Name',
     'Description'      => 'Description',
     'Add_new_department' => 'Add New Department',
-    'Add_new_canned'   => 'Add New Canned Messages',
     'Body'             => 'Body',
 
     'Departments_List' => 'Departments List',
