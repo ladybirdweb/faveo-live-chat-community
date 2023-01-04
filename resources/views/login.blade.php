@@ -84,27 +84,29 @@
                 },
                 error: function (error) {
                     if (error.status == 401) {
-                        console.log(error.responseJSON);
                         $("#message").append(
                             "<div class='customer-chat-login-errors'>"+
                             "<ul>"+
-                            "<li>"+  error.responseJSON.message + "</li>"+
+                            "<li>"+  $.parseJSON(error.responseText).message + "</li>"+
                             "</ul>"+
                             "</div>"
                         );
                         $('#intro').hide();
                     }
-                    let messages = error.responseJSON.errors;
-                    $.each(messages, function (key, val) {
-                        $("#message").append(
-                            "<div class='customer-chat-login-errors'>"+
-                            "<ul>"+
-                                "<li>"+  val + "</li>"+
-                            "</ul>"+
-                            "</div>"
-                        );
-                    });
-                    $('#intro').hide();
+                    else if(error.status == 422)
+                    {
+                        let messages = $.parseJSON(error.responseText).errors;
+                        $.each(messages, function (key, val) {
+                            $("#message").append(
+                                "<div class='customer-chat-login-errors'>" +
+                                "<ul>" +
+                                "<li>" + val + "</li>" +
+                                "</ul>" +
+                                "</div>"
+                            );
+                        });
+                        $('#intro').hide();
+                    }
                 },
             });
         }

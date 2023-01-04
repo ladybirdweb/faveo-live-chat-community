@@ -74,8 +74,9 @@
                         if (response['success'] == true) {
                             $('#intro').hide();
                             $('#button').hide();
+                            $('#messages').empty();
                             $("#messages").append(
-                                " <div class='alert alert-success' role='alert'>" +
+                                " <div class='customer-chat-tabs-header'>" +
                                 "<strong>" + response.message + "</strong>" +
                                 "</div>"
                             );
@@ -87,27 +88,30 @@
                     },
                     error: function (error) {
                         if (error.status == 401) {
-                            console.log(error.responseJSON);
-                            $("#message").append(
-                                "<div class='customer-chat-login-errors'>"+
+                            $('#messages').empty();
+                            $("#messages").append(
+                                "<div class='customer-chat-tabs-header-error'>"+
                                 "<ul>"+
-                                "<li>"+  error.responseJSON.message + "</li>"+
+                                "<li>"+  $.parseJSON(error.responseText).message + "</li>"+
                                 "</ul>"+
                                 "</div>"
                             );
                             $('#intro').hide();
                         }
-                        let messages = error.responseJSON.errors;
-                        $.each(messages, function (key, val) {
-                            $("#message").append(
-                                "<div class='customer-chat-login-errors'>"+
-                                "<ul>"+
-                                "<li>"+  val + "</li>"+
-                                "</ul>"+
-                                "</div>"
-                            );
-                        });
-                        $('#intro').hide();
+                        else if (error.status == 422) {
+                            let messages = $.parseJSON(error.responseText).errors;
+                            $('#messages').empty();
+                            $.each(messages, function (key, val) {
+                                $("#messages").append(
+                                    "<div class='customer-chat-tabs-header-error'>" +
+                                    "<ul>" +
+                                    "<li>" + val + "</li>" +
+                                    "</ul>" +
+                                    "</div>"
+                                );
+                            });
+                            $('#intro').hide();
+                        }
                     },
                 });
             }

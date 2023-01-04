@@ -65,6 +65,7 @@
                     $('#intro').hide();
                     $('#button').hide();
                     if (response['success'] == true) {
+                        $('#messages').empty();
                         $("#messages").append(
                             "<div class='customer-chat-tabs-header'>"+
                                 "<strong>" + response.message + "</strong>" +
@@ -79,25 +80,28 @@
                     $('#intro').show();
                     $('#button').show();
                     if (error.status == 401) {
-                        console.log(error.responseJSON);
+                        $('#messages').empty();
                         $("#messages").append(
-                            "<div class='customer-chat-tabs-header'>"+
+                            "<div class='customer-chat-tabs-header-error'>"+
                             "<ul>"+
-                            "<li>"+  error.responseJSON.message + "</li>"+
+                            "<li>"+  $.parseJSON(error.responseText).message + "</li>"+
                             "</ul>"+
                             "</div>"
                         );
                     }
-                    let messages = error.responseJSON.errors;
-                    $.each(messages, function (key, val) {
-                        $("#messages").append(
-                            "<div class='customer-chat-tabs-header'>"+
-                            "<ul>"+
-                            "<li>"+  val + "</li>"+
-                            "</ul>"+
-                            "</div>"
-                        );
-                    });
+                    else if (error.status == 422) {
+                        let messages = $.parseJSON(error.responseText).errors;
+                        $('#messages').empty();
+                        $.each(messages, function (key, val) {
+                            $("#messages").append(
+                                "<div class='customer-chat-tabs-header-error'>" +
+                                "<ul>" +
+                                "<li>" + val + "</li>" +
+                                "</ul>" +
+                                "</div>"
+                            );
+                        });
+                    }
                 },
             });
         }

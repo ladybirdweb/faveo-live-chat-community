@@ -67,13 +67,13 @@
                         $("#message").append(
                             "<div class='customer-chat-login-errors'>"+
                             "<ul>"+
-                            "<li>"+  error.responseJSON.message + "</li>"+
+                            "<li>"+  $.parseJSON(error.responseText).message + "</li>"+
                             "</ul>"+
                             "</div>"
                         );
                         $('#intro').hide();
                     }
-                    let messages = error.responseJSON.errors;
+                    let messages = $.parseJSON(error.responseText).errors;
                     $.each(messages, function (key, val) {
                         $("#message").append(
                             "<div class='customer-chat-login-errors'>"+

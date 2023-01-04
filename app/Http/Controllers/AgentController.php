@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AgentRequest;
+use App\Http\Requests\UpdateAgentRequest;
 use App\Models\User;
 use App\Models\UserDepartment;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ class AgentController extends Controller
                 'password' => $request->password,
                 'role' => 'agent',
             ]);
-            $userDepartment = UserDepartment::updateOrCreate(['id' => $request->id],
+            UserDepartment::updateOrCreate(['id' => $request->id],
                 [
                     'user_id' => $user->id,
                     'department_id' => $request->departments,
@@ -57,10 +58,10 @@ class AgentController extends Controller
         }
     }
 
-    public function updateUser(Request $request)
+    public function updateUser(UpdateAgentRequest $request)
     {
         try{
-            $user = User::where ('id', $request->id)->update(['name'=> $request->username]);
+            User::where ('id', $request->id)->update(['name'=> $request->username]);
             UserDepartment::updateOrCreate(['user_id'=>$request->id],['department_id'=> $request->department_name]);
             return successResponse(trans('lang.Agent_saved'),'');
         }catch(\Exception $ex){

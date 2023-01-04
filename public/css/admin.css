@@ -873,10 +873,23 @@ html
 {
     display: inline-block;
 
-    color: #0879B1;
+    color: #76b447;
 
     font: 16px 'Open Sans', sans-serif;
     line-height: 55px;
+
+    padding: 10px 10px 10px 5px;
+}
+
+.customer-chat-tabs-header-error
+{
+    margin-top: 20px;
+    display: inline-block;
+
+    color: #d87000;
+
+    font: 16px 'Open Sans', sans-serif;
+    line-height: 15px;
 
     padding: 10px 10px 10px 5px;
 }
@@ -1489,7 +1502,7 @@ html
 
 .customer-chat-login .customer-chat-login-success
 {
-    color: #76b447;;
+    color: #76b447;
     text-align: left;
 }
 
