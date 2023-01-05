@@ -43,6 +43,15 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'checkLogin' => [
+            \App\Http\Middleware\checkLogin::class,
+        ],
+        'checkAdmin' => [
+            \App\Http\Middleware\checkAdmin::class,
+        ],
+        'checkAgent' => [
+            \App\Http\Middleware\checkAgent::class,
+        ],
     ];
 
     /**
