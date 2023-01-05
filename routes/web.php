@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('logout', function () {
     Auth::logout();
+
     return redirect('/');
 });
 
@@ -42,21 +43,21 @@ Route::group(
         Route::view('admin', 'admin');
         Route::view('edit', 'edit-department');
         Route::view('editUser', 'edit-user');
-        Route::view('settings','settings');
-        Route::view('addAgents','add-agents');
-        Route::view('addDepartments','add-departments');
+        Route::view('settings', 'settings');
+        Route::view('addAgents', 'add-agents');
+        Route::view('addDepartments', 'add-departments');
 
         Route::post('addAgents', [AgentController::class, 'createUser']);
         Route::post('updateAgents', [AgentController::class, 'updateUser']);
-        Route::get('show-agent-list',[AgentController::class,'showUserList']);
-        Route::get('editUser/{id}',[AgentController::class,'get_editUser']);
-        Route::get('/deleteUser/{id}',[AgentController::class,'deleteUser']);
+        Route::get('show-agent-list', [AgentController::class, 'showUserList']);
+        Route::get('editUser/{id}', [AgentController::class, 'get_editUser']);
+        Route::get('/deleteUser/{id}', [AgentController::class, 'deleteUser']);
 
         Route::post('addDepartment', [DepartmentController::class, 'updateOrCreate']);
-        Route::get('show-department-list',[DepartmentController::class,'showList']);
-        Route::get('edit/{id}',[DepartmentController::class,'get_editDepartment']);
-        Route::post('editDepartment',[DepartmentController::class,'updateOrCreate']);
-        Route::get('/deleteDepartment/{id}',[DepartmentController::class,'deleteDepartment']);
+        Route::get('show-department-list', [DepartmentController::class, 'showList']);
+        Route::get('edit/{id}', [DepartmentController::class, 'get_editDepartment']);
+        Route::post('editDepartment', [DepartmentController::class, 'updateOrCreate']);
+        Route::get('/deleteDepartment/{id}', [DepartmentController::class, 'deleteDepartment']);
     }
 );
 

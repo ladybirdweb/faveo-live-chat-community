@@ -3,11 +3,9 @@
 namespace Tests;
 
 use App\Models\User;
-use Tests\TestCase;
 
 class DBTestCase extends TestCase
 {
-
     protected $user;
 
     /**

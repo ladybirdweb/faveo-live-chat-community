@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules\Password;
+
 class AgentRequest extends FormRequest
 {
     /**
@@ -24,11 +25,11 @@ class AgentRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required',
-            'email' => 'required|unique:users,email,' .$this->id,
-            'password' => ['required', Password::min(6)->letters()->numbers()->symbols()],
+            'username'        => 'required',
+            'email'           => 'required|unique:users,email,'.$this->id,
+            'password'        => ['required', Password::min(6)->letters()->numbers()->symbols()],
             'confirmpassword' => ['required'],
-            'departments' => 'required',
+            'departments'     => 'required',
         ];
     }
 }

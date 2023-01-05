@@ -17,14 +17,14 @@ class LoginController extends Controller
 {
     public function checkLogin(LoginRequest $req)
     {
-
         if (!$user = Auth::attempt(['email' => $req->email, 'password' => $req->password])) {
             return errorResponse(trans('lang.Invalid_Credentials'));
         }
         $user = Auth::user();
         $token = $user->createToken('loginToken')->accessToken;
         session(['token' => $token]);
-        return successResponse( Auth::user()->role, $token);
+
+        return successResponse(Auth::user()->role, $token);
     }
 
     public function forgetpassword(forgetPasswordRequest $req)
@@ -48,6 +48,7 @@ class LoginController extends Controller
         $resetPasswordLink = url('checkLink'.'/'.$id.'/'.$otp);
         $details = ['link' => $resetPasswordLink, 'name' => $user->name, 'email' => $req->email];
         dispatch(new resetPasswordEmailJob($details));
+
         return successResponse(trans('lang.Success_Link_Intro'), '');
     }
 
@@ -58,8 +59,10 @@ class LoginController extends Controller
         }
         if ($user->otp == $otp) {
             Cache::add('email', $user->email);
+
             return redirect('setpassword');
         }
+
         return redirect('/')->with('error', trans('lang.Invalid_OTP'));
     }
 
@@ -75,8 +78,10 @@ class LoginController extends Controller
             $data->password = Hash::make($req->password);
             $data->save();
             Cache::forget('email');
+
             return successResponse(trans('lang.Success_Password_Intro'), '');
         }
+
         return errorResponse(trans('lang.Error_Password_Intro'));
     }
 
@@ -84,7 +89,7 @@ class LoginController extends Controller
     {
         $lang = $req->lang;
         session(['myLang'=> $lang]);
+
         return redirect('/');
     }
-
 }

@@ -20,5 +20,6 @@ function successResponse($message = '', $data = '', $statusCode = 200)
     if (!empty($data)) {
         $response['data'] = $data;
     }
+
     return response()->json($response, $statusCode);
 }
