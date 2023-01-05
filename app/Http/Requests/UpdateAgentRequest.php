@@ -24,9 +24,9 @@ class UpdateAgentRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required',
+            'username'        => 'required',
             'department_name' => 'required',
-            'id' => 'required',
+            'id'              => 'required',
         ];
     }
 }
